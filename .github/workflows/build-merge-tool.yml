@@ -2,8 +2,6 @@ name: Build MergeTool
 
 on:
   push:
-    branches:
-      - MergeTool
   workflow_dispatch:
 
 concurrency: 
