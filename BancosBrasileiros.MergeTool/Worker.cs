@@ -46,7 +46,7 @@ internal class Worker
             return;
         }
 
-        ProcessChanges(source, except);
+        ProcessChanges(original, except);
     }
 
     /// <summary>

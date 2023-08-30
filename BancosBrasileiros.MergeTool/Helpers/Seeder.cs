@@ -17,6 +17,7 @@ namespace BancosBrasileiros.MergeTool.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using CrispyWaffle.Extensions;
 using Dto;
 
@@ -159,6 +160,14 @@ internal class Seeder
 
                 if (sitraf.Document is not { Length: 18 })
                     sitraf.Document = sitraf.IspbString;
+
+                sitraf.ShortName ??= Regex.Replace(
+                    sitraf.LongName,
+                    @"(.+?)(?:\s-\s(?:.+))?",
+                    "$1",
+                    RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+                    TimeSpan.FromSeconds(1)
+                );
 
                 _source.Add(sitraf);
                 bank = sitraf;
@@ -771,7 +780,7 @@ internal class Seeder
             if (bank == null)
             {
                 Logger.Log(
-                    $"Detecta FLow | Bank not found: {detectaFlow.LongName} | {detectaFlow.Document.Trim()}",
+                    $"Detecta Flow | Bank not found: {detectaFlow.LongName} | {detectaFlow.Document.Trim()}",
                     ConsoleColor.DarkRed
                 );
                 notFound++;
