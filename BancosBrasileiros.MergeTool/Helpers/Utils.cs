@@ -27,7 +27,7 @@ internal static class Utils
     /// <typeparam name="T">The type of the item</typeparam>
     /// <param name="item">The item.</param>
     /// <returns>A deep clone of the item</returns>
-    private static T DeepClone<T>(this T item)
+    public static T DeepClone<T>(this T item)
     {
         var json = JsonConvert.SerializeObject(item);
         return JsonConvert.DeserializeObject<T>(json);
