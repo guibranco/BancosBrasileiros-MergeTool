@@ -16,11 +16,11 @@ namespace BancosBrasileiros.MergeTool;
 
 using Dto;
 using Helpers;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CrispyWaffle.Extensions;
 
 /// <summary>
 /// Class Worker.
@@ -37,7 +37,7 @@ internal class Worker
         var reader = new Reader();
 
         var source = reader.LoadBase();
-        var original = DeepClone(source);
+        var original = source.DeepClone();
 
         AcquireData(reader, source);
 
@@ -46,7 +46,7 @@ internal class Worker
             return;
         }
 
-        ProcessChanges(original, except);
+        ProcessChanges(source, except, original);
     }
 
     /// <summary>
@@ -56,20 +56,40 @@ internal class Worker
     /// <param name="source">The source.</param>
     private static void AcquireData(Reader reader, List<Bank> source)
     {
-        var ctc = reader.LoadCtc();
-        var siloc = reader.LoadSiloc();
-        var sitraf = reader.LoadSitraf();
-        var slc = reader.LoadSlc();
-        var spi = reader.LoadSpi();
-        var str = reader.LoadStr();
-        var pcps = reader.LoadPcps();
-        var cql = reader.LoadCql();
-        var detectaFlow = reader.LoadDetectaFlow();
+        var logBuilder = new StringBuilder();
 
-        Logger.Log(
-            $"Source: {source.Count} | CTC: {ctc.Count} | SILOC: {siloc.Count} | SITRAF: {sitraf.Count} | SLC: {slc.Count} | SPI: {spi.Count} | STR: {str.Count} | PCPS: {pcps.Count} | CQL: {cql.Count} | Detecta Flow: {detectaFlow.Count}\r\n",
-            ConsoleColor.DarkGreen
-        );
+        logBuilder.AppendFormat("Source: {0} | ", source.Count);
+
+        var ctc = reader.LoadCtc();
+        logBuilder.AppendFormat("CTC: {0} | ", ctc.Count);
+
+        var siloc = reader.LoadSiloc();
+        logBuilder.AppendFormat("SILOC: {0} | ", siloc.Count);
+
+        var sitraf = reader.LoadSitraf();
+        logBuilder.AppendFormat("SITRAF: {0} | ", sitraf.Count);
+
+        var slc = reader.LoadSlc();
+        logBuilder.AppendFormat("SLC: {0} | ", slc.Count);
+
+        var spi = reader.LoadSpi();
+        logBuilder.AppendFormat("SPI: {0} | ", spi.Count);
+
+        var str = reader.LoadStr();
+        logBuilder.AppendFormat("STR: {0} | ", str.Count);
+
+        var pcps = reader.LoadPcps();
+        logBuilder.AppendFormat("PCPS: {0} | ", pcps.Count);
+
+        var cql = reader.LoadCql();
+        logBuilder.AppendFormat("CQL: {0} | ", cql.Count);
+
+        var detectaFlow = reader.LoadDetectaFlow();
+        logBuilder.AppendFormat("Detecta Flow: {0} | ", detectaFlow.Count);
+
+        logBuilder.AppendLine();
+
+        Logger.Log(logBuilder.ToString(), ConsoleColor.DarkGreen);
 
         new Seeder(source)
             .GenerateMissingDocument()
@@ -134,14 +154,15 @@ internal class Worker
     /// </summary>
     /// <param name="source">The source.</param>
     /// <param name="except">The except.</param>
-    private static void ProcessChanges(List<Bank> source, List<Bank> except)
+    /// <param name="original">The original.</param>
+    private static void ProcessChanges(List<Bank> source, List<Bank> except, List<Bank> original)
     {
         var added = new List<Bank>();
         var updated = new List<Bank>();
 
         foreach (var exc in except)
         {
-            var isUpdated = source.Exists(b => b.Ispb == exc.Ispb);
+            var isUpdated = original.Exists(b => b.Ispb == exc.Ispb);
 
             if (isUpdated)
                 updated.Add(exc);
@@ -198,17 +219,5 @@ internal class Worker
         Writer.SaveBanks(source);
 
         Logger.Log($"Merge done. Banks: {source.Count}", ConsoleColor.White);
-    }
-
-    /// <summary>
-    /// Deeps the clone.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="item">The item.</param>
-    /// <returns>T.</returns>
-    private static T DeepClone<T>(T item)
-    {
-        var json = JsonConvert.SerializeObject(item);
-        return JsonConvert.DeserializeObject<T>(json);
     }
 }
