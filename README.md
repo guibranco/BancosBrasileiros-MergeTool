@@ -3,14 +3,14 @@
 This branch only contains the **Merge Tool** (.NET 7.0 Console App) used to merge and generate the data.
 > **Note**
 > 
-> Thinking on move this branch to a dedicated repository...
+> Thinking on moving this branch to a dedicated repository...
 ---
 
 ## Contributing
 
 Here is a step-by-step on how to add a new source of data to the merge tool:
 
--  Checkout [MergeTool branch](https://github.com/guibranco/BancosBrasileiros/tree/MergeTool).
+-  Check out [MergeTool branch](https://github.com/guibranco/BancosBrasileiros/tree/MergeTool).
 -  Open VS, VS Code, Rider, or your favourite IDE / Code Editor.
 -  Load the project (currently it is in **C# .NET 7.0**).
 -  Add the required URLs to the `Constants.cs` file.
