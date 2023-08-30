@@ -1,9 +1,10 @@
 # Bancos Brasileiros
 
 This branch only contains the **Merge Tool** (.NET 7.0 Console App) used to merge and generate the data.
-> **Note**
+
+> **Warning**
 > 
-> Thinking on moving this branch to a dedicated repository...
+> Moving this branch to [BancosBrasileiros-MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool). Please hold any pull requests to this branch!
 ---
 
 ## Contributing
