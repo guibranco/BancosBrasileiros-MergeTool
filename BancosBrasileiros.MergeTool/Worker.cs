@@ -187,7 +187,7 @@ internal class Worker
 
             foreach (var item in added)
             {
-                changeLog.AppendLine($"\t- {item.Compe} - {item.ShortName} - {item.Document}");
+                changeLog.AppendLine($"  - {item.Compe} - {item.ShortName} - {item.Document}");
                 color =
                     color == ConsoleColor.DarkGreen ? ConsoleColor.Cyan : ConsoleColor.DarkGreen;
                 Logger.Log($"Added: {item}\r\n", color);
@@ -206,7 +206,17 @@ internal class Worker
 
             foreach (var item in updated)
             {
-                changeLog.AppendLine($"\t- {item.Compe} - {item.ShortName} - {item.Document}");
+                changeLog.AppendLine($"  - {item.Compe} - {item.ShortName} - {item.Document}");
+                if (item.HasChanges)
+                {
+                    foreach (var change in item.GetChanges())
+                    {
+                        changeLog.AppendLine(
+                            $"    - {change.Key}: {change.Value.OldValue}->{change.Value.NewValue}"
+                        );
+                    }
+                }
+
                 color = color == ConsoleColor.DarkBlue ? ConsoleColor.Blue : ConsoleColor.DarkBlue;
                 Logger.Log($"Updated: {item}\r\n", color);
             }

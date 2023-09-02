@@ -17,7 +17,7 @@ namespace BancosBrasileiros.MergeTool.Helpers;
 /// <summary>
 /// Enum Source.
 /// </summary>
-internal enum Source
+public enum Source
 {
     /// <summary>
     /// The base.
@@ -30,9 +30,24 @@ internal enum Source
     ChangeLog,
 
     /// <summary>
+    /// The CQL.
+    /// </summary>
+    Cql,
+
+    /// <summary>
     /// The CTC.
     /// </summary>
     Ctc,
+
+    /// <summary>
+    /// The detecta flow.
+    /// </summary>
+    DetectaFlow,
+
+    /// <summary>
+    /// The document.
+    /// </summary>
+    Document,
 
     /// <summary>
     /// The PCPS.
@@ -40,12 +55,12 @@ internal enum Source
     Pcps,
 
     /// <summary>
-    /// The siloc.
+    /// The SILOC.
     /// </summary>
     Siloc,
 
     /// <summary>
-    /// The sitraf.
+    /// The SITRAF.
     /// </summary>
     Sitraf,
 
@@ -55,17 +70,12 @@ internal enum Source
     Slc,
 
     /// <summary>
-    /// The SPI.
+    /// The SPI..
     /// </summary>
     Spi,
 
     /// <summary>
-    /// The CQL.
+    /// The STR.
     /// </summary>
-    Cql,
-
-    /// <summary>
-    /// The detecta flow
-    /// </summary>
-    DetectaFlow,
+    Str,
 }
