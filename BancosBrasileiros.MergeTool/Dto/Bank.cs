@@ -14,15 +14,19 @@
 
 namespace BancosBrasileiros.MergeTool.Dto;
 
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Validations;
+using Helpers;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Validations;
-using Newtonsoft.Json;
 
 /// <summary>
 /// Class Bank.
@@ -33,6 +37,92 @@ using Newtonsoft.Json;
 [Serializable]
 public class Bank : IEquatable<Bank>
 {
+    #region Track Changes
+
+    /// <summary>
+    /// The changes
+    /// </summary>
+    private readonly Dictionary<string, ChangeModel> _changes = new();
+
+    /// <summary>
+    /// Sets the change.
+    /// </summary>
+    /// <param name="source">The source.</param>
+    /// <param name="predicate">The predicate.</param>
+    /// <param name="newValue">The new value.</param>
+    public void SetChange(Source source, Expression<Func<Bank, object>> predicate, object newValue)
+    {
+        var property = string.Empty;
+        var currentValue = predicate.Compile()(this);
+
+        property = predicate.Body switch
+        {
+            UnaryExpression { Operand: MemberExpression member } => member.Member.Name,
+            MemberExpression { Member: PropertyInfo propertyInfo } => propertyInfo.Name,
+            _ => property
+        };
+
+        if (string.IsNullOrWhiteSpace(property))
+        {
+            throw new InvalidOperationException("Invalid property");
+        }
+
+        GetType().GetProperty(property)?.SetValue(this, newValue);
+        DateUpdated = DateTimeOffset.UtcNow;
+
+        var currentValueString = currentValue == null ? "Null" : currentValue.ToString();
+        if (string.IsNullOrWhiteSpace(currentValueString))
+        {
+            currentValueString = "Empty";
+        }
+
+        var changeModel = new ChangeModel
+        {
+            Source = source,
+            OldValue = currentValueString,
+            NewValue = newValue.ToString()
+        };
+
+        _changes.Add(property, changeModel);
+    }
+
+    /// <summary>
+    /// Accepts the changes.
+    /// </summary>
+    public void AcceptChanges()
+    {
+        _changes.Clear();
+    }
+
+    /// <summary>
+    /// Rejects the changes.
+    /// </summary>
+    public void RejectChanges()
+    {
+        foreach (var change in _changes)
+        {
+            var property = change.Key;
+            var value = change.Value.OldValue;
+            GetType().GetProperty(property)?.SetValue(this, value);
+        }
+
+        _changes.Clear();
+    }
+
+    /// <summary>
+    /// Gets the has changes.
+    /// </summary>
+    /// <value>The has changes.</value>
+    public bool HasChanges => _changes.Any();
+
+    /// <summary>
+    /// Gets the changes.
+    /// </summary>
+    /// <returns>System.Collections.Generic.IReadOnlyDictionary&lt;string, BancosBrasileiros.MergeTool.Dto.ChangeModel&gt;.</returns>
+    public IReadOnlyDictionary<string, ChangeModel> GetChanges() => _changes.AsReadOnly();
+
+    #endregion
+
     /// <summary>
     /// Gets or sets the COMPE.
     /// </summary>
@@ -439,6 +529,26 @@ public class Bank : IEquatable<Bank>
     }
 
     /// <summary>
+    /// Returns a value that indicates whether the values of two <see cref="T:BancosBrasileiros.MergeTool.Dto.Bank" /> objects are equal.
+    /// </summary>
+    /// <param name="left">The first value to compare.</param>
+    /// <param name="right">The second value to compare.</param>
+    /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
+    public static bool operator ==(Bank left, Bank right) => Equals(left, right);
+
+    /// <summary>
+    /// Returns a value that indicates whether two <see cref="T:BancosBrasileiros.MergeTool.Dto.Bank" /> objects have different values.
+    /// </summary>
+    /// <param name="left">The first value to compare.</param>
+    /// <param name="right">The second value to compare.</param>
+    /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
+    public static bool operator !=(Bank left, Bank right) => !Equals(left, right);
+
+    #endregion
+
+    #region Overrides of Object
+
+    /// <summary>
     /// Returns a string that represents the current object.
     /// </summary>
     /// <returns>A string that represents the current object.</returns>
@@ -475,7 +585,7 @@ public class Bank : IEquatable<Bank>
 
         strBuilder.Append($"Legal cheque: {LegalCheque} | ");
 
-        strBuilder.Append($"Detecta FLow: {DetectaFlow} | ");
+        strBuilder.Append($"Detecta Flow: {DetectaFlow} | ");
 
         if (!string.IsNullOrWhiteSpace(SalaryPortability))
             strBuilder.Append($"Salary portability: {SalaryPortability} | ");
@@ -493,22 +603,6 @@ public class Bank : IEquatable<Bank>
 
         return strBuilder.ToString();
     }
-
-    /// <summary>
-    /// Returns a value that indicates whether the values of two <see cref="T:BancosBrasileiros.MergeTool.Dto.Bank" /> objects are equal.
-    /// </summary>
-    /// <param name="left">The first value to compare.</param>
-    /// <param name="right">The second value to compare.</param>
-    /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
-    public static bool operator ==(Bank left, Bank right) => Equals(left, right);
-
-    /// <summary>
-    /// Returns a value that indicates whether two <see cref="T:BancosBrasileiros.MergeTool.Dto.Bank" /> objects have different values.
-    /// </summary>
-    /// <param name="left">The first value to compare.</param>
-    /// <param name="right">The second value to compare.</param>
-    /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
-    public static bool operator !=(Bank left, Bank right) => !Equals(left, right);
 
     #endregion
 }

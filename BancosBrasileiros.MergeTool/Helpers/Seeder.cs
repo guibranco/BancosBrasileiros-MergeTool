@@ -14,12 +14,12 @@
 
 namespace BancosBrasileiros.MergeTool.Helpers;
 
+using CrispyWaffle.Extensions;
+using Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using CrispyWaffle.Extensions;
-using Dto;
 
 /// <summary>
 /// Class Seeder.
@@ -56,8 +56,7 @@ internal class Seeder
                 continue;
             }
 
-            bank.Document = bank.IspbString;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
+            bank.SetChange(Source.Document, x => x.Document, bank.IspbString);
             missing++;
         }
 
@@ -122,9 +121,8 @@ internal class Seeder
                 $"STR | Bank with name different: {bank.LongName} <-> {str.LongName} | {bank.ShortName} <-> {str.ShortName}",
                 ConsoleColor.DarkYellow
             );
-            bank.LongName = str.LongName;
-            bank.ShortName = str.ShortName;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
+            bank.SetChange(Source.Str, x => x.LongName, str.LongName);
+            bank.SetChange(Source.Str, x => x.ShortName, str.ShortName);
             nameFixed++;
         }
 
@@ -283,8 +281,7 @@ internal class Seeder
                 && !string.IsNullOrWhiteSpace(slc.Document)
             )
             {
-                bank.Document = slc.Document;
-                bank.DateUpdated = DateTimeOffset.UtcNow;
+                bank.SetChange(Source.Slc, x => x.Document, slc.Document);
             }
             else if (string.IsNullOrWhiteSpace(bank.Document) || bank.Document.Length != 18)
             {
@@ -296,8 +293,7 @@ internal class Seeder
 
             if (string.IsNullOrWhiteSpace(bank.ShortName))
             {
-                bank.ShortName = slc.LongName;
-                bank.DateUpdated = DateTimeOffset.UtcNow;
+                bank.SetChange(Source.Slc, x => x.ShortName, slc.LongName);
             }
 
             found++;
@@ -344,8 +340,7 @@ internal class Seeder
                     )
             );
 
-            if (bank == null)
-                bank = _source.SingleOrDefault(b => b.Ispb.Equals(spi.Ispb));
+            bank ??= _source.SingleOrDefault(b => b.Ispb.Equals(spi.Ispb));
 
             if (bank == null)
             {
@@ -368,10 +363,8 @@ internal class Seeder
                 continue;
             }
 
-            bank.PixType = spi.PixType;
-            bank.DatePixStarted = spi.DatePixStarted;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
-
+            bank.SetChange(Source.Spi, x => x.PixType, spi.PixType);
+            bank.SetChange(Source.Spi, x => x.DatePixStarted, spi.DatePixStarted);
             found++;
         }
 
@@ -468,8 +461,7 @@ internal class Seeder
                 && !string.IsNullOrWhiteSpace(ctc.Document)
             )
             {
-                bank.Document = ctc.Document;
-                bank.DateUpdated = DateTimeOffset.UtcNow;
+                bank.SetChange(Source.Ctc, x => x.Document, ctc.Document);
             }
             else if (string.IsNullOrWhiteSpace(bank.Document) || bank.Document.Length != 18)
             {
@@ -486,9 +478,7 @@ internal class Seeder
                 continue;
             }
 
-            bank.Products = ctc.Products;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
-
+            bank.SetChange(Source.Ctc, x => x.Products, ctc.Products);
             found++;
         }
 
@@ -518,27 +508,24 @@ internal class Seeder
                 b => b.IspbString != null && b.IspbString.Equals(siloc.IspbString)
             );
 
-            if (bank == null)
-            {
-                bank = _source.SingleOrDefault(
-                    b =>
-                        b.LongName
+            bank ??= _source.SingleOrDefault(
+                b =>
+                    b.LongName
+                        .RemoveDiacritics()
+                        .Equals(
+                            siloc.LongName.RemoveDiacritics(),
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                    || (
+                        b.ShortName != null
+                        && b.ShortName
                             .RemoveDiacritics()
                             .Equals(
                                 siloc.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
                             )
-                        || (
-                            b.ShortName != null
-                            && b.ShortName
-                                .RemoveDiacritics()
-                                .Equals(
-                                    siloc.LongName.RemoveDiacritics(),
-                                    StringComparison.InvariantCultureIgnoreCase
-                                )
-                        )
-                );
-            }
+                    )
+            );
 
             if (bank == null)
             {
@@ -555,8 +542,7 @@ internal class Seeder
                 && !string.IsNullOrWhiteSpace(siloc.Document)
             )
             {
-                bank.Document = siloc.Document;
-                bank.DateUpdated = DateTimeOffset.UtcNow;
+                bank.SetChange(Source.Siloc, x => x.Document, siloc.Document);
             }
             else if (string.IsNullOrWhiteSpace(bank.Document) || bank.Document.Length != 18)
             {
@@ -578,10 +564,8 @@ internal class Seeder
                 continue;
             }
 
-            bank.Charge = siloc.Charge;
-            bank.CreditDocument = siloc.CreditDocument;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
-
+            bank.SetChange(Source.Siloc, x => x.Charge, siloc.Charge);
+            bank.SetChange(Source.Siloc, x => x.CreditDocument, siloc.CreditDocument);
             found++;
         }
 
@@ -611,27 +595,24 @@ internal class Seeder
                 b => b.Document != null && b.Document.Equals(pcps.Document)
             );
 
-            if (bank == null)
-            {
-                bank = _source.SingleOrDefault(
-                    b =>
-                        b.LongName
+            bank ??= _source.SingleOrDefault(
+                b =>
+                    b.LongName
+                        .RemoveDiacritics()
+                        .Equals(
+                            pcps.LongName.RemoveDiacritics(),
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                    || (
+                        b.ShortName != null
+                        && b.ShortName
                             .RemoveDiacritics()
                             .Equals(
                                 pcps.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
                             )
-                        || (
-                            b.ShortName != null
-                            && b.ShortName
-                                .RemoveDiacritics()
-                                .Equals(
-                                    pcps.LongName.RemoveDiacritics(),
-                                    StringComparison.InvariantCultureIgnoreCase
-                                )
-                        )
-                );
-            }
+                    )
+            );
 
             if (bank == null)
             {
@@ -646,7 +627,7 @@ internal class Seeder
                 )
                 {
                     Logger.Log(
-                        $"PCPS | ISPB nulled: {pcps.LongName} | {pcps.Document.Trim()}",
+                        $"PCPS | ISPB null: {pcps.LongName} | {pcps.Document.Trim()}",
                         ConsoleColor.DarkRed
                     );
                     continue;
@@ -677,8 +658,7 @@ internal class Seeder
                 && !string.IsNullOrWhiteSpace(pcps.Document)
             )
             {
-                bank.Document = pcps.Document;
-                bank.DateUpdated = DateTimeOffset.UtcNow;
+                bank.SetChange(Source.Pcps, x => x.Document, pcps.Document);
             }
             else if (string.IsNullOrWhiteSpace(bank.Document) || bank.Document.Length != 18)
             {
@@ -701,8 +681,7 @@ internal class Seeder
                 continue;
             }
 
-            bank.SalaryPortability = pcps.SalaryPortability;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
+            bank.SetChange(Source.Pcps, x => x.SalaryPortability, pcps.SalaryPortability);
             found++;
         }
 
@@ -748,8 +727,7 @@ internal class Seeder
                 continue;
             }
 
-            bank.LegalCheque = true;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
+            bank.SetChange(Source.Cql, x => x.LegalCheque, true);
             found++;
         }
 
@@ -797,8 +775,7 @@ internal class Seeder
                 continue;
             }
 
-            bank.DetectaFlow = true;
-            bank.DateUpdated = DateTimeOffset.UtcNow;
+            bank.SetChange(Source.DetectaFlow, x => x.DetectaFlow, true);
             found++;
         }
 
