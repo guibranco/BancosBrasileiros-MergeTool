@@ -144,7 +144,7 @@ internal class Worker
         }
 
         Logger.Log("No new data or updated information", ConsoleColor.DarkMagenta);
-        Environment.Exit(1467);
+        Environment.Exit(187);
         return true;
     }
 
