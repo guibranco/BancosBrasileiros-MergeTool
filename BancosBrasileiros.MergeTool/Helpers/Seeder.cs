@@ -768,7 +768,7 @@ internal class Seeder
             if (bank.DetectaFlow)
             {
                 Logger.Log(
-                    $"Detecta Flow | Detecta FLow updated: {detectaFlow.LongName}",
+                    $"Detecta Flow | Detecta Flow updated: {detectaFlow.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
