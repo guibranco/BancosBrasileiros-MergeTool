@@ -410,6 +410,7 @@ public sealed class Bank : IEquatable<Bank>
     /// </summary>
     /// <param name="other">An object to compare with this object.</param>
     /// <returns><see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
+    // ReSharper disable once CyclomaticComplexity
     public bool Equals(Bank other)
     {
         if (other is null)
@@ -551,9 +552,12 @@ public sealed class Bank : IEquatable<Bank>
     /// Returns a string that represents the current object.
     /// </summary>
     /// <returns>A string that represents the current object.</returns>
+    // ReSharper disable once CognitiveComplexity
     public override string ToString()
     {
         var strBuilder = new StringBuilder();
+
+        strBuilder.Append($"COMPE: {CompeString} | ");
 
         if (Ispb > 0 || Compe.Equals(1))
             strBuilder.Append($"ISPB: {IspbString} | ");

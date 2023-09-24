@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+// ReSharper disable CognitiveComplexity
+
 namespace BancosBrasileiros.MergeTool.Helpers;
 
 using CrispyWaffle.Extensions;
@@ -48,6 +50,8 @@ internal class Seeder
         var existing = 0;
         var missing = 0;
 
+        Logger.Log("Generate document\r\n", ConsoleColor.DarkYellow);
+
         foreach (var bank in _source)
         {
             if (bank.Document is { Length: 18 })
@@ -61,7 +65,7 @@ internal class Seeder
         }
 
         Logger.Log(
-            $"\r\nGenerate document | Existing: {existing} | Missing: {missing}\r\n",
+            $"Generate document | Existing: {existing} | Missing: {missing}\r\n",
             ConsoleColor.DarkYellow
         );
         return this;
@@ -123,7 +127,7 @@ internal class Seeder
             if (longNameSame && shortNameSame)
             {
                 Logger.Log(
-                    $"STR | Bank {str.Compe} updated: {str.LongName}",
+                    $"STR | Bank {str.Compe} is updated: {str.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 updated++;
@@ -152,7 +156,7 @@ internal class Seeder
         }
 
         Logger.Log(
-            $"\r\nSTR | Added: {added} | Updated: {updated} | Fixed: {nameFixed}\r\n",
+            $"\r\nSTR | Added: {added} | is updated: {updated} | Fixed: {nameFixed}\r\n",
             ConsoleColor.DarkYellow
         );
         return this;
@@ -212,14 +216,14 @@ internal class Seeder
             }
 
             Logger.Log(
-                $"SITRAF | Bank {sitraf.Compe} updated: {sitraf.LongName}",
+                $"SITRAF | Bank {sitraf.Compe} is updated: {sitraf.LongName}",
                 ConsoleColor.DarkGreen
             );
             updated++;
         }
 
         Logger.Log(
-            $"\r\nSITRAF | Added: {added} | Updated: {updated} | Name different: {nameDifferent}\r\n",
+            $"\r\nSITRAF | Added: {added} | is updated: {updated} | Name different: {nameDifferent}\r\n",
             ConsoleColor.DarkYellow
         );
 
@@ -298,7 +302,7 @@ internal class Seeder
             if (bank == null)
             {
                 Logger.Log(
-                    $"SLC | Bank {slc.Compe} not found: {slc.LongName} | {slc.Document.Trim()}",
+                    $"SLC | Bank not found: {slc.LongName} | {slc.Document.Trim()}",
                     ConsoleColor.DarkRed
                 );
 
@@ -387,7 +391,7 @@ internal class Seeder
                 && bank.DatePixStarted.Equals(spi.DatePixStarted)
             )
             {
-                Logger.Log($"SPI | PSP updated: {spi.LongName}", ConsoleColor.DarkGreen);
+                Logger.Log($"SPI | PSP is updated: {spi.LongName}", ConsoleColor.DarkGreen);
 
                 upToDate++;
                 continue;
@@ -504,7 +508,7 @@ internal class Seeder
             if (bank.Products != null && !bank.Products.Except(ctc.Products).Any())
             {
                 Logger.Log(
-                    $"CTC |Bank {ctc.Compe} Products updated: {ctc.LongName}",
+                    $"CTC |Bank {ctc.Compe} Products is updated: {ctc.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
@@ -593,7 +597,7 @@ internal class Seeder
             )
             {
                 Logger.Log(
-                    $"SILOC | Bank {siloc.Compe} COB/DOC updated: {siloc.LongName}",
+                    $"SILOC | Bank {siloc.Compe} COB/DOC is updated: {siloc.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
@@ -710,7 +714,7 @@ internal class Seeder
             )
             {
                 Logger.Log(
-                    $"PCPS | Bank {pcps.Compe} salary portability updated: {pcps.LongName}",
+                    $"PCPS | Bank {pcps.Compe} salary portability is updated: {pcps.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
@@ -759,7 +763,7 @@ internal class Seeder
             if (bank.LegalCheque)
             {
                 Logger.Log(
-                    $"CQL | Banl  {cql.Compe} Legal Cheque updated: {cql.LongName}",
+                    $"CQL | Banl  {cql.Compe} Legal Cheque is updated: {cql.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
@@ -807,7 +811,7 @@ internal class Seeder
             if (bank.DetectaFlow)
             {
                 Logger.Log(
-                    $"Detecta Flow | Bank {detectaFlow.Compe} Detecta Flow updated: {detectaFlow.LongName}",
+                    $"Detecta Flow | Bank {detectaFlow.Compe} Detecta Flow is updated: {detectaFlow.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
