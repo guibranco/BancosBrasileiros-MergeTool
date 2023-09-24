@@ -55,12 +55,18 @@ internal class Worker
     /// <param name="source">The source.</param>
     private static void AcquireData(Reader reader, List<Bank> source)
     {
-        var logBuilder = new StringBuilder();
+        var logBuilder = new StringBuilder("\r\n");
 
         logBuilder.AppendFormat("Source: {0} | ", source.Count);
 
+        var cql = reader.LoadCql();
+        logBuilder.AppendFormat("CQL: {0} | ", cql.Count);
+
         var ctc = reader.LoadCtc();
         logBuilder.AppendFormat("CTC: {0} | ", ctc.Count);
+
+        var detectaFlow = reader.LoadDetectaFlow();
+        logBuilder.AppendFormat("Detecta Flow: {0} | ", detectaFlow.Count);
 
         var siloc = reader.LoadSiloc();
         logBuilder.AppendFormat("SILOC: {0} | ", siloc.Count);
@@ -79,12 +85,6 @@ internal class Worker
 
         var pcps = reader.LoadPcps();
         logBuilder.AppendFormat("PCPS: {0} | ", pcps.Count);
-
-        var cql = reader.LoadCql();
-        logBuilder.AppendFormat("CQL: {0} | ", cql.Count);
-
-        var detectaFlow = reader.LoadDetectaFlow();
-        logBuilder.AppendFormat("Detecta Flow: {0} | ", detectaFlow.Count);
 
         logBuilder.AppendLine();
 
@@ -171,56 +171,12 @@ internal class Worker
 
         var changeLog = new StringBuilder();
 
-        var color = ConsoleColor.DarkGreen;
-
         changeLog.AppendLine(
             $"### {DateTime.Now:yyyy-MM-dd} - [MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool)\r\n"
         );
 
-        if (added.Any())
-        {
-            changeLog.AppendLine(
-                $"- Added {added.Count} bank{(added.Count == 1 ? string.Empty : "s")}"
-            );
-
-            Logger.Log($"\r\nAdded items: {added.Count}\r\n\r\n", ConsoleColor.White);
-
-            foreach (var item in added)
-            {
-                changeLog.AppendLine($"  - {item.Compe} - {item.ShortName} - {item.Document}");
-                color =
-                    color == ConsoleColor.DarkGreen ? ConsoleColor.Cyan : ConsoleColor.DarkGreen;
-                Logger.Log($"Added: {item}\r\n", color);
-            }
-        }
-
-        color = ConsoleColor.DarkBlue;
-
-        if (updated.Any())
-        {
-            changeLog.AppendLine(
-                $"- Updated {updated.Count} bank{(updated.Count == 1 ? string.Empty : "s")}"
-            );
-
-            Logger.Log($"\r\nUpdated items: {updated.Count}\r\n\r\n", ConsoleColor.White);
-
-            foreach (var item in updated)
-            {
-                changeLog.AppendLine($"  - {item.Compe} - {item.ShortName} - {item.Document}");
-                if (item.HasChanges)
-                {
-                    foreach (var change in item.GetChanges())
-                    {
-                        changeLog.AppendLine(
-                            $"    - **{change.Key}**: {change.Value.OldValue} **->** {change.Value.NewValue}"
-                        );
-                    }
-                }
-
-                color = color == ConsoleColor.DarkBlue ? ConsoleColor.Blue : ConsoleColor.DarkBlue;
-                Logger.Log($"Updated: {item}\r\n", color);
-            }
-        }
+        ProcessChangesAdded(changeLog, added);
+        ProcessChangesUpdated(changeLog, updated);
 
         Logger.Log("\r\nSaving result files", ConsoleColor.White);
 
@@ -228,5 +184,71 @@ internal class Worker
         Writer.SaveBanks(source);
 
         Logger.Log($"Merge done. Banks: {source.Count}", ConsoleColor.White);
+    }
+
+    /// <summary>
+    /// Processes the changes added.
+    /// </summary>
+    /// <param name="changeLog">The change log.</param>
+    /// <param name="added">The added.</param>
+    private static void ProcessChangesAdded(StringBuilder changeLog, List<Bank> added)
+    {
+        if (added.Count == 0)
+        {
+            return;
+        }
+
+        changeLog.AppendLine(
+            $"- Added {added.Count} bank{(added.Count == 1 ? string.Empty : "s")}"
+        );
+
+        Logger.Log($"\r\nAdded items: {added.Count}\r\n\r\n", ConsoleColor.White);
+
+        var color = ConsoleColor.DarkGreen;
+
+        foreach (var item in added)
+        {
+            changeLog.AppendLine($"  - {item.Compe} - {item.ShortName} - {item.Document}");
+            color = color == ConsoleColor.DarkGreen ? ConsoleColor.Cyan : ConsoleColor.DarkGreen;
+            Logger.Log($"Added: {item}\r\n", color);
+        }
+    }
+
+    /// <summary>
+    /// Processes the changes updated.
+    /// </summary>
+    /// <param name="changeLog">The change log.</param>
+    /// <param name="updated">The updated.</param>
+    private static void ProcessChangesUpdated(StringBuilder changeLog, List<Bank> updated)
+    {
+        if (updated.Count == 0)
+        {
+            return;
+        }
+
+        changeLog.AppendLine(
+            $"- Updated {updated.Count} bank{(updated.Count == 1 ? string.Empty : "s")}"
+        );
+
+        Logger.Log($"\r\nUpdated items: {updated.Count}\r\n\r\n", ConsoleColor.White);
+
+        var color = ConsoleColor.DarkBlue;
+
+        foreach (var item in updated)
+        {
+            changeLog.AppendLine($"  - {item.Compe} - {item.ShortName} - {item.Document}");
+            if (item.HasChanges)
+            {
+                foreach (var change in item.GetChanges())
+                {
+                    changeLog.AppendLine(
+                        $"    - **{change.Key}**: {change.Value.OldValue} **->** {change.Value.NewValue}"
+                    );
+                }
+            }
+
+            color = color == ConsoleColor.DarkBlue ? ConsoleColor.Blue : ConsoleColor.DarkBlue;
+            Logger.Log($"Updated: {item}\r\n", color);
+        }
     }
 }
