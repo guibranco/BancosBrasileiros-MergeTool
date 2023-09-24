@@ -212,7 +212,7 @@ internal class Worker
                     foreach (var change in item.GetChanges())
                     {
                         changeLog.AppendLine(
-                            $"    - {change.Key}: {change.Value.OldValue}->{change.Value.NewValue}"
+                            $"    - **{change.Key}**: {change.Value.OldValue} **->** {change.Value.NewValue}"
                         );
                     }
                 }

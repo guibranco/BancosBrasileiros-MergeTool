@@ -158,6 +158,7 @@ internal class Reader
                     new Bank
                     {
                         CompeString = columns[2],
+                        Document = columns[0].Trim(),
                         IspbString = columns[0],
                         LongName = columns[5].Replace("\"", "").Replace("?", "-").Trim(),
                         ShortName = columns[1].Trim(),
@@ -255,26 +256,26 @@ internal class Reader
         var result = new List<Bank>();
         var lines = page.Split("\n");
 
-        var spliced = string.Empty;
+        var spliced = new StringBuilder();
 
         foreach (var line in lines)
         {
             if (!Patterns.SlcPattern.IsMatch(line))
             {
-                spliced += $" {line}";
+                spliced.Append($" {line}");
                 continue;
             }
 
             Bank bank;
 
-            if (!string.IsNullOrWhiteSpace(spliced))
+            if (!string.IsNullOrWhiteSpace(spliced.ToString()))
             {
-                bank = ParseLineSlc(spliced.Trim());
+                bank = ParseLineSlc(spliced.ToString().Trim());
 
                 if (bank != null)
                     result.Add(bank);
 
-                spliced = string.Empty;
+                spliced.Clear();
             }
 
             bank = ParseLineSlc(line);
@@ -384,26 +385,26 @@ internal class Reader
         var result = new List<Bank>();
         var lines = page.Split("\n");
 
-        var spliced = string.Empty;
+        var spliced = new StringBuilder();
 
         foreach (var line in lines)
         {
             if (!Patterns.SitrafPattern.IsMatch(line))
             {
-                spliced += $" {line}";
+                spliced.Append($" {line}");
                 continue;
             }
 
             Bank bank;
 
-            if (!string.IsNullOrWhiteSpace(spliced))
+            if (!string.IsNullOrWhiteSpace(spliced.ToString()))
             {
-                bank = ParseLineSitraf(spliced.Trim());
+                bank = ParseLineSitraf(spliced.ToString().Trim());
 
                 if (bank != null)
                     result.Add(bank);
 
-                spliced = string.Empty;
+                spliced.Clear();
             }
 
             bank = ParseLineSitraf(line);
@@ -465,26 +466,26 @@ internal class Reader
         var result = new List<Bank>();
         var lines = page.Split("\n");
 
-        var spliced = string.Empty;
+        var spliced = new StringBuilder();
 
         foreach (var line in lines)
         {
             if (!Patterns.CtcPattern.IsMatch(line))
             {
-                spliced += $" {line}";
+                spliced.Append($" {line}");
                 continue;
             }
 
             Bank bank;
 
-            if (!string.IsNullOrWhiteSpace(spliced))
+            if (!string.IsNullOrWhiteSpace(spliced.ToString()))
             {
-                bank = ParseLineCtc(spliced.Trim());
+                bank = ParseLineCtc(spliced.ToString().Trim());
 
                 if (bank != null)
                     result.Add(bank);
 
-                spliced = string.Empty;
+                spliced.Clear();
             }
 
             bank = ParseLineCtc(line);
@@ -548,26 +549,26 @@ internal class Reader
         var result = new List<Bank>();
         var lines = page.Split("\n");
 
-        var spliced = string.Empty;
+        var spliced = new StringBuilder();
 
         foreach (var line in lines)
         {
             if (!Patterns.PcpsPattern.IsMatch(line))
             {
-                spliced += $" {line}";
+                spliced.Append($" {line}");
                 continue;
             }
 
             Bank bank;
 
-            if (!string.IsNullOrWhiteSpace(spliced))
+            if (!string.IsNullOrWhiteSpace(spliced.ToString()))
             {
-                bank = ParseLinePcps(spliced.Trim());
+                bank = ParseLinePcps(spliced.ToString().Trim());
 
                 if (bank != null)
                     result.Add(bank);
 
-                spliced = string.Empty;
+                spliced.Clear();
             }
 
             bank = ParseLinePcps(line);

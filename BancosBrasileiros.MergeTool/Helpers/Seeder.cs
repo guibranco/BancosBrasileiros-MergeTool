@@ -74,6 +74,7 @@ internal class Seeder
     /// <returns>Seeder.</returns>
     public Seeder SeedStr(IEnumerable<Bank> items)
     {
+        var added = 0;
         var updated = 0;
         var nameFixed = 0;
 
@@ -82,52 +83,76 @@ internal class Seeder
         foreach (var str in items)
         {
             var bank = _source.SingleOrDefault(b => b.Compe == str.Compe);
+            if (str.Compe == 0)
+            {
+                Logger.Log(
+                    $"STR | Ignoring bank {str.Compe} | Long name: {str.LongName} | Short name: {str.ShortName}",
+                    ConsoleColor.DarkRed
+                );
+                continue;
+            }
 
             if (bank == null)
             {
                 Logger.Log(
-                    $"Adding bank by STR List | {str.Compe} | {str.LongName}",
-                    ConsoleColor.DarkGreen
+                    $"STR | Adding bank {str.Compe} by STR List | Long name: {str.LongName}",
+                    ConsoleColor.Green
                 );
 
                 if (str.Document is not { Length: 18 })
                     str.Document = str.IspbString;
 
                 _source.Add(str);
-                bank = str;
+                added++;
+                continue;
             }
 
-            if (
-                bank.LongName
-                    .RemoveDiacritics()
-                    .Equals(
-                        str.LongName.RemoveDiacritics(),
-                        StringComparison.InvariantCultureIgnoreCase
-                    )
-                && bank.ShortName
-                    .RemoveDiacritics()
-                    .Equals(
-                        str.ShortName.RemoveDiacritics(),
-                        StringComparison.InvariantCultureIgnoreCase
-                    )
-            )
+            var longNameSame = bank.LongName
+                .RemoveDiacritics()
+                .Equals(
+                    str.LongName.RemoveDiacritics(),
+                    StringComparison.InvariantCultureIgnoreCase
+                );
+            var shortNameSame = bank.ShortName
+                .RemoveDiacritics()
+                .Equals(
+                    str.ShortName.RemoveDiacritics(),
+                    StringComparison.InvariantCultureIgnoreCase
+                );
+
+            if (longNameSame && shortNameSame)
             {
-                Logger.Log($"STR | Bank updated: {str.LongName}", ConsoleColor.DarkGreen);
+                Logger.Log(
+                    $"STR | Bank {str.Compe} updated: {str.LongName}",
+                    ConsoleColor.DarkGreen
+                );
                 updated++;
                 continue;
             }
 
-            Logger.Log(
-                $"STR | Bank with name different: {bank.LongName} <-> {str.LongName} | {bank.ShortName} <-> {str.ShortName}",
-                ConsoleColor.DarkYellow
-            );
-            bank.SetChange(Source.Str, x => x.LongName, str.LongName);
-            bank.SetChange(Source.Str, x => x.ShortName, str.ShortName);
+            if (!longNameSame)
+            {
+                Logger.Log(
+                    $"STR | Bank {str.Compe} with long name different | Old: {bank.LongName} | New: {str.LongName}",
+                    ConsoleColor.DarkYellow
+                );
+                bank.SetChange(Source.Str, x => x.LongName, str.LongName);
+            }
+
+            if (!shortNameSame)
+            {
+                Logger.Log(
+                    $"STR | Bank {str.Compe} with short name different | Old: {bank.ShortName} | New: {str.ShortName}",
+                    ConsoleColor.DarkYellow
+                );
+                bank.SetChange(Source.Str, x => x.ShortName, str.ShortName);
+            }
+
             nameFixed++;
         }
 
         Logger.Log(
-            $"\r\nSTR | Updated: {updated} | Fixed: {nameFixed}\r\n",
+            $"\r\nSTR | Added: {added} | Updated: {updated} | Fixed: {nameFixed}\r\n",
             ConsoleColor.DarkYellow
         );
         return this;
@@ -140,6 +165,7 @@ internal class Seeder
     /// <returns>Seeder.</returns>
     public Seeder SeedSitraf(IEnumerable<Bank> items)
     {
+        var added = 0;
         var updated = 0;
         var nameDifferent = 0;
 
@@ -168,7 +194,8 @@ internal class Seeder
                 );
 
                 _source.Add(sitraf);
-                bank = sitraf;
+                added++;
+                continue;
             }
 
             if (
@@ -184,12 +211,15 @@ internal class Seeder
                 continue;
             }
 
-            Logger.Log($"SITRAF | Bank updated: {sitraf.LongName}", ConsoleColor.DarkGreen);
+            Logger.Log(
+                $"SITRAF | Bank {sitraf.Compe} updated: {sitraf.LongName}",
+                ConsoleColor.DarkGreen
+            );
             updated++;
         }
 
         Logger.Log(
-            $"\r\nSITRAF | Updated: {updated} | Name different: {nameDifferent}\r\n",
+            $"\r\nSITRAF | Added: {added} | Updated: {updated} | Name different: {nameDifferent}\r\n",
             ConsoleColor.DarkYellow
         );
 
@@ -249,7 +279,7 @@ internal class Seeder
                 )
                 {
                     Logger.Log(
-                        $"SLC | ISPB nulled: {slc.LongName} | {slc.Document.Trim()}",
+                        $"SLC | ISPB null-ed: {slc.LongName} | {slc.Document.Trim()}",
                         ConsoleColor.DarkRed
                     );
                     continue;
@@ -268,7 +298,7 @@ internal class Seeder
             if (bank == null)
             {
                 Logger.Log(
-                    $"SLC | Bank not found: {slc.LongName} | {slc.Document.Trim()}",
+                    $"SLC | Bank {slc.Compe} not found: {slc.LongName} | {slc.Document.Trim()}",
                     ConsoleColor.DarkRed
                 );
 
@@ -449,7 +479,7 @@ internal class Seeder
             if (bank == null)
             {
                 Logger.Log(
-                    $"CTC | Bank not found: {ctc.LongName} | {ctc.Document.Trim()}",
+                    $"CTC | Bank {ctc.Compe} not found: {ctc.LongName} | {ctc.Document.Trim()}",
                     ConsoleColor.DarkRed
                 );
                 notFound++;
@@ -473,7 +503,10 @@ internal class Seeder
 
             if (bank.Products != null && !bank.Products.Except(ctc.Products).Any())
             {
-                Logger.Log($"CTC | Products updated: {ctc.LongName}", ConsoleColor.DarkGreen);
+                Logger.Log(
+                    $"CTC |Bank {ctc.Compe} Products updated: {ctc.LongName}",
+                    ConsoleColor.DarkGreen
+                );
                 upToDate++;
                 continue;
             }
@@ -559,7 +592,10 @@ internal class Seeder
                 && bank.CreditDocument.Equals(siloc.CreditDocument)
             )
             {
-                Logger.Log($"SILOC | COB/DOC updated: {siloc.LongName}", ConsoleColor.DarkGreen);
+                Logger.Log(
+                    $"SILOC | Bank {siloc.Compe} COB/DOC updated: {siloc.LongName}",
+                    ConsoleColor.DarkGreen
+                );
                 upToDate++;
                 continue;
             }
@@ -674,7 +710,7 @@ internal class Seeder
             )
             {
                 Logger.Log(
-                    $"PCPS | Salary portability updated: {pcps.LongName}",
+                    $"PCPS | Bank {pcps.Compe} salary portability updated: {pcps.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
@@ -722,7 +758,10 @@ internal class Seeder
 
             if (bank.LegalCheque)
             {
-                Logger.Log($"CQL | Legal Cheque updated: {cql.LongName}", ConsoleColor.DarkGreen);
+                Logger.Log(
+                    $"CQL | Banl  {cql.Compe} Legal Cheque updated: {cql.LongName}",
+                    ConsoleColor.DarkGreen
+                );
                 upToDate++;
                 continue;
             }
@@ -768,7 +807,7 @@ internal class Seeder
             if (bank.DetectaFlow)
             {
                 Logger.Log(
-                    $"Detecta Flow | Detecta Flow updated: {detectaFlow.LongName}",
+                    $"Detecta Flow | Bank {detectaFlow.Compe} Detecta Flow updated: {detectaFlow.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
