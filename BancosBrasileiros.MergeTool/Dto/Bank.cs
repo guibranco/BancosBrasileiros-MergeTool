@@ -35,7 +35,7 @@ using System.Xml.Serialization;
 /// <seealso cref="IEquatable{Bank}" />
 [XmlRoot("Bank")]
 [Serializable]
-public class Bank : IEquatable<Bank>
+public sealed class Bank : IEquatable<Bank>
 {
     #region Track Changes
 
@@ -514,7 +514,6 @@ public class Bank : IEquatable<Bank>
             hashCode.Add(LongName ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
             hashCode.Add(Network ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
             hashCode.Add(PixType ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
-            //hashCode.Add(Products);
             hashCode.Add(LegalCheque);
             hashCode.Add(DetectaFlow);
             hashCode.Add(

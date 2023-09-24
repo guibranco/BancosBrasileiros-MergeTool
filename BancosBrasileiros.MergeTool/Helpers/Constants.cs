@@ -36,7 +36,7 @@ internal static class Constants
     /// The string URL
     /// </summary>
     public const string StrUrl =
-        "http://www.bcb.gov.br/pom/spb/estatistica/port/ParticipantesSTRport.csv";
+        "https://www.bcb.gov.br/content/estabilidadefinanceira/str1/ParticipantesSTR.csv";
 
     /// <summary>
     /// The spi URL
