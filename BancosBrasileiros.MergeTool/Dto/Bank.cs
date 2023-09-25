@@ -113,6 +113,8 @@ public sealed class Bank : IEquatable<Bank>
     /// Gets the has changes.
     /// </summary>
     /// <value>The has changes.</value>
+    [JsonIgnore]
+    [XmlIgnore]
     public bool HasChanges => _changes.Any();
 
     /// <summary>
