@@ -1,5 +1,4 @@
-theme: jekyll-theme-dinky
-title: Bancos Brasileiros - MergeTool
-description: 🇧🇷 🏦 📋 Brazilian banks Merge Tool
-logo: https://raw.githubusercontent.com/guibranco/BancosBrasileiros-MergeTool/main/logo.png
+theme: jekyll-theme-slate
+title: Bancos Brasileiros - Merge Tool
+description: 🇧🇷 🏦 📋 Brazilian banks list
 show_downloads: true
