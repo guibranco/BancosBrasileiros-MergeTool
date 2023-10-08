@@ -175,11 +175,6 @@ internal class Worker
         }
 
         var changeLog = new StringBuilder();
-
-        changeLog.AppendLine(
-            $"### {DateTime.Now:yyyy-MM-dd} - [MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool)\r\n"
-        );
-
         ProcessChangesAdded(changeLog, added);
         ProcessChangesUpdated(changeLog, updated);
 
