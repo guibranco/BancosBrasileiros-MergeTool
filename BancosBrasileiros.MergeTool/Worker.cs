@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CrispyWaffle.Extensions;
 
 /// <summary>
 /// Class Worker.
@@ -242,7 +243,7 @@ internal class Worker
                 foreach (var change in item.GetChanges())
                 {
                     changeLog.AppendLine(
-                        $"    - **{change.Key}**: {change.Value.OldValue} **->** {change.Value.NewValue}"
+                        $"    - **{change.Key}** ({change.Value.Source.GetHumanReadableValue()}): {change.Value.OldValue} **->** {change.Value.NewValue}"
                     );
                 }
             }
