@@ -30,6 +30,16 @@ using CrispyWaffle.Extensions;
 /// </summary>
 internal static class Writer
 {
+    public static void WriteReleaseNotes(string changeLog)
+    {
+        if (!Directory.Exists("result"))
+        {
+            Directory.CreateDirectory("result");
+        }
+
+        File.WriteAllText($"result{Path.DirectorySeparatorChar}release-notes.md", changeLog);
+    }
+
     /// <summary>
     /// Writes the change log.
     /// </summary>
@@ -37,7 +47,9 @@ internal static class Writer
     public static void WriteChangeLog(string changeLog)
     {
         if (!Directory.Exists("result"))
+        {
             Directory.CreateDirectory("result");
+        }
 
         var changeLogFile = Reader.LoadChangeLog();
 
@@ -54,7 +66,9 @@ internal static class Writer
     public static void SaveBanks(IList<Bank> banks)
     {
         if (!Directory.Exists("result"))
+        {
             Directory.CreateDirectory("result");
+        }
 
         banks = banks.OrderBy(b => b.Compe).ToList();
 

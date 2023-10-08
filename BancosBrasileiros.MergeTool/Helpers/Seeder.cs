@@ -104,7 +104,9 @@ internal class Seeder
                 );
 
                 if (str.Document is not { Length: 18 })
+                {
                     str.Document = str.IspbString;
+                }
 
                 _source.Add(str);
                 added++;
@@ -187,7 +189,9 @@ internal class Seeder
                 );
 
                 if (sitraf.Document is not { Length: 18 })
+                {
                     sitraf.Document = sitraf.IspbString;
+                }
 
                 sitraf.ShortName ??= Regex.Replace(
                     sitraf.LongName,
