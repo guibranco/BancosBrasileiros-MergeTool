@@ -55,7 +55,7 @@ internal static class Writer
         var changeLogFile = Reader.LoadChangeLog();
 
         changeLog =
-            $"### {DateTime.Now:yyyy-MM-dd} - [MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool)\r\n{changeLog}";
+            $"### {DateTime.Now:yyyy-MM-dd} - [MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool)\r\n\r\n{changeLog}";
 
         changeLogFile = changeLogFile.Replace("## Changelog\r\n\r\n", "## Changelog\n\n");
         var result = changeLogFile.Replace("## Changelog\n\n", $"## Changelog\n\n{changeLog}\n");
