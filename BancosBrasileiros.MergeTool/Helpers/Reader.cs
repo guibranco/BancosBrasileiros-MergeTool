@@ -273,7 +273,9 @@ internal class Reader
                 bank = ParseLineSlc(spliced.ToString().Trim());
 
                 if (bank != null)
+                {
                     result.Add(bank);
+                }
 
                 spliced.Clear();
             }
@@ -281,7 +283,9 @@ internal class Reader
             bank = ParseLineSlc(line);
 
             if (bank != null)
+            {
                 result.Add(bank);
+            }
         }
 
         return result;
@@ -295,7 +299,9 @@ internal class Reader
     private Bank ParseLineSlc(string line)
     {
         if (!Patterns.SlcPattern.IsMatch(line))
+        {
             return null;
+        }
 
         var match = Patterns.SlcPattern.Match(line);
 
@@ -304,7 +310,9 @@ internal class Reader
         _countingSlc++;
 
         if (_countingSlc != code)
+        {
             Logger.Log($"SLC | Counting: {_countingSlc++} | Code: {code}", ConsoleColor.DarkYellow);
+        }
 
         return new()
         {
@@ -337,7 +345,9 @@ internal class Reader
             var bank = ParseLineSiloc(line);
 
             if (bank != null)
+            {
                 result.Add(bank);
+            }
         }
 
         return result;
@@ -351,7 +361,9 @@ internal class Reader
     private static Bank ParseLineSiloc(string line)
     {
         if (!Patterns.SilocPattern.IsMatch(line))
+        {
             return null;
+        }
 
         var match = Patterns.SilocPattern.Match(line);
 
@@ -402,7 +414,9 @@ internal class Reader
                 bank = ParseLineSitraf(spliced.ToString().Trim());
 
                 if (bank != null)
+                {
                     result.Add(bank);
+                }
 
                 spliced.Clear();
             }
@@ -410,7 +424,9 @@ internal class Reader
             bank = ParseLineSitraf(line);
 
             if (bank != null)
+            {
                 result.Add(bank);
+            }
         }
 
         return result;
@@ -424,7 +440,9 @@ internal class Reader
     private Bank ParseLineSitraf(string line)
     {
         if (!Patterns.SitrafPattern.IsMatch(line))
+        {
             return null;
+        }
 
         var match = Patterns.SitrafPattern.Match(line);
 
@@ -433,10 +451,12 @@ internal class Reader
         _countingSitraf++;
 
         if (_countingSitraf != code)
+        {
             Logger.Log(
                 $"SITRAF | Counting: {_countingSitraf++} | Code: {code}",
                 ConsoleColor.DarkYellow
             );
+        }
 
         return new()
         {
@@ -483,7 +503,9 @@ internal class Reader
                 bank = ParseLineCtc(spliced.ToString().Trim());
 
                 if (bank != null)
+                {
                     result.Add(bank);
+                }
 
                 spliced.Clear();
             }
@@ -491,7 +513,9 @@ internal class Reader
             bank = ParseLineCtc(line);
 
             if (bank != null)
+            {
                 result.Add(bank);
+            }
         }
 
         return result;
@@ -505,7 +529,9 @@ internal class Reader
     private Bank ParseLineCtc(string line)
     {
         if (!Patterns.CtcPattern.IsMatch(line))
+        {
             return null;
+        }
 
         var match = Patterns.CtcPattern.Match(line);
 
@@ -514,7 +540,9 @@ internal class Reader
         _countingCtc++;
 
         if (_countingCtc != code)
+        {
             Logger.Log($"CTC | Counting: {_countingCtc++} | Code: {code}", ConsoleColor.DarkYellow);
+        }
 
         return new()
         {
@@ -566,7 +594,9 @@ internal class Reader
                 bank = ParseLinePcps(spliced.ToString().Trim());
 
                 if (bank != null)
+                {
                     result.Add(bank);
+                }
 
                 spliced.Clear();
             }
@@ -574,7 +604,9 @@ internal class Reader
             bank = ParseLinePcps(line);
 
             if (bank != null)
+            {
                 result.Add(bank);
+            }
         }
 
         return result;
@@ -588,7 +620,9 @@ internal class Reader
     private Bank ParseLinePcps(string line)
     {
         if (!Patterns.PcpsPattern.IsMatch(line))
+        {
             return null;
+        }
 
         var match = Patterns.PcpsPattern.Match(line);
 
@@ -597,10 +631,12 @@ internal class Reader
         _countingPcps++;
 
         if (_countingPcps != code)
+        {
             Logger.Log(
                 $"PCPS | Counting: {_countingPcps++} | Code: {code}",
                 ConsoleColor.DarkYellow
             );
+        }
 
         return new()
         {
@@ -641,14 +677,19 @@ internal class Reader
     private Bank ParseLineCql(string line)
     {
         if (!Patterns.CqlPattern.IsMatch(line))
+        {
             return null;
+        }
 
         var match = Patterns.CqlPattern.Match(line);
         var code = Convert.ToInt32(match.Groups["code"].Value.Trim());
 
         _countingCql++;
         if (_countingCql != code)
+        {
             Logger.Log($"CQL | Counting: {_countingCql++} | Code: {code}", ConsoleColor.DarkYellow);
+        }
+
         return new()
         {
             IspbString = match.Groups["ispb"].Value.Trim(),
@@ -688,17 +729,21 @@ internal class Reader
     private Bank ParseLineDetectaFlow(string line)
     {
         if (!Patterns.DetectaFlowPattern.IsMatch(line))
+        {
             return null;
+        }
 
         var match = Patterns.DetectaFlowPattern.Match(line);
         var code = Convert.ToInt32(match.Groups["code"].Value.Trim());
 
         _countingDetectaFlow++;
         if (_countingDetectaFlow != code)
+        {
             Logger.Log(
                 $"DetectaFlow | Counting: {_countingDetectaFlow++} | Code: {code}",
                 ConsoleColor.DarkYellow
             );
+        }
 
         return new Bank
         {

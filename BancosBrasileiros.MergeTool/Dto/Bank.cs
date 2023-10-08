@@ -145,7 +145,9 @@ public sealed class Bank : IEquatable<Bank>
         set
         {
             if (int.TryParse(value, out var parsed))
+            {
                 Compe = parsed;
+            }
         }
     }
 
@@ -169,7 +171,9 @@ public sealed class Bank : IEquatable<Bank>
         set
         {
             if (int.TryParse(value, out var parsed))
+            {
                 Ispb = parsed;
+            }
         }
     }
 
@@ -190,7 +194,10 @@ public sealed class Bank : IEquatable<Bank>
         set
         {
             if (string.IsNullOrWhiteSpace(value))
+            {
                 return;
+            }
+
             var document = new string(value.Where(char.IsDigit).ToArray());
             if (document.Length == 8)
             {
@@ -267,7 +274,9 @@ public sealed class Bank : IEquatable<Bank>
         set
         {
             if (value == null)
+            {
                 return;
+            }
 
             ChargeStr = value.Value ? "sim" : "não";
         }
@@ -297,7 +306,9 @@ public sealed class Bank : IEquatable<Bank>
         set
         {
             if (value == null)
+            {
                 return;
+            }
 
             CreditDocumentStr = value.Value ? "sim" : "não";
         }
@@ -364,7 +375,10 @@ public sealed class Bank : IEquatable<Bank>
         set
         {
             if (string.IsNullOrWhiteSpace(value) || value.Equals("NA"))
+            {
                 return;
+            }
+
             _url = $"https://{value.ToLower().Replace("https://", "")}";
         }
     }
@@ -416,10 +430,14 @@ public sealed class Bank : IEquatable<Bank>
     public bool Equals(Bank other)
     {
         if (other is null)
+        {
             return false;
+        }
 
         if (ReferenceEquals(this, other))
+        {
             return true;
+        }
 
         return string.Equals(
                 _document,
@@ -478,10 +496,14 @@ public sealed class Bank : IEquatable<Bank>
     public override bool Equals(object obj)
     {
         if (obj is null)
+        {
             return false;
+        }
 
         if (ReferenceEquals(this, obj))
+        {
             return true;
+        }
 
         return obj.GetType() == GetType() && Equals((Bank)obj);
     }
@@ -562,47 +584,73 @@ public sealed class Bank : IEquatable<Bank>
         strBuilder.Append($"COMPE: {CompeString} | ");
 
         if (Ispb > 0 || Compe.Equals(1))
+        {
             strBuilder.Append($"ISPB: {IspbString} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(Document))
+        {
             strBuilder.Append($"Document: {Document} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(LongName))
+        {
             strBuilder.Append($"Long name: {LongName} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(ShortName))
+        {
             strBuilder.Append($"Short name: {ShortName} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(Network))
+        {
             strBuilder.Append($"Network: {Network} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(Type))
+        {
             strBuilder.Append($"Type: {Type} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(PixType))
+        {
             strBuilder.Append($"PIX type: {PixType} | ");
+        }
 
         if (Charge.HasValue)
+        {
             strBuilder.Append($"Charge: {Charge} | ");
+        }
 
         if (CreditDocument.HasValue)
+        {
             strBuilder.Append($"Credit document: {CreditDocument} | ");
+        }
 
         strBuilder.Append($"Legal cheque: {LegalCheque} | ");
 
         strBuilder.Append($"Detecta Flow: {DetectaFlow} | ");
 
         if (!string.IsNullOrWhiteSpace(SalaryPortability))
+        {
             strBuilder.Append($"Salary portability: {SalaryPortability} | ");
+        }
 
         if (Products != null)
+        {
             strBuilder.Append($"Products: {string.Join(",", Products)} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(DateOperationStarted))
+        {
             strBuilder.Append($"Date operation started: {DateOperationStarted} | ");
+        }
 
         if (!string.IsNullOrWhiteSpace(DatePixStarted))
+        {
             strBuilder.Append($"Date PIX started: {DatePixStarted} | ");
+        }
 
         strBuilder.Append($"Date registered: {DateRegistered:O} | Date updated: {DateUpdated:O}");
 

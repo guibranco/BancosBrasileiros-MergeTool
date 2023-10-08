@@ -24,12 +24,23 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using CrispyWaffle.Extensions;
+using System;
 
 /// <summary>
 /// Class Writer.
 /// </summary>
 internal static class Writer
 {
+    public static void WriteReleaseNotes(string changeLog)
+    {
+        if (!Directory.Exists("result"))
+        {
+            Directory.CreateDirectory("result");
+        }
+
+        File.WriteAllText($"result{Path.DirectorySeparatorChar}release-notes.md", changeLog);
+    }
+
     /// <summary>
     /// Writes the change log.
     /// </summary>
@@ -37,10 +48,11 @@ internal static class Writer
     public static void WriteChangeLog(string changeLog)
     {
         if (!Directory.Exists("result"))
+        {
             Directory.CreateDirectory("result");
+        }
 
         var changeLogFile = Reader.LoadChangeLog();
-
         changeLogFile = changeLogFile.Replace("## Changelog\r\n\r\n", "## Changelog\n\n");
         var result = changeLogFile.Replace("## Changelog\n\n", $"## Changelog\n\n{changeLog}\n");
 
@@ -54,7 +66,9 @@ internal static class Writer
     public static void SaveBanks(IList<Bank> banks)
     {
         if (!Directory.Exists("result"))
+        {
             Directory.CreateDirectory("result");
+        }
 
         banks = banks.OrderBy(b => b.Compe).ToList();
 

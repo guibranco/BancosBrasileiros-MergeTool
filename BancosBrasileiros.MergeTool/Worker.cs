@@ -165,23 +165,27 @@ internal class Worker
             var isUpdated = original.Exists(b => b.Ispb == exc.Ispb);
 
             if (isUpdated)
+            {
                 updated.Add(exc);
+            }
             else
+            {
                 added.Add(exc);
+            }
         }
 
-        var changeLog = new StringBuilder();
-
-        changeLog.AppendLine(
+        var changeLog = new StringBuilder().AppendLine(
             $"### {DateTime.Now:yyyy-MM-dd} - [MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool)\r\n"
         );
-
         ProcessChangesAdded(changeLog, added);
         ProcessChangesUpdated(changeLog, updated);
 
         Logger.Log("\r\nSaving result files", ConsoleColor.White);
 
-        Writer.WriteChangeLog(changeLog.ToString());
+        var changeLogData = changeLog.ToString();
+
+        Writer.WriteReleaseNotes(changeLogData);
+        Writer.WriteChangeLog(changeLogData);
         Writer.SaveBanks(source);
 
         Logger.Log($"Merge done. Banks: {source.Count}", ConsoleColor.White);
