@@ -1,6 +1,6 @@
 # Bancos Brasileiros - Merge Tool
 
-The **Merge Tool** is used to generate and keep updated data of [Bancos Brasileiros](https://github.com/guibranco/BancosBrasileiros/) repository.
+🇧🇷 🏦 📋 The **Merge Tool** is used to generate and keep data in the [Bancos Brasileiros](https://github.com/guibranco/BancosBrasileiros/) repository updated.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/f9sx7ux82epp8bd6?svg=true)](https://ci.appveyor.com/project/guibranco/bancosbrasileiros-MergeTool)
 [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/BancosBrasileiros-MergeTool)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
