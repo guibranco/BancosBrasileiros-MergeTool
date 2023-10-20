@@ -32,4 +32,29 @@ internal static class Utils
         var json = JsonConvert.SerializeObject(item);
         return JsonConvert.DeserializeObject<T>(json);
     }
+
+    /// <summary>
+    /// Gets the string value.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>System.String.</returns>
+    public static string GetStringValue(this object value)
+    {
+        if (value == null)
+        {
+            return "Null";
+        }
+
+        if (value.GetType() == typeof(string[]))
+        {
+            return string.Join(", ", (string[])value);
+        }
+
+        if (value is string stringValue && !string.IsNullOrWhiteSpace(stringValue))
+        {
+            return stringValue;
+        }
+
+        return "Empty";
+    }
 }

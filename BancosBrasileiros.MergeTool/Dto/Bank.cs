@@ -70,17 +70,11 @@ public sealed class Bank : IEquatable<Bank>
         GetType().GetProperty(property)?.SetValue(this, newValue);
         DateUpdated = DateTimeOffset.UtcNow;
 
-        var currentValueString = currentValue == null ? "Null" : currentValue.ToString();
-        if (string.IsNullOrWhiteSpace(currentValueString))
-        {
-            currentValueString = "Empty";
-        }
-
         var changeModel = new ChangeModel
         {
             Source = source,
-            OldValue = currentValueString,
-            NewValue = newValue.ToString()
+            OldValue = currentValue.GetStringValue(),
+            NewValue = newValue.GetStringValue()
         };
 
         _changes.Add(property, changeModel);
