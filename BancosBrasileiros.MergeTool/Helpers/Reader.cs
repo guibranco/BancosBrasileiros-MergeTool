@@ -544,16 +544,18 @@ internal class Reader
             Logger.Log($"CTC | Counting: {_countingCtc++} | Code: {code}", ConsoleColor.DarkYellow);
         }
 
+        var products = match.Groups["produtos"].Value.Split(",").Select(p => p.Trim()).ToList();
+        var last = products[^1];
+        products.RemoveAt(products.Count - 1);
+        var split = last.Split(" e ");
+        products.AddRange(split);
+
         return new()
         {
             Document = match.Groups["cnpj"].Value.Trim(),
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
-            Products = match.Groups["produtos"].Value
-                .Split(",")
-                .Select(p => p.Trim())
-                .OrderBy(p => p)
-                .ToArray()
+            Products = products.OrderBy(p => p).ToArray()
         };
     }
 
