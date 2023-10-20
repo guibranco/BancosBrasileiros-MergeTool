@@ -52,6 +52,9 @@ internal static class Writer
             Directory.CreateDirectory("result");
         }
 
+        changeLog =
+            $"### {DateTime.Now:yyyy-MM-dd} - [MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool)\r\n\r\n{changeLog}";
+
         var changeLogFile = Reader.LoadChangeLog();
         changeLogFile = changeLogFile.Replace("## Changelog\r\n\r\n", "## Changelog\n\n");
         var result = changeLogFile.Replace("## Changelog\n\n", $"## Changelog\n\n{changeLog}\n");
@@ -87,7 +90,7 @@ internal static class Writer
     /// Saves the CSV.
     /// </summary>
     /// <param name="banks">The banks.</param>
-    private static void SaveCsv(IList<Bank> banks)
+    private static void SaveCsv(IEnumerable<Bank> banks)
     {
         var lines = new List<string> { string.Join(",", GetFieldsJsonPropertyNames) };
 
@@ -105,7 +108,7 @@ internal static class Writer
     /// Saves the markdown.
     /// </summary>
     /// <param name="banks">The banks.</param>
-    private static void SaveMarkdown(IList<Bank> banks)
+    private static void SaveMarkdown(IEnumerable<Bank> banks)
     {
         var lines = new List<string>
         {
@@ -129,7 +132,7 @@ internal static class Writer
     /// Saves the SQL.
     /// </summary>
     /// <param name="banks">The banks.</param>
-    private static void SaveSql(IList<Bank> banks)
+    private static void SaveSql(IEnumerable<Bank> banks)
     {
         var lines = new List<string>();
 
