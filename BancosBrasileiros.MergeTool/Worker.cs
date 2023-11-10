@@ -14,13 +14,13 @@
 
 namespace BancosBrasileiros.MergeTool;
 
-using Dto;
-using Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CrispyWaffle.Extensions;
+using Dto;
+using Helpers;
 
 /// <summary>
 /// Class Worker.

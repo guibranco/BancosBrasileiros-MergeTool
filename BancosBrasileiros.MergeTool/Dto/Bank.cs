@@ -14,10 +14,6 @@
 
 namespace BancosBrasileiros.MergeTool.Dto;
 
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Validations;
-using Helpers;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,6 +23,10 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Validations;
+using Helpers;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Class Bank.
