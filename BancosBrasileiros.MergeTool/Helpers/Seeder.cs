@@ -16,12 +16,12 @@
 
 namespace BancosBrasileiros.MergeTool.Helpers;
 
-using CrispyWaffle.Extensions;
-using Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using CrispyWaffle.Extensions;
+using Dto;
 
 /// <summary>
 /// Class Seeder.

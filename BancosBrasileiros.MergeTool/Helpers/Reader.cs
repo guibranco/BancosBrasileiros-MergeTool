@@ -14,10 +14,6 @@
 
 namespace BancosBrasileiros.MergeTool.Helpers;
 
-using CrispyWaffle.Serialization;
-using Dto;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,6 +21,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using CrispyWaffle.Serialization;
+using Dto;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 
 /// <summary>
 /// Class Reader.
@@ -108,13 +108,15 @@ internal class Reader
                 currentPage,
                 new SimpleTextExtractionStrategy()
             );
-            currentText = Encoding.UTF8.GetString(
-                Encoding.Convert(
-                    Encoding.Default,
-                    Encoding.UTF8,
-                    Encoding.Default.GetBytes(currentText)
-                )
-            );
+            currentText = Encoding
+                .UTF8
+                .GetString(
+                    Encoding.Convert(
+                        Encoding.Default,
+                        Encoding.UTF8,
+                        Encoding.Default.GetBytes(currentText)
+                    )
+                );
             result.AddRange(callback(currentText));
         }
 

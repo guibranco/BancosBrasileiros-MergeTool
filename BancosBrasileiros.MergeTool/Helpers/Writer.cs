@@ -14,9 +14,7 @@
 
 namespace BancosBrasileiros.MergeTool.Helpers;
 
-using CrispyWaffle.Serialization;
-using Dto;
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -24,7 +22,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using CrispyWaffle.Extensions;
-using System;
+using CrispyWaffle.Serialization;
+using Dto;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Class Writer.
