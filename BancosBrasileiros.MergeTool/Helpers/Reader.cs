@@ -23,8 +23,8 @@ using System.Net.Http;
 using System.Text;
 using CrispyWaffle.Serialization;
 using Dto;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
+using UglyToad.PdfPig;
+using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 
 /// <summary>
 /// Class Reader.
@@ -37,7 +37,7 @@ internal class Reader
     private int _countingSlc;
 
     /// <summary>
-    /// The counting sitraf
+    /// The counting SITRAF
     /// </summary>
     private int _countingSitraf;
 
@@ -68,14 +68,25 @@ internal class Reader
     /// <returns>System.String.</returns>
     private static string DownloadString(string url)
     {
-        var client = new HttpClient();
+        using var client = new HttpClient();
         using var response = client.GetAsync(url).Result;
         using var content = response.Content;
         return content.ReadAsStringAsync().Result;
     }
 
     /// <summary>
-    /// Downloads the and parse PDF.
+    /// Downloads the bytes.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <returns>System.Byte[].</returns>
+    private static byte[] DownloadBytes(string url)
+    {
+        using var client = new HttpClient();
+        return client.GetByteArrayAsync(url).Result;
+    }
+
+    /// <summary>
+    /// Downloads and parse PDF.
     /// </summary>
     /// <param name="url">The URL.</param>
     /// <param name="system">The system.</param>
@@ -83,17 +94,18 @@ internal class Reader
     /// <returns>List&lt;Bank&gt;.</returns>
     private static List<Bank> DownloadAndParsePdf(
         string url,
-        string system,
+        Source system,
         Func<string, IEnumerable<Bank>> callback
     )
     {
         var result = new List<Bank>();
-        PdfReader reader;
+        PdfDocument reader;
 
         try
         {
-            Logger.Log($"Downloading {system}", ConsoleColor.Green);
-            reader = new(url);
+            Logger.Log($"Downloading {system.ToString().ToUpperInvariant()}", ConsoleColor.Green);
+            var data = DownloadBytes(url);
+            reader = PdfDocument.Open(data);
         }
         catch (Exception e)
         {
@@ -101,22 +113,9 @@ internal class Reader
             return result;
         }
 
-        for (var currentPage = 1; currentPage <= reader.NumberOfPages; currentPage++)
+        foreach (var page in reader.GetPages())
         {
-            var currentText = PdfTextExtractor.GetTextFromPage(
-                reader,
-                currentPage,
-                new SimpleTextExtractionStrategy()
-            );
-            currentText = Encoding
-                .UTF8
-                .GetString(
-                    Encoding.Convert(
-                        Encoding.Default,
-                        Encoding.UTF8,
-                        Encoding.Default.GetBytes(currentText)
-                    )
-                );
+            var currentText = ContentOrderTextExtractor.GetText(page);
             result.AddRange(callback(currentText));
         }
 
@@ -245,7 +244,7 @@ internal class Reader
     public List<Bank> LoadSlc()
     {
         _countingSlc = 0;
-        return DownloadAndParsePdf(Constants.SlcUrl, "SLC", ParseLinesSlc);
+        return DownloadAndParsePdf(Constants.SlcUrl, Source.Slc, ParseLinesSlc);
     }
 
     /// <summary>
@@ -324,12 +323,12 @@ internal class Reader
     }
 
     /// <summary>
-    /// Loads the siloc.
+    /// Loads the SILOC.
     /// </summary>
     /// <returns>List&lt;Bank&gt;.</returns>
     public List<Bank> LoadSiloc()
     {
-        return DownloadAndParsePdf(Constants.SilocUrl, "SILOC", ParseLinesSiloc);
+        return DownloadAndParsePdf(Constants.SilocUrl, Source.Siloc, ParseLinesSiloc);
     }
 
     /// <summary>
@@ -386,7 +385,7 @@ internal class Reader
     public List<Bank> LoadSitraf()
     {
         _countingSitraf = 0;
-        return DownloadAndParsePdf(Constants.SitrafUrl, "SITRAF", ParseLinesSitraf);
+        return DownloadAndParsePdf(Constants.SitrafUrl, Source.Sitraf, ParseLinesSitraf);
     }
 
     /// <summary>
@@ -475,7 +474,7 @@ internal class Reader
     public List<Bank> LoadCtc()
     {
         _countingCtc = 0;
-        return DownloadAndParsePdf(Constants.CtcUrl, "CTC", ParsePageCtc);
+        return DownloadAndParsePdf(Constants.CtcUrl, Source.Ctc, ParsePageCtc);
     }
 
     /// <summary>
@@ -568,7 +567,7 @@ internal class Reader
     public List<Bank> LoadPcps()
     {
         _countingPcps = 0;
-        return DownloadAndParsePdf(Constants.PcpsUrl, "PCPS", ParsePagePcps);
+        return DownloadAndParsePdf(Constants.PcpsUrl, Source.Pcps, ParsePagePcps);
     }
 
     /// <summary>
@@ -647,7 +646,7 @@ internal class Reader
             Document = match.Groups["cnpj"].Value.Trim(),
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
-            SalaryPortability = match.Groups["adesao"].Value.Trim()
+            SalaryPortability = match.Groups["adesao"].Value.Trim().Replace("- 1 -", "")
         };
     }
 
@@ -658,7 +657,7 @@ internal class Reader
     public List<Bank> LoadCql()
     {
         _countingCql = 0;
-        return DownloadAndParsePdf(Constants.CqlUrl, "CQL", ParsePageCql);
+        return DownloadAndParsePdf(Constants.CqlUrl, Source.Cql, ParsePageCql);
     }
 
     /// <summary>
@@ -710,7 +709,11 @@ internal class Reader
     public List<Bank> LoadDetectaFlow()
     {
         _countingDetectaFlow = 0;
-        return DownloadAndParsePdf(Constants.DetectaFlowUrl, "DetectaFlow", ParsePageDetectaFlow);
+        return DownloadAndParsePdf(
+            Constants.DetectaFlowUrl,
+            Source.DetectaFlow,
+            ParsePageDetectaFlow
+        );
     }
 
     /// <summary>
