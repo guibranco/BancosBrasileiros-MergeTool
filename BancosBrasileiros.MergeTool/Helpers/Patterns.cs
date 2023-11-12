@@ -63,7 +63,7 @@ internal static class Patterns
         );
 
     /// <summary>
-    /// The sitraf pattern
+    /// The SITRAF pattern
     /// </summary>
     public static readonly Regex SitrafPattern =
         new(
