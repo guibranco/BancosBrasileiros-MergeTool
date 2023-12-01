@@ -55,6 +55,11 @@ internal static class Utils
             return stringValue;
         }
 
+        if (value is bool boolValue)
+        {
+            return boolValue.ToString();
+        }
+
         return "Empty";
     }
 }
