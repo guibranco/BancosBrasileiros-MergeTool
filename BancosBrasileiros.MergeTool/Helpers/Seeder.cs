@@ -767,7 +767,7 @@ internal class Seeder
             if (bank.LegalCheque)
             {
                 Logger.Log(
-                    $"CQL | Banl  {cql.Compe} Legal Cheque is updated: {cql.LongName}",
+                    $"CQL | Bank {cql.Compe} Legal Cheque is updated: {cql.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
