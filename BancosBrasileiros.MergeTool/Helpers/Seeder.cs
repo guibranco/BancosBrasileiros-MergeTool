@@ -395,7 +395,7 @@ internal class Seeder
                 && bank.DatePixStarted.Equals(spi.DatePixStarted)
             )
             {
-                Logger.Log($"SPI | PSP is updated: {spi.LongName}", ConsoleColor.DarkGreen);
+                Logger.Log($"SPI | Bank {bank.Compe} is updated: {spi.LongName}", ConsoleColor.DarkGreen);
 
                 upToDate++;
                 continue;
@@ -487,7 +487,7 @@ internal class Seeder
             if (bank == null)
             {
                 Logger.Log(
-                    $"CTC | Bank {ctc.Compe} not found: {ctc.LongName} | {ctc.Document.Trim()}",
+                    $"CTC | Bank {bank.Compe} not found: {ctc.LongName} | {ctc.Document.Trim()}",
                     ConsoleColor.DarkRed
                 );
                 notFound++;
@@ -601,7 +601,7 @@ internal class Seeder
             )
             {
                 Logger.Log(
-                    $"SILOC | Bank {siloc.Compe} COB/DOC is updated: {siloc.LongName}",
+                    $"SILOC | Bank {bank.Compe} COB/DOC is updated: {siloc.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
