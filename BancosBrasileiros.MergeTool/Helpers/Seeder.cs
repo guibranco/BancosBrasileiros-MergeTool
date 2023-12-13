@@ -718,7 +718,7 @@ internal class Seeder
             )
             {
                 Logger.Log(
-                    $"PCPS | Bank {pcps.Compe} salary portability is updated: {pcps.LongName}",
+                    $"PCPS | Bank {bank.Compe} salary portability is updated: {pcps.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
@@ -767,7 +767,7 @@ internal class Seeder
             if (bank.LegalCheque)
             {
                 Logger.Log(
-                    $"CQL | Bank {cql.Compe} Legal Cheque is updated: {cql.LongName}",
+                    $"CQL | Bank {bank.Compe} Legal Cheque is updated: {cql.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
@@ -815,7 +815,7 @@ internal class Seeder
             if (bank.DetectaFlow)
             {
                 Logger.Log(
-                    $"Detecta Flow | Bank {detectaFlow.Compe} Detecta Flow is updated: {detectaFlow.LongName}",
+                    $"Detecta Flow | Bank {bank.Compe} Detecta Flow is updated: {detectaFlow.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
