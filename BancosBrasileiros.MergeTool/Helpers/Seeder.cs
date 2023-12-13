@@ -490,7 +490,7 @@ internal class Seeder
             if (bank == null)
             {
                 Logger.Log(
-                    $"CTC | Bank {bank.Compe} not found: {ctc.LongName} | {ctc.Document.Trim()}",
+                    $"CTC | Bank {ctc.Compe} not found: {ctc.LongName} | {ctc.Document.Trim()}",
                     ConsoleColor.DarkRed
                 );
                 notFound++;
@@ -515,7 +515,7 @@ internal class Seeder
             if (bank.Products != null && !bank.Products.Except(ctc.Products).Any())
             {
                 Logger.Log(
-                    $"CTC |Bank {ctc.Compe} Products is updated: {ctc.LongName}",
+                    $"CTC | Bank {bank.Compe} Products is updated: {ctc.LongName}",
                     ConsoleColor.DarkGreen
                 );
                 upToDate++;
