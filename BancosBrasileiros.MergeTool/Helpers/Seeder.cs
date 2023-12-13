@@ -395,7 +395,10 @@ internal class Seeder
                 && bank.DatePixStarted.Equals(spi.DatePixStarted)
             )
             {
-                Logger.Log($"SPI | Bank {bank.Compe} is updated: {spi.LongName}", ConsoleColor.DarkGreen);
+                Logger.Log(
+                    $"SPI | Bank {bank.Compe} is updated: {spi.LongName}",
+                    ConsoleColor.DarkGreen
+                );
 
                 upToDate++;
                 continue;
