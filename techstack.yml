@@ -1,7 +1,7 @@
 repo_name: guibranco/BancosBrasileiros-MergeTool
-report_id: abb9334074b9a2af4352d59279d62242
+report_id: c8de86ec5695ef60c0edee0850237d4c
 repo_type: Public
-timestamp: '2023-11-09T15:39:25+00:00'
+timestamp: '2023-12-14T09:37:44+00:00'
 requested_by: guibranco
 provider: github
 branch: main
@@ -28,8 +28,8 @@ tools:
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/1014/IoPy1dce_400x400.png
   detection_source: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  last_updated_by: Guilherme Branco Stracini
-  last_updated_on: 2023-08-30 13:17:00.000000000 Z
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-11-27 23:25:12.000000000 Z
 - name: ".NET Core"
   description: An Open Source, General-Purpose Development Platform Maintained by
     Microsoft and the .NET Community
@@ -41,10 +41,10 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/6403/default_91fc1f0ee315262794273aa1387eaf8fed8436e6.png
-  detection_source_url: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
+  detection_source_url: https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
   detection_source: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  last_updated_by: Guilherme Branco Stracini
-  last_updated_on: 2023-08-30 13:17:00.000000000 Z
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-11-27 23:25:12.000000000 Z
 - name: ASP.NET Core
   description: A cross-platform .NET framework for building modern cloud-based web
     applications on Windows, Mac, or Linux
@@ -56,10 +56,10 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/11331/asp.net-core.png
-  detection_source_url: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
+  detection_source_url: https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
   detection_source: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  last_updated_by: Guilherme Branco Stracini
-  last_updated_on: 2023-08-30 13:17:00.000000000 Z
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-11-27 23:25:12.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -77,9 +77,9 @@ tools:
   category: Build, Test, Deploy
   sub_category: Continuous Integration
   image_url: https://img.stackshare.io/service/11563/actions.png
-  detection_source: ".github/workflows/qodana.yml"
+  detection_source: ".github/workflows/build-merge-tool.yml"
   last_updated_by: dependabot[bot]
-  last_updated_on: 2023-09-05 08:14:04.000000000 Z
+  last_updated_on: 2023-12-04 23:51:30.000000000 Z
 - name: NuGet
   description: The package manager for .NET
   website_url: https://www.nuget.org/
@@ -89,8 +89,8 @@ tools:
   sub_category: Package Managers
   image_url: https://img.stackshare.io/service/2637/6I3oEOP4_400x400.jpg
   detection_source: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  last_updated_by: Guilherme Branco Stracini
-  last_updated_on: 2023-08-30 13:17:00.000000000 Z
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-11-27 23:25:12.000000000 Z
 - name: Visual Studio
   description: State-of-the-art tools and services that you can use to create great
     apps for devices, the cloud, and everything in between.
@@ -115,6 +115,16 @@ tools:
   detection_source: ".vscode/tasks.json"
   last_updated_by: Guilherme Branco Stracini
   last_updated_on: 2023-08-30 13:17:00.000000000 Z
+- name: Shell
+  description: A shell is a text-based terminal, used for manipulating programs and
+    files. Shell scripts typically manage program execution.
+  website_url: https://en.wikipedia.org/wiki/Shell_script
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png
+  detection_source: Repo Metadata
 - name: Newtonsoft.Json
   description: Json.NET is a popular high-performance JSON framework for .NET
   package_url: https://www.nuget.org/Newtonsoft.Json
@@ -125,35 +135,22 @@ tools:
   category: Libraries
   sub_category: NuGet Packages
   image_url: https://img.stackshare.io/package/nuget/image.png
-  detection_source_url: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
+  detection_source_url: https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
   detection_source: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  last_updated_by: Guilherme Branco Stracini
-  last_updated_on: 2023-08-30 13:17:00.000000000 Z
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-11-27 23:25:12.000000000 Z
 - name: System.Text.Encoding.CodePages
   description: Provides support for code-page based encodings, including Windows-1252,
     Shift-JIS, and GB2312
   package_url: https://www.nuget.org/System.Text.Encoding.CodePages
-  version: 7.0.0
+  version: 8.0.0
   license: MIT
   open_source: true
   hosted_saas: false
   category: Libraries
   sub_category: NuGet Packages
   image_url: https://img.stackshare.io/package/12953/default_e7f4dfb8f4634d3de09f6ace4c8d9767d3189c61.png
-  detection_source_url: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
+  detection_source_url: https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
   detection_source: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  last_updated_by: Guilherme Branco Stracini
-  last_updated_on: 2023-08-30 13:17:00.000000000 Z
-- name: iTextSharp
-  description: 'PLEASE NOTE: iTextSharp is EOL, and has been replaced by iText 7'
-  package_url: https://www.nuget.org/iTextSharp
-  version: 5.5.13
-  open_source: false
-  hosted_saas: false
-  category: Libraries
-  sub_category: NuGet Packages
-  image_url: https://img.stackshare.io/package/13253/default_6134e5c981cbd06883a0ffc7dceb761ee17cfca4.png
-  detection_source_url: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  detection_source: BancosBrasileiros.MergeTool/BancosBrasileiros.MergeTool.csproj
-  last_updated_by: Guilherme Branco Stracini
-  last_updated_on: 2023-08-30 13:17:00.000000000 Z
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-11-27 23:25:12.000000000 Z
