@@ -113,14 +113,12 @@ internal class Seeder
                 continue;
             }
 
-            var longNameSame = bank.LongName
-                .RemoveDiacritics()
+            var longNameSame = bank.LongName.RemoveDiacritics()
                 .Equals(
                     str.LongName.RemoveDiacritics(),
                     StringComparison.InvariantCultureIgnoreCase
                 );
-            var shortNameSame = bank.ShortName
-                .RemoveDiacritics()
+            var shortNameSame = bank.ShortName.RemoveDiacritics()
                 .Equals(
                     str.ShortName.RemoveDiacritics(),
                     StringComparison.InvariantCultureIgnoreCase
@@ -207,8 +205,7 @@ internal class Seeder
             }
 
             if (
-                !bank.LongName
-                    .RemoveDiacritics()
+                !bank.LongName.RemoveDiacritics()
                     .Equals(
                         sitraf.LongName.RemoveDiacritics(),
                         StringComparison.InvariantCultureIgnoreCase
@@ -256,16 +253,14 @@ internal class Seeder
             {
                 bank = _source.SingleOrDefault(
                     b =>
-                        b.LongName
-                            .RemoveDiacritics()
+                        b.LongName.RemoveDiacritics()
                             .Equals(
                                 slc.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
                             )
                         || (
                             b.ShortName != null
-                            && b.ShortName
-                                .RemoveDiacritics()
+                            && b.ShortName.RemoveDiacritics()
                                 .Equals(
                                     slc.LongName.RemoveDiacritics(),
                                     StringComparison.InvariantCultureIgnoreCase
@@ -361,16 +356,14 @@ internal class Seeder
         {
             var bank = _source.SingleOrDefault(
                 b =>
-                    b.LongName
-                        .RemoveDiacritics()
+                    b.LongName.RemoveDiacritics()
                         .Equals(
                             spi.LongName.RemoveDiacritics(),
                             StringComparison.InvariantCultureIgnoreCase
                         )
                     || (
                         b.ShortName != null
-                        && b.ShortName
-                            .RemoveDiacritics()
+                        && b.ShortName.RemoveDiacritics()
                             .Equals(
                                 spi.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
@@ -440,16 +433,14 @@ internal class Seeder
             {
                 bank = _source.SingleOrDefault(
                     b =>
-                        b.LongName
-                            .RemoveDiacritics()
+                        b.LongName.RemoveDiacritics()
                             .Equals(
                                 ctc.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
                             )
                         || (
                             b.ShortName != null
-                            && b.ShortName
-                                .RemoveDiacritics()
+                            && b.ShortName.RemoveDiacritics()
                                 .Equals(
                                     ctc.LongName.RemoveDiacritics(),
                                     StringComparison.InvariantCultureIgnoreCase
@@ -554,16 +545,14 @@ internal class Seeder
 
             bank ??= _source.SingleOrDefault(
                 b =>
-                    b.LongName
-                        .RemoveDiacritics()
+                    b.LongName.RemoveDiacritics()
                         .Equals(
                             siloc.LongName.RemoveDiacritics(),
                             StringComparison.InvariantCultureIgnoreCase
                         )
                     || (
                         b.ShortName != null
-                        && b.ShortName
-                            .RemoveDiacritics()
+                        && b.ShortName.RemoveDiacritics()
                             .Equals(
                                 siloc.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
@@ -644,16 +633,14 @@ internal class Seeder
 
             bank ??= _source.SingleOrDefault(
                 b =>
-                    b.LongName
-                        .RemoveDiacritics()
+                    b.LongName.RemoveDiacritics()
                         .Equals(
                             pcps.LongName.RemoveDiacritics(),
                             StringComparison.InvariantCultureIgnoreCase
                         )
                     || (
                         b.ShortName != null
-                        && b.ShortName
-                            .RemoveDiacritics()
+                        && b.ShortName.RemoveDiacritics()
                             .Equals(
                                 pcps.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
