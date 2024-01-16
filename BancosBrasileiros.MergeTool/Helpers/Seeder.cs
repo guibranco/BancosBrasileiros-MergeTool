@@ -245,27 +245,26 @@ internal class Seeder
 
         foreach (var slc in items)
         {
-            var bank = _source.SingleOrDefault(
-                b => b.Document != null && b.Document.Equals(slc.Document)
+            var bank = _source.SingleOrDefault(b =>
+                b.Document != null && b.Document.Equals(slc.Document)
             );
 
             if (bank == null)
             {
-                bank = _source.SingleOrDefault(
-                    b =>
-                        b.LongName.RemoveDiacritics()
+                bank = _source.SingleOrDefault(b =>
+                    b.LongName.RemoveDiacritics()
+                        .Equals(
+                            slc.LongName.RemoveDiacritics(),
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                    || (
+                        b.ShortName != null
+                        && b.ShortName.RemoveDiacritics()
                             .Equals(
                                 slc.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
                             )
-                        || (
-                            b.ShortName != null
-                            && b.ShortName.RemoveDiacritics()
-                                .Equals(
-                                    slc.LongName.RemoveDiacritics(),
-                                    StringComparison.InvariantCultureIgnoreCase
-                                )
-                        )
+                    )
                 );
             }
 
@@ -288,13 +287,12 @@ internal class Seeder
                     continue;
                 }
 
-                bank = _source.SingleOrDefault(
-                    b =>
-                        b.Ispb.Equals(ispb)
-                        && b.LongName.Contains(
-                            slc.LongName,
-                            StringComparison.InvariantCultureIgnoreCase
-                        )
+                bank = _source.SingleOrDefault(b =>
+                    b.Ispb.Equals(ispb)
+                    && b.LongName.Contains(
+                        slc.LongName,
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
                 );
             }
 
@@ -354,21 +352,20 @@ internal class Seeder
 
         foreach (var spi in items)
         {
-            var bank = _source.SingleOrDefault(
-                b =>
-                    b.LongName.RemoveDiacritics()
+            var bank = _source.SingleOrDefault(b =>
+                b.LongName.RemoveDiacritics()
+                    .Equals(
+                        spi.LongName.RemoveDiacritics(),
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
+                || (
+                    b.ShortName != null
+                    && b.ShortName.RemoveDiacritics()
                         .Equals(
                             spi.LongName.RemoveDiacritics(),
                             StringComparison.InvariantCultureIgnoreCase
                         )
-                    || (
-                        b.ShortName != null
-                        && b.ShortName.RemoveDiacritics()
-                            .Equals(
-                                spi.LongName.RemoveDiacritics(),
-                                StringComparison.InvariantCultureIgnoreCase
-                            )
-                    )
+                )
             );
 
             bank ??= _source.SingleOrDefault(b => b.Ispb.Equals(spi.Ispb));
@@ -425,27 +422,26 @@ internal class Seeder
 
         foreach (var ctc in items)
         {
-            var bank = _source.SingleOrDefault(
-                b => b.Document != null && b.Document.Equals(ctc.Document)
+            var bank = _source.SingleOrDefault(b =>
+                b.Document != null && b.Document.Equals(ctc.Document)
             );
 
             if (bank == null)
             {
-                bank = _source.SingleOrDefault(
-                    b =>
-                        b.LongName.RemoveDiacritics()
+                bank = _source.SingleOrDefault(b =>
+                    b.LongName.RemoveDiacritics()
+                        .Equals(
+                            ctc.LongName.RemoveDiacritics(),
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                    || (
+                        b.ShortName != null
+                        && b.ShortName.RemoveDiacritics()
                             .Equals(
                                 ctc.LongName.RemoveDiacritics(),
                                 StringComparison.InvariantCultureIgnoreCase
                             )
-                        || (
-                            b.ShortName != null
-                            && b.ShortName.RemoveDiacritics()
-                                .Equals(
-                                    ctc.LongName.RemoveDiacritics(),
-                                    StringComparison.InvariantCultureIgnoreCase
-                                )
-                        )
+                    )
                 );
             }
 
@@ -468,13 +464,12 @@ internal class Seeder
                     continue;
                 }
 
-                bank = _source.SingleOrDefault(
-                    b =>
-                        b.Ispb.Equals(ispb)
-                        && b.LongName.Contains(
-                            ctc.LongName,
-                            StringComparison.InvariantCultureIgnoreCase
-                        )
+                bank = _source.SingleOrDefault(b =>
+                    b.Ispb.Equals(ispb)
+                    && b.LongName.Contains(
+                        ctc.LongName,
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
                 );
             }
 
@@ -539,25 +534,24 @@ internal class Seeder
 
         foreach (var siloc in items)
         {
-            var bank = _source.SingleOrDefault(
-                b => b.IspbString != null && b.IspbString.Equals(siloc.IspbString)
+            var bank = _source.SingleOrDefault(b =>
+                b.IspbString != null && b.IspbString.Equals(siloc.IspbString)
             );
 
-            bank ??= _source.SingleOrDefault(
-                b =>
-                    b.LongName.RemoveDiacritics()
+            bank ??= _source.SingleOrDefault(b =>
+                b.LongName.RemoveDiacritics()
+                    .Equals(
+                        siloc.LongName.RemoveDiacritics(),
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
+                || (
+                    b.ShortName != null
+                    && b.ShortName.RemoveDiacritics()
                         .Equals(
                             siloc.LongName.RemoveDiacritics(),
                             StringComparison.InvariantCultureIgnoreCase
                         )
-                    || (
-                        b.ShortName != null
-                        && b.ShortName.RemoveDiacritics()
-                            .Equals(
-                                siloc.LongName.RemoveDiacritics(),
-                                StringComparison.InvariantCultureIgnoreCase
-                            )
-                    )
+                )
             );
 
             if (bank == null)
@@ -627,25 +621,24 @@ internal class Seeder
 
         foreach (var pcps in items)
         {
-            var bank = _source.SingleOrDefault(
-                b => b.Document != null && b.Document.Equals(pcps.Document)
+            var bank = _source.SingleOrDefault(b =>
+                b.Document != null && b.Document.Equals(pcps.Document)
             );
 
-            bank ??= _source.SingleOrDefault(
-                b =>
-                    b.LongName.RemoveDiacritics()
+            bank ??= _source.SingleOrDefault(b =>
+                b.LongName.RemoveDiacritics()
+                    .Equals(
+                        pcps.LongName.RemoveDiacritics(),
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
+                || (
+                    b.ShortName != null
+                    && b.ShortName.RemoveDiacritics()
                         .Equals(
                             pcps.LongName.RemoveDiacritics(),
                             StringComparison.InvariantCultureIgnoreCase
                         )
-                    || (
-                        b.ShortName != null
-                        && b.ShortName.RemoveDiacritics()
-                            .Equals(
-                                pcps.LongName.RemoveDiacritics(),
-                                StringComparison.InvariantCultureIgnoreCase
-                            )
-                    )
+                )
             );
 
             if (bank == null)
@@ -667,13 +660,12 @@ internal class Seeder
                     continue;
                 }
 
-                bank = _source.SingleOrDefault(
-                    b =>
-                        b.Ispb.Equals(ispb)
-                        && b.LongName.Contains(
-                            pcps.LongName,
-                            StringComparison.InvariantCultureIgnoreCase
-                        )
+                bank = _source.SingleOrDefault(b =>
+                    b.Ispb.Equals(ispb)
+                    && b.LongName.Contains(
+                        pcps.LongName,
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
                 );
             }
 
