@@ -154,25 +154,18 @@ internal class Reader
         return lines
             .Select(line => Patterns.CsvPattern.Split(line))
             .Where(columns => columns.Length > 1 && int.TryParse(columns[2], out _))
-            .Select(
-                columns =>
-                    new Bank
-                    {
-                        CompeString = columns[2],
-                        Document = columns[0].Trim(),
-                        IspbString = columns[0],
-                        LongName = columns[5].Replace("\"", "").Replace("?", "-").Trim(),
-                        ShortName = columns[1].Trim(),
-                        DateOperationStarted = DateTime
-                            .ParseExact(
-                                columns[6].Trim(),
-                                "dd/MM/yyyy",
-                                CultureInfo.InvariantCulture
-                            )
-                            .ToString("yyyy-MM-dd"),
-                        Network = columns[4]
-                    }
-            )
+            .Select(columns => new Bank
+            {
+                CompeString = columns[2],
+                Document = columns[0].Trim(),
+                IspbString = columns[0],
+                LongName = columns[5].Replace("\"", "").Replace("?", "-").Trim(),
+                ShortName = columns[1].Trim(),
+                DateOperationStarted = DateTime
+                    .ParseExact(columns[6].Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                    .ToString("yyyy-MM-dd"),
+                Network = columns[4]
+            })
             .ToList();
     }
 
@@ -198,25 +191,22 @@ internal class Reader
         return lines
             .Select(line => Patterns.SsvPattern.Split(line))
             .Where(columns => columns.Length > 1 && int.TryParse(columns[0], out _))
-            .Select(
-                columns =>
-                    new Bank
-                    {
-                        IspbString = columns[0],
-                        LongName = columns[1],
-                        ShortName = columns[2],
-                        PixType = columns[4],
-                        DatePixStarted = DateTime
-                            .Parse(
-                                columns[5].Trim(),
-                                CultureInfo.InvariantCulture,
-                                DateTimeStyles.AssumeLocal
-                            )
-                            .ToUniversalTime()
-                            .AddHours(-3)
-                            .ToString("yyyy-MM-dd HH:mm:ss")
-                    }
-            )
+            .Select(columns => new Bank
+            {
+                IspbString = columns[0],
+                LongName = columns[1],
+                ShortName = columns[2],
+                PixType = columns[4],
+                DatePixStarted = DateTime
+                    .Parse(
+                        columns[5].Trim(),
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.AssumeLocal
+                    )
+                    .ToUniversalTime()
+                    .AddHours(-3)
+                    .ToString("yyyy-MM-dd HH:mm:ss")
+            })
             .ToList();
     }
 
