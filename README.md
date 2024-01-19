@@ -44,12 +44,12 @@ Here is a step-by-step on how to add a new source of data to the merge tool:
 Currently this tool use some sources for the data generated. The complete list of sources can be found at [Constants.cs](https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/Helpers/Constants.cs)
 
 - [Bancos.json](https://github.com/guibranco/BancosBrasileiros/blob/main/data/bancos.json) - Source of truth - the base JSON file with trusted data. Any manual change should be done in this file.
-- [STR](https://www.bcb.gov.br/content/estabilidadefinanceira/str1/ParticipantesSTR.csv) - The STR (Sistema de Transferência de Reservas) file.
-- [SPI](https://www.bcb.gov.br/content/estabilidadefinanceira/spi/participantes-spi-20240101.csv) - The SPI/PIX participants (SPI PSPs), always with the current date.
-- [SLC](https://www2.nuclea.com.br/Monitoramento/Participantes_Homologados.pdf) - The SLC (Serviço de Liquidação Cartões)
-- [SILOC](https://www2.nuclea.com.br/Monitoramento/SILOC.pdf) - The SILOC
-- [SITRAF](https://www2.nuclea.com.br/Monitoramento/Rela%C3%A7%C3%A3o%20de%20Clientes%20SITRAF.pdf) - The SITRAF
-- [CTC](https://www2.nuclea.com.br/SAP/CTC.pdf) - The CTC
-- [PCPS](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20PCPS.pdf) - The PCPS
-- [Cheque Legal](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20CQL.pdf) - The Cheque Legal
-- [DetectaFlow](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf) - The DetectaFlow
+- [STR](https://www.bcb.gov.br/content/estabilidadefinanceira/str1/ParticipantesSTR.csv) - The STR (Sistema de Transferência de Reservas).
+- [SPI](https://www.bcb.gov.br/content/estabilidadefinanceira/spi/participantes-spi-20240101.csv) - The SPI/PIX (Sistema de Pagamentos Instantâneos) PSP (Participantes do Sistema de Pagamentos), always with the current date.
+- [SLC](https://www2.nuclea.com.br/Monitoramento/Participantes_Homologados.pdf) - The SLC (Serviço de Liquidação Cartões).
+- [SILOC](https://www2.nuclea.com.br/Monitoramento/SILOC.pdf) - The SILOC (Sistema de Liquidação Diferida das Transferências Interbancárias de Ordens de Crédito).
+- [SITRAF](https://www2.nuclea.com.br/Monitoramento/Rela%C3%A7%C3%A3o%20de%20Clientes%20SITRAF.pdf) - The SITRAF (Sistema de Transferência de Fundos).
+- [CTC](https://www2.nuclea.com.br/SAP/CTC.pdf) - The CTC (Central de Transferência de Crédito).
+- [PCPS](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20PCPS.pdf) - The PCPS (Plataforma Centralizada de Portabilidade de Salário).
+- [Cheque Legal](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20CQL.pdf) - The Cheque Legal.
+- [Detecta Flow](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf) - The Detecta Flow.
