@@ -52,4 +52,4 @@ Currently this tool use some sources for the data generated. The complete list o
 - [CTC](https://www2.nuclea.com.br/SAP/CTC.pdf) - The CTC (Central de Transferência de Crédito).
 - [PCPS](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20PCPS.pdf) - The PCPS (Plataforma Centralizada de Portabilidade de Salário).
 - [Cheque Legal](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20CQL.pdf) - The Cheque Legal.
-- [DetectaFlow](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf) - The Detecta Flow.
+- [Detecta Flow](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf) - The Detecta Flow.
