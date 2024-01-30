@@ -113,12 +113,14 @@ internal class Seeder
                 continue;
             }
 
-            var longNameSame = bank.LongName.RemoveDiacritics()
+            var longNameSame = bank
+                .LongName.RemoveDiacritics()
                 .Equals(
                     str.LongName.RemoveDiacritics(),
                     StringComparison.InvariantCultureIgnoreCase
                 );
-            var shortNameSame = bank.ShortName.RemoveDiacritics()
+            var shortNameSame = bank
+                .ShortName.RemoveDiacritics()
                 .Equals(
                     str.ShortName.RemoveDiacritics(),
                     StringComparison.InvariantCultureIgnoreCase
@@ -205,7 +207,8 @@ internal class Seeder
             }
 
             if (
-                !bank.LongName.RemoveDiacritics()
+                !bank
+                    .LongName.RemoveDiacritics()
                     .Equals(
                         sitraf.LongName.RemoveDiacritics(),
                         StringComparison.InvariantCultureIgnoreCase
