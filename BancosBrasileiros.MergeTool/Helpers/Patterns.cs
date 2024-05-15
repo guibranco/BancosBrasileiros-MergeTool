@@ -117,7 +117,7 @@ internal static class Patterns
     /// </summary>
     public static readonly Regex PcrPattern =
         new(
-            @"^(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<compe>\d{3})\s+(?<ispb>\d{7,8})\s(?<pcr>.{3})\s(?<pcrp>.{3})(.+?)$",
+            @"^(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<compe>\d{3})\s+(?<ispb>\d{7,8})\s(?<pcr>.{3})\s(?<pcrp>.{3})(.+)?$",
             RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled,
             TimeSpan.FromSeconds(5)
         );

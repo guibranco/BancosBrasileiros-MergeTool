@@ -786,7 +786,6 @@ internal class Reader
 
         foreach (var line in lines)
         {
-            Logger.Log("Line: " + line, ConsoleColor.DarkGray);
             if (!Patterns.PcrPattern.IsMatch(line))
             {
                 spliced.Append($" {line}");
