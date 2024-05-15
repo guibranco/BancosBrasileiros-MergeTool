@@ -335,6 +335,70 @@ public sealed class Bank : IEquatable<Bank>
     public bool DetectaFlow { get; set; }
 
     /// <summary>
+    /// Gets or sets the PCR.
+    /// </summary>
+    /// <value>The PCR.</value>
+    [JsonProperty("PCR")]
+    [XmlElement("PCR")]
+    [Display(Name = "PCR")]
+    public bool? Pcr
+    {
+        get =>
+            string.IsNullOrWhiteSpace(PcrStr)
+                ? null
+                : PcrStr.Equals("sim", StringComparison.InvariantCultureIgnoreCase);
+        set
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            PcrStr = value.Value ? "sim" : "não";
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the PCR string.
+    /// </summary>
+    /// <value>The PCR string.</value>
+    [JsonIgnore]
+    [XmlIgnore]
+    public string PcrStr { get; set; }
+
+    /// <summary>
+    /// Gets or sets the PCRP.
+    /// </summary>
+    /// <value>The PCRP.</value>
+    [JsonProperty("PCRP")]
+    [XmlElement("PCRP")]
+    [Display(Name = "PCRP")]
+    public bool? Pcrp
+    {
+        get =>
+            string.IsNullOrWhiteSpace(PcrpStr)
+                ? null
+                : PcrpStr.Equals("sim", StringComparison.InvariantCultureIgnoreCase);
+        set
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            PcrpStr = value.Value ? "sim" : "não";
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the PCRP string.
+    /// </summary>
+    /// <value>The PCRP string.</value>
+    [JsonIgnore]
+    [XmlIgnore]
+    public string PcrpStr { get; set; }
+
+    /// <summary>
     /// Gets or sets the salary portability.
     /// </summary>
     /// <value>The salary portability.</value>
@@ -468,6 +532,8 @@ public sealed class Bank : IEquatable<Bank>
             && string.Equals(PixType, other.PixType, StringComparison.InvariantCultureIgnoreCase)
             && LegalCheque == other.LegalCheque
             && DetectaFlow == other.DetectaFlow
+            && Pcr == other.Pcr
+            && Pcrp == other.Pcrp
             //&& Equals(Products, other.Products)
             && string.Equals(
                 SalaryPortability,
@@ -535,6 +601,8 @@ public sealed class Bank : IEquatable<Bank>
             hashCode.Add(PixType ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
             hashCode.Add(LegalCheque);
             hashCode.Add(DetectaFlow);
+            hashCode.Add(Pcr);
+            hashCode.Add(Pcrp);
             hashCode.Add(
                 SalaryPortability ?? string.Empty,
                 StringComparer.InvariantCultureIgnoreCase
@@ -625,6 +693,10 @@ public sealed class Bank : IEquatable<Bank>
         strBuilder.Append($"Legal cheque: {LegalCheque} | ");
 
         strBuilder.Append($"Detecta Flow: {DetectaFlow} | ");
+
+        strBuilder.Append($"PCR: {Pcr} | ");
+
+        strBuilder.Append($"PCRP: {Pcrp} | ");
 
         if (!string.IsNullOrWhiteSpace(SalaryPortability))
         {

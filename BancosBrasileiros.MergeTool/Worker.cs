@@ -87,6 +87,9 @@ internal class Worker
         var pcps = reader.LoadPcps();
         logBuilder.AppendFormat("PCPS: {0} | ", pcps.Count);
 
+        var pcr = reader.LoadPcr();
+        logBuilder.AppendFormat("PCR: {0} | ", pcr.Count);
+
         logBuilder.AppendLine();
 
         Logger.Log(logBuilder.ToString(), ConsoleColor.DarkGreen);
@@ -101,7 +104,8 @@ internal class Worker
             .SeedSiloc(siloc)
             .SeedPcps(pcps)
             .SeedCql(cql)
-            .SeedDetectaFlow(detectaFlow);
+            .SeedDetectaFlow(detectaFlow)
+            .SeedPcr(pcr);
     }
 
     /// <summary>
