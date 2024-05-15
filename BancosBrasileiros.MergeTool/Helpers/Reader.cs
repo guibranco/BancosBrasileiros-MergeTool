@@ -483,13 +483,18 @@ internal class Reader
         var lines = page.Split("\n");
 
         var spliced = new StringBuilder();
+        var splicedCount = 0;
 
         foreach (var line in lines)
         {
             if (!Patterns.CtcPattern.IsMatch(line))
             {
                 spliced.Append($" {line}");
-                continue;
+                splicedCount++;
+                if (splicedCount < 2)
+                {
+                    continue;
+                }
             }
 
             Bank bank;
@@ -504,6 +509,7 @@ internal class Reader
                 }
 
                 spliced.Clear();
+                splicedCount = 0;
             }
 
             bank = ParseLineCtc(line);

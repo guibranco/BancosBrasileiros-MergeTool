@@ -47,7 +47,7 @@ internal static class Patterns
     /// </summary>
     public static readonly Regex SlcPattern =
         new(
-            @"^(?<code>\d{1,3})\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s(?<nome>.+?)(?:[\s|X]){1,7}$",
+            @"^(?<code>\d{1,3})\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s(?<nome>.+?)(?:[\s|X]){2,7}(Confidencial)?$",
             RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled,
             TimeSpan.FromSeconds(5)
         );
@@ -77,7 +77,7 @@ internal static class Patterns
     /// </summary>
     public static readonly Regex CtcPattern =
         new(
-            @"^(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<ispb>\d{8})\s(?<produtos>.+?)$",
+            @"^\s?(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<ispb>\d{8})\s(?<produtos>.+?)$",
             RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled,
             TimeSpan.FromSeconds(5)
         );
@@ -107,7 +107,7 @@ internal static class Patterns
     /// </summary>
     public static readonly Regex DetectaFlowPattern =
         new(
-            @"^(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<ispb>\d{7,8})$",
+            @"^(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<ispb>\d{7,8})(.+?)$",
             RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled,
             TimeSpan.FromSeconds(5)
         );
@@ -117,7 +117,7 @@ internal static class Patterns
     /// </summary>
     public static readonly Regex PcrPattern =
         new(
-            @"^(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<compe>\d{3})\s+(?<ispb>\d{7,8})\s(?<pcr>.{3})\s(?<pcrp>.{3})\r$",
+            @"^(?<code>\d{1,3})\s(?<nome>.+?)\s(?<cnpj>\d{1,2}\.\d{3}\.\d{3}(?:.|\/)\d{4}([-|·|\.|\s]{1,2})\d{2})\s+(?<compe>\d{3})\s+(?<ispb>\d{7,8})\s(?<pcr>.{3})\s(?<pcrp>.{3})(.+?)$",
             RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled,
             TimeSpan.FromSeconds(5)
         );
