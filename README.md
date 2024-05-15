@@ -51,5 +51,6 @@ Currently, this tool uses some sources to generate data. The complete list of so
 - [SITRAF](https://www2.nuclea.com.br/Monitoramento/Rela%C3%A7%C3%A3o%20de%20Clientes%20SITRAF.pdf) - The SITRAF (Sistema de Transferência de Fundos).
 - [CTC](https://www2.nuclea.com.br/SAP/CTC.pdf) - The CTC (Central de Transferência de Crédito).
 - [PCPS](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20PCPS.pdf) - The PCPS (Plataforma Centralizada de Portabilidade de Salário).
+- [PCR](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20PCR.pdf) - The PCR (Plataforma Centralizada de Recebíveis).
 - [Cheque Legal](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20CQL.pdf) - The Cheque Legal.
 - [Detecta Flow](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf) - The Detecta Flow.
