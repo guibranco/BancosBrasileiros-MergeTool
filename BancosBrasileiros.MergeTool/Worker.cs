@@ -56,43 +56,65 @@ internal class Worker
     /// <param name="source">The source.</param>
     private static void AcquireData(Reader reader, List<Bank> source)
     {
+        var items = new Dictionary<Source, int>();
         var logBuilder = new StringBuilder("\r\n");
 
         logBuilder.AppendFormat("Source: {0} | ", source.Count);
+        items.Add(Source.Base, source.Count);
 
         var cql = reader.LoadCql();
         logBuilder.AppendFormat("CQL: {0} | ", cql.Count);
+        items.Add(Source.Cql, cql.Count);
 
         var ctc = reader.LoadCtc();
         logBuilder.AppendFormat("CTC: {0} | ", ctc.Count);
+        items.Add(Source.Ctc, ctc.Count);
 
         var detectaFlow = reader.LoadDetectaFlow();
         logBuilder.AppendFormat("Detecta Flow: {0} | ", detectaFlow.Count);
+        items.Add(Source.DetectaFlow, detectaFlow.Count);
 
         var siloc = reader.LoadSiloc();
         logBuilder.AppendFormat("SILOC: {0} | ", siloc.Count);
+        items.Add(Source.Siloc, siloc.Count);
 
         var sitraf = reader.LoadSitraf();
         logBuilder.AppendFormat("SITRAF: {0} | ", sitraf.Count);
+        items.Add(Source.Sitraf, sitraf.Count);
 
         var slc = reader.LoadSlc();
         logBuilder.AppendFormat("SLC: {0} | ", slc.Count);
+        items.Add(Source.Slc, slc.Count);
 
         var spi = reader.LoadSpi();
         logBuilder.AppendFormat("SPI: {0} | ", spi.Count);
+        items.Add(Source.Spi, spi.Count);
 
         var str = reader.LoadStr();
         logBuilder.AppendFormat("STR: {0} | ", str.Count);
+        items.Add(Source.Str, str.Count);
 
         var pcps = reader.LoadPcps();
         logBuilder.AppendFormat("PCPS: {0} | ", pcps.Count);
+        items.Add(Source.Pcps, pcps.Count);
 
         var pcr = reader.LoadPcr();
         logBuilder.AppendFormat("PCR: {0} | ", pcr.Count);
+        items.Add(Source.Pcr, pcr.Count);
 
         logBuilder.AppendLine();
 
         Logger.Log(logBuilder.ToString(), ConsoleColor.DarkGreen);
+
+        if (items.Any(i => i.Value == 0))
+        {
+            var errorItems = items.Where(i => i.Value == 0).Select(i => i.Key.ToString());
+            Logger.Log(
+                "Items: " + string.Join(", ", errorItems) + " are empty",
+                ConsoleColor.DarkRed
+            );
+            Environment.Exit(3);
+        }
 
         new Seeder(source)
             .GenerateMissingDocument()
