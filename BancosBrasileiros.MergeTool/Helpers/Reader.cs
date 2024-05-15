@@ -62,6 +62,11 @@ internal class Reader
     private int _countingDetectaFlow;
 
     /// <summary>
+    /// The counting PCR
+    /// </summary>
+    private int _countingPcr;
+
+    /// <summary>
     /// Downloads the string.
     /// </summary>
     /// <param name="url">The URL.</param>
@@ -748,6 +753,93 @@ internal class Reader
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
             DetectaFlow = true
+        };
+    }
+
+    /// <summary>
+    /// Loads the PCR.
+    /// </summary>
+    /// <returns>List&lt;Bank&gt;.</returns>
+    public List<Bank> LoadPcr()
+    {
+        _countingPcr = 0;
+        return DownloadAndParsePdf(Constants.PcrUrl, Source.Pcr, ParsePagePcr);
+    }
+
+    /// <summary>
+    /// Parses the page PCR.
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <returns>IEnumerable&lt;Bank&gt;.</returns>
+    private IEnumerable<Bank> ParsePagePcr(string page)
+    {
+        var result = new List<Bank>();
+        var lines = page.Split("\n");
+
+        var spliced = new StringBuilder();
+
+        foreach (var line in lines)
+        {
+            if (!Patterns.PcrPattern.IsMatch(line))
+            {
+                spliced.Append($" {line}");
+                continue;
+            }
+
+            Bank bank;
+
+            if (!string.IsNullOrWhiteSpace(spliced.ToString()))
+            {
+                bank = ParseLinePcr(spliced.ToString().Trim());
+
+                if (bank != null)
+                {
+                    result.Add(bank);
+                }
+
+                spliced.Clear();
+            }
+
+            bank = ParseLinePcr(line);
+
+            if (bank != null)
+            {
+                result.Add(bank);
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Parses the line PCR.
+    /// </summary>
+    /// <param name="line">The line.</param>
+    /// <returns>Bank.</returns>
+    public Bank ParseLinePcr(string line)
+    {
+        if (!Patterns.PcrPattern.IsMatch(line))
+        {
+            return null;
+        }
+
+        var match = Patterns.PcrPattern.Match(line);
+        var code = Convert.ToInt32(match.Groups["code"].Value.Trim());
+
+        _countingPcr++;
+        if (_countingPcr != code)
+        {
+            Logger.Log($"PCR | Counting: {_countingPcr++} | Code: {code}", ConsoleColor.DarkYellow);
+        }
+
+        return new Bank
+        {
+            Document = match.Groups["cnpj"].Value.Trim(),
+            IspbString = match.Groups["ispb"].Value.Trim(),
+            Compe = Convert.ToInt32(match.Groups["compe"].Value.Trim()),
+            LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
+            PcrStr = match.Groups["pcr"].Value.Trim(),
+            PcrpStr = match.Groups["pcrp"].Value.Trim()
         };
     }
 }

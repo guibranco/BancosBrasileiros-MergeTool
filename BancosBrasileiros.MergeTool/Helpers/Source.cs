@@ -92,4 +92,10 @@ public enum Source
     /// </summary>
     [HumanReadable("STR")]
     Str,
+
+    /// <summary>
+    /// The PCR.
+    /// </summary>
+    [HumanReadable("PCR")]
+    Pcr,
 }

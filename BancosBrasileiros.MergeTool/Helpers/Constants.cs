@@ -4,7 +4,7 @@
 // Created          : 05-31-2022
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 06-01-2022
+// Last Modified On : 14-05-2024
 // ***********************************************************************
 // <copyright file="Constants.cs" company="Guilherme Branco Stracini ME">
 //     Copyright (c) . All rights reserved.
@@ -64,7 +64,8 @@ internal static class Constants
     /// <summary>
     /// The CTC URL
     /// </summary>
-    public const string CtcUrl = "https://www2.nuclea.com.br/SAP/CTC.pdf";
+    public const string CtcUrl =
+        "https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20CTC.pdf";
 
     /// <summary>
     /// The PCPS URL
@@ -83,4 +84,10 @@ internal static class Constants
     /// </summary>
     public const string DetectaFlowUrl =
         "https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf";
+
+    /// <summary>
+    /// The PCR URL
+    /// </summary>
+    public const string PcrUrl =
+        "https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20PCR.pdf";
 }

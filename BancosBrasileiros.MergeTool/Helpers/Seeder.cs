@@ -775,7 +775,7 @@ internal class Seeder
     /// Seeds the detecta flow.
     /// </summary>
     /// <param name="items">The items.</param>
-    public void SeedDetectaFlow(IEnumerable<Bank> items)
+    public Seeder SeedDetectaFlow(IEnumerable<Bank> items)
     {
         var found = 0;
         var upToDate = 0;
@@ -813,6 +813,63 @@ internal class Seeder
 
         Logger.Log(
             $"\r\nDetecta Flow | Found: {found} | Not found: {notFound} | Up to date: {upToDate}\r\n",
+            ConsoleColor.DarkYellow
+        );
+
+        return this;
+    }
+
+    /// <summary>
+    /// Seeds the PCR.
+    /// </summary>
+    /// <param name="items">The items.</param>
+    public void SeedPcr(IEnumerable<Bank> items)
+    {
+        var found = 0;
+        var upToDate = 0;
+        var notFound = 0;
+
+        Logger.Log("PCR\r\n", ConsoleColor.DarkYellow);
+
+        foreach (var pcr in items)
+        {
+            var bank = _source.SingleOrDefault(b => b.Ispb.Equals(pcr.Ispb));
+
+            if (bank == null)
+            {
+                Logger.Log(
+                    $"PCR | Bank not found: {pcr.LongName} | {pcr.Document.Trim()}",
+                    ConsoleColor.DarkRed
+                );
+                notFound++;
+                continue;
+            }
+
+            if (bank.Pcr == pcr.Pcr && bank.Pcrp == pcr.Pcrp)
+            {
+                Logger.Log(
+                    $"PCR | Bank {bank.Compe} PCR/PCRP is updated: {pcr.LongName}",
+                    ConsoleColor.DarkGreen
+                );
+                upToDate++;
+                continue;
+            }
+
+            if (bank.Pcr != pcr.Pcr)
+            {
+                bank.SetChange(Source.Pcr, x => x.Pcr, pcr.Pcr);
+            }
+
+            if (bank.Pcrp != pcr.Pcrp)
+            {
+                bank.SetChange(Source.Pcr, x => x.Pcrp, pcr.Pcrp);
+            }
+
+            found++;
+        }
+
+        Logger.Log(
+            $"\r\nPCR | Found: {found} | Not found: {notFound} | Up to date: {upToDate}\r\n",
             ConsoleColor.DarkYellow
         );
     }
