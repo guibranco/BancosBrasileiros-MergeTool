@@ -786,11 +786,9 @@ internal class Reader
 
         foreach (var line in lines)
         {
-            Logger.Log("Line: " + line, ConsoleColor.DarkGray);
             if (!Patterns.PcrPattern.IsMatch(line))
             {
                 spliced.Append($" {line}");
-                Logger.Log("Line invalid: " + line, ConsoleColor.DarkGray);
                 continue;
             }
 
@@ -828,7 +826,6 @@ internal class Reader
     {
         if (!Patterns.PcrPattern.IsMatch(line))
         {
-            Logger.Log("Line invalid 2: " + line, ConsoleColor.DarkGray);
             return null;
         }
 
