@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
 using CrispyWaffle.Extensions;
+using CrispyWaffle.I18n.PtBr;
 using CrispyWaffle.Validations;
 using Helpers;
 using Newtonsoft.Json;
