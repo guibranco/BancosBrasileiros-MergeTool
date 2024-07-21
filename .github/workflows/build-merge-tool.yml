@@ -29,6 +29,9 @@ jobs:
         run: dotnet restore
         
       - name: Build
+        env:
+          DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
+          TERM: xterm
         run: dotnet build --configuration Release --no-restore
 
       - name: Run
