@@ -134,6 +134,7 @@ public sealed class Bank : IEquatable<Bank>
     /// <value>The COMPE string.</value>
     [JsonProperty("COMPE")]
     [XmlElement("COMPE")]
+    [Display(Name = "COMPE")]
     public string CompeString
     {
         get => Compe.ToString("000");
@@ -160,6 +161,7 @@ public sealed class Bank : IEquatable<Bank>
     /// <value>The ispb string.</value>
     [JsonProperty("ISPB")]
     [XmlElement("ISPB")]
+    [Display(Name = "ISPB")]
     public string IspbString
     {
         get => Ispb.ToString("00000000");
@@ -183,6 +185,7 @@ public sealed class Bank : IEquatable<Bank>
     /// <value>The document.</value>
     [JsonProperty("Document")]
     [XmlElement("Document")]
+    [Display(Name = "Document")]
     public string Document
     {
         get => _document;
@@ -235,6 +238,7 @@ public sealed class Bank : IEquatable<Bank>
     /// <value>The network.</value>
     [JsonProperty("Network")]
     [XmlElement("Network")]
+    [Display(Name = "Network")]
     public string Network { get; set; }
 
     /// <summary>
@@ -243,6 +247,7 @@ public sealed class Bank : IEquatable<Bank>
     /// <value>The type.</value>
     [JsonProperty("Type")]
     [XmlElement("Type")]
+    [Display(Name = "Type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -260,6 +265,7 @@ public sealed class Bank : IEquatable<Bank>
     /// <value>The charge.</value>
     [JsonProperty("Charge")]
     [XmlElement("Charge")]
+    [Display(Name = "Charge")]
     public bool? Charge
     {
         get =>
@@ -427,7 +433,8 @@ public sealed class Bank : IEquatable<Bank>
     /// </summary>
     /// <value>The URL.</value>
     [JsonProperty("Url")]
-    [XmlElement("Url")]
+    [XmlElement("Url", IsNullable = true)]
+    [Display(Name = "Url")]
     public string Url
     {
         get => _url;
