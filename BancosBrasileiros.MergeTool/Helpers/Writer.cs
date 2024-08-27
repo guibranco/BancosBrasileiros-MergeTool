@@ -114,7 +114,7 @@ internal static class Writer
             "# Bancos Brasileiros",
             string.Empty,
             string.Join(" | ", GetFieldsDisplayNames),
-            string.Join(" | ", GetFieldsDisplayNames.Select(_ => "---"))
+            string.Join(" | ", GetFieldsDisplayNames.Select(_ => "---")),
         };
 
         lines.AddRange(
