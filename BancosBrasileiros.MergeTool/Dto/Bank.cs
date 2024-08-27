@@ -60,7 +60,7 @@ public sealed class Bank : IEquatable<Bank>
         {
             UnaryExpression { Operand: MemberExpression member } => member.Member.Name,
             MemberExpression { Member: PropertyInfo propertyInfo } => propertyInfo.Name,
-            _ => property
+            _ => property,
         };
 
         if (string.IsNullOrWhiteSpace(property))
@@ -75,7 +75,7 @@ public sealed class Bank : IEquatable<Bank>
         {
             Source = source,
             OldValue = currentValue.GetStringValue(),
-            NewValue = newValue.GetStringValue()
+            NewValue = newValue.GetStringValue(),
         };
 
         _changes.Add(property, changeModel);
