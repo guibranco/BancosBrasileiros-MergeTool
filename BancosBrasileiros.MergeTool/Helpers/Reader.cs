@@ -147,9 +147,19 @@ internal class Reader
     }
 
     /// <summary>
-    /// Loads the string.
+    /// Loads and processes data from a specified STR (Standardized Transaction Report) URL.
     /// </summary>
-    /// <returns>List&lt;Bank&gt;.</returns>
+    /// <remarks>
+    /// This method initiates a download of the STR data from a predefined URL, processes the downloaded string by splitting it into lines,
+    /// and then parses each line into a list of <see cref="Bank"/> objects.
+    /// The method skips the first line of the data (which is typically a header), and only includes lines that contain valid data
+    /// (i.e., lines with more than one column and where the third column can be parsed as an integer).
+    /// Each <see cref="Bank"/> object is populated with relevant fields extracted from the CSV formatted data,
+    /// including the document identifier, ISPB string, long name, short name, and the date when the operation started,
+    /// which is formatted to "yyyy-MM-dd".
+    /// The resulting list of <see cref="Bank"/> objects is returned to the caller.
+    /// </remarks>
+    /// <returns>A list of <see cref="Bank"/> objects populated with data from the STR.</returns>
     public List<Bank> LoadStr()
     {
         Logger.Log("Downloading STR", ConsoleColor.Green);
@@ -175,9 +185,17 @@ internal class Reader
     }
 
     /// <summary>
-    /// Loads the spi.
+    /// Loads the SPI (Sistema de Pagamentos Instantâneos) data for banks.
     /// </summary>
-    /// <returns>List&lt;Bank&gt;.</returns>
+    /// <remarks>
+    /// This method retrieves the SPI data by first logging the download action. It starts with today's date and attempts to fetch the data using the <c>GetPixData</c> method.
+    /// If the data is not available (i.e., it is null or whitespace), it continues to fetch data for previous days until valid data is retrieved.
+    /// The retrieved data is expected to be in a specific format, which is then processed line by line.
+    /// Each line is split into columns, and only those lines that contain valid bank information (with at least two columns and a valid ISPB number) are selected.
+    /// The method constructs a list of <c>Bank</c> objects from the valid lines, extracting relevant information such as ISPB string, long name, short name,
+    /// PIX type, and the date when PIX started. The date is parsed and adjusted to UTC format before being formatted as a string.
+    /// </remarks>
+    /// <returns>A list of <c>Bank</c> objects populated with SPI data.</returns>
     public List<Bank> LoadSpi()
     {
         Logger.Log("Downloading SPI", ConsoleColor.Green);
@@ -288,10 +306,18 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line SLC.
+    /// Parses a line of text to extract bank information based on a specific pattern.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of text to be parsed for bank information.</param>
+    /// <returns>A <see cref="Bank"/> object containing the extracted information, or null if the line does not match the expected pattern.</returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <c>Patterns.SlcPattern</c> to validate and extract data from the input line.
+    /// If the line matches the pattern, it retrieves the bank code, CNPJ, and long name from the matched groups.
+    /// The method also increments a counter (_countingSlc) to track how many lines have been processed.
+    /// If the current count does not match the extracted code, a log message is generated to indicate the discrepancy.
+    /// The resulting <see cref="Bank"/> object is populated with the CNPJ and long name, and returned to the caller.
+    /// If the input line does not match the expected pattern, the method returns null.
+    /// </remarks>
     private Bank ParseLineSlc(string line)
     {
         if (!Patterns.SlcPattern.IsMatch(line))
@@ -350,10 +376,16 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line siloc.
+    /// Parses a line of text according to the Siloc pattern and returns a Bank object.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of text to be parsed.</param>
+    /// <returns>A <see cref="Bank"/> object populated with data extracted from the input line, or null if the line does not match the expected pattern.</returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <see cref="Patterns.SilocPattern"/> to validate and extract information from the input string <paramref name="line"/>.
+    /// If the line matches the pattern, it retrieves values for various properties such as Compe, IspbString, LongName, ChargeStr, and CreditDocumentStr.
+    /// The extracted values are then converted and trimmed as necessary before being assigned to the corresponding properties of the new <see cref="Bank"/> object.
+    /// If the input line does not conform to the expected format, the method returns null, indicating that parsing was unsuccessful.
+    /// </remarks>
     private static Bank ParseLineSiloc(string line)
     {
         if (!Patterns.SilocPattern.IsMatch(line))
@@ -429,10 +461,17 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line sitraf.
+    /// Parses a line of SITRAF data and returns a corresponding Bank object.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of SITRAF data to be parsed.</param>
+    /// <returns>A <see cref="Bank"/> object populated with data from the parsed line, or null if the line does not match the expected pattern.</returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <see cref="Patterns.SitrafPattern"/> to validate and extract information from the input line.
+    /// If the line does not match the pattern, the method returns null.
+    /// If the line is valid, it extracts the code, compe, ispb, and long name from the matched groups.
+    /// The method also keeps track of how many SITRAF lines have been processed, logging a warning if the current count does not match the extracted code.
+    /// The resulting <see cref="Bank"/> object contains the extracted values, with the long name cleaned of any quotation marks.
+    /// </remarks>
     private Bank ParseLineSitraf(string line)
     {
         if (!Patterns.SitrafPattern.IsMatch(line))
@@ -524,10 +563,17 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line CTC.
+    /// Parses a line of text containing CTC (Código de Transação de Crédito) information and returns a Bank object.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of text to be parsed, which should match the CTC pattern.</param>
+    /// <returns>A <see cref="Bank"/> object populated with the parsed data, or null if the line does not match the expected pattern.</returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <see cref="Patterns.CtcPattern"/> to extract various components from the input line.
+    /// If the line does not match the pattern, the method returns null.
+    /// It increments a counter (_countingCtc) each time it successfully parses a line, and logs a message if the counter does not match the extracted code.
+    /// The method also processes product information by splitting it into individual items and ensuring they are sorted in ascending order.
+    /// The resulting <see cref="Bank"/> object contains fields such as Document, IspbString, LongName, and an array of Products.
+    /// </remarks>
     private Bank ParseLineCtc(string line)
     {
         if (!Patterns.CtcPattern.IsMatch(line))
@@ -617,10 +663,16 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line PCPS.
+    /// Parses a line of text to extract bank information based on a predefined pattern.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of text to be parsed for bank information.</param>
+    /// <returns>A <see cref="Bank"/> object containing the extracted bank details, or null if the line does not match the expected pattern.</returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <see cref="Patterns.PcpsPattern"/> to match and extract relevant data from the input line.
+    /// If the line does not match the pattern, the method returns null, indicating that no valid bank information could be parsed.
+    /// The method also increments a counter (_countingPcps) each time it is called, and logs a warning if the current count does not match the extracted code.
+    /// The extracted bank details include the document identifier (CNPJ), ISPB string, long name, and salary portability status.
+    /// </remarks>
     private Bank ParseLinePcps(string line)
     {
         if (!Patterns.PcpsPattern.IsMatch(line))
@@ -674,10 +726,17 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line CQL.
+    /// Parses a line of CQL (Common Query Language) and returns a corresponding Bank object.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of text to be parsed for CQL information.</param>
+    /// <returns>A <see cref="Bank"/> object populated with data extracted from the line, or null if the line does not match the expected pattern.</returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <see cref="Patterns.CqlPattern"/> to validate and extract information from the input line.
+    /// If the line does not match the pattern, the method returns null.
+    /// If the line is valid, it extracts the 'code', 'ispb', 'nome', and 'tipo' fields from the matched groups.
+    /// The method also increments a counting variable (_countingCql) and logs a message if the current count does not match the extracted code.
+    /// The returned Bank object will have its properties set based on the extracted values, with 'LegalCheque' set to true by default.
+    /// </remarks>
     private Bank ParseLineCql(string line)
     {
         if (!Patterns.CqlPattern.IsMatch(line))
@@ -730,10 +789,16 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line detecta flow.
+    /// Parses a line of text to detect a flow pattern and returns a corresponding Bank object.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of text to be parsed for the DetectaFlow pattern.</param>
+    /// <returns>A <see cref="Bank"/> object populated with data extracted from the line if the pattern matches; otherwise, returns null.</returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <see cref="Patterns.DetectaFlowPattern"/> to determine if the input line matches the expected format.
+    /// If the line matches, it extracts relevant information such as the document identifier (CNPJ), ISPB string, and long name from the matched groups.
+    /// The method also maintains a count of how many times it has detected a flow, logging a message if the current count does not match the extracted code from the line.
+    /// The returned <see cref="Bank"/> object indicates that a DetectaFlow was successfully parsed.
+    /// </remarks>
     private Bank ParseLineDetectaFlow(string line)
     {
         if (!Patterns.DetectaFlowPattern.IsMatch(line))
@@ -818,10 +883,19 @@ internal class Reader
     }
 
     /// <summary>
-    /// Parses the line PCR.
+    /// Parses a line of text to extract bank information based on a predefined pattern.
     /// </summary>
-    /// <param name="line">The line.</param>
-    /// <returns>Bank.</returns>
+    /// <param name="line">The line of text containing bank information to be parsed.</param>
+    /// <returns>
+    /// A <see cref="Bank"/> object containing the parsed bank information if the line matches the expected pattern; otherwise, returns null.
+    /// </returns>
+    /// <remarks>
+    /// This method uses a regular expression defined in <see cref="Patterns.PcrPattern"/> to match the input line.
+    /// If the line does not match the pattern, the method returns null. If a match is found, it extracts various groups from the match,
+    /// including the bank's CNPJ, ISPB, COMPE, long name, PCR string, and PCRP string.
+    /// The method also increments a counter (_countingPcr) and logs a message if the current count does not match the extracted code.
+    /// The resulting <see cref="Bank"/> object is populated with the extracted values and returned.
+    /// </remarks>
     public Bank ParseLinePcr(string line)
     {
         if (!Patterns.PcrPattern.IsMatch(line))
