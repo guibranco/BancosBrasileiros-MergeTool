@@ -169,7 +169,7 @@ internal class Reader
                 DateOperationStarted = DateTime
                     .ParseExact(columns[6].Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture)
                     .ToString("yyyy-MM-dd"),
-                Network = columns[4]
+                Network = columns[4],
             })
             .ToList();
     }
@@ -210,7 +210,7 @@ internal class Reader
                     )
                     .ToUniversalTime()
                     .AddHours(-3)
-                    .ToString("yyyy-MM-dd HH:mm:ss")
+                    .ToString("yyyy-MM-dd HH:mm:ss"),
             })
             .ToList();
     }
@@ -313,7 +313,7 @@ internal class Reader
         return new()
         {
             Document = match.Groups["cnpj"].Value.Trim(),
-            LongName = match.Groups["nome"].Value.Replace("\"", "").Trim()
+            LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
         };
     }
 
@@ -369,7 +369,7 @@ internal class Reader
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
             ChargeStr = match.Groups["cobranca"].Value.Trim(),
-            CreditDocumentStr = match.Groups["doc"].Value.Trim()
+            CreditDocumentStr = match.Groups["doc"].Value.Trim(),
         };
     }
 
@@ -458,7 +458,7 @@ internal class Reader
         {
             Compe = Convert.ToInt32(match.Groups["compe"].Value.Trim()),
             IspbString = match.Groups["ispb"].Value.Trim(),
-            LongName = match.Groups["nome"].Value.Replace("\"", "").Trim()
+            LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
         };
     }
 
@@ -557,7 +557,7 @@ internal class Reader
             Document = match.Groups["cnpj"].Value.Trim(),
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
-            Products = products.OrderBy(p => p).ToArray()
+            Products = products.OrderBy(p => p).ToArray(),
         };
     }
 
@@ -647,7 +647,7 @@ internal class Reader
             Document = match.Groups["cnpj"].Value.Trim(),
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
-            SalaryPortability = match.Groups["adesao"].Value.Trim().Replace("- 1 -", "")
+            SalaryPortability = match.Groups["adesao"].Value.Trim().Replace("- 1 -", ""),
         };
     }
 
@@ -699,7 +699,7 @@ internal class Reader
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
             Type = match.Groups["tipo"].Value.Trim(),
-            LegalCheque = true
+            LegalCheque = true,
         };
     }
 
@@ -758,7 +758,7 @@ internal class Reader
             Document = match.Groups["cnpj"].Value.Trim(),
             IspbString = match.Groups["ispb"].Value.Trim(),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
-            DetectaFlow = true
+            DetectaFlow = true,
         };
     }
 
@@ -845,7 +845,7 @@ internal class Reader
             Compe = Convert.ToInt32(match.Groups["compe"].Value.Trim()),
             LongName = match.Groups["nome"].Value.Replace("\"", "").Trim(),
             PcrStr = match.Groups["pcr"].Value.Trim(),
-            PcrpStr = match.Groups["pcrp"].Value.Trim()
+            PcrpStr = match.Groups["pcrp"].Value.Trim(),
         };
     }
 }
