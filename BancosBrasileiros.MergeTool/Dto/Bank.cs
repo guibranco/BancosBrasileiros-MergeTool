@@ -46,11 +46,21 @@ public sealed class Bank : IEquatable<Bank>
     private readonly Dictionary<string, ChangeModel> _changes = new();
 
     /// <summary>
-    /// Sets the change.
+    /// Sets a specified property of the current object to a new value and records the change.
     /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="predicate">The predicate.</param>
-    /// <param name="newValue">The new value.</param>
+    /// <param name="source">The source of the change, indicating where the change originated from.</param>
+    /// <param name="predicate">An expression that specifies the property to be changed.</param>
+    /// <param name="newValue">The new value to set for the specified property.</param>
+    /// <remarks>
+    /// This method uses a lambda expression to identify the property of the current object that needs to be updated.
+    /// It first compiles the expression to get the current value of the property. Then, it determines the property name
+    /// from the expression body, which can either be a member expression or a unary expression containing a member expression.
+    /// If the property name is invalid or cannot be determined, an exception is thrown.
+    /// After successfully setting the new value, the method updates the <c>DateUpdated</c> property to the current UTC time.
+    /// Additionally, it creates a <c>ChangeModel</c> instance to record the source of the change, along with the old and new values,
+    /// and adds this change model to an internal collection of changes.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the property specified by the predicate is invalid or cannot be determined.</exception>
     public void SetChange(Source source, Expression<Func<Bank, object>> predicate, object newValue)
     {
         var property = string.Empty;
