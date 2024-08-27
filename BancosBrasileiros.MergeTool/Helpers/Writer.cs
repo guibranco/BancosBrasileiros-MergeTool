@@ -104,9 +104,16 @@ internal static class Writer
     }
 
     /// <summary>
-    /// Saves the markdown.
+    /// Saves a collection of bank information to a Markdown file.
     /// </summary>
-    /// <param name="banks">The banks.</param>
+    /// <param name="banks">An enumerable collection of <see cref="Bank"/> objects containing bank details.</param>
+    /// <remarks>
+    /// This method generates a Markdown formatted file that lists Brazilian banks with their respective details.
+    /// It starts by creating a header with the title "Bancos Brasileiros" and includes a line for field names followed by a separator line.
+    /// Each bank's information is formatted into a specific structure, including fields such as Compe, Ispb, Document, LongName, ShortName, and various attributes related to the bank's services and operations.
+    /// The resulting lines are then written to a file named "bancos.md" in the "result" directory, using UTF-8 encoding.
+    /// If any field is not available or is null, it is represented by a dash ("-") in the output.
+    /// </remarks>
     private static void SaveMarkdown(IEnumerable<Bank> banks)
     {
         var lines = new List<string>
