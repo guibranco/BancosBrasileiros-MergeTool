@@ -3,6 +3,18 @@
 // Author           : Guilherme Branco Stracini
 // Created          : 18/05/2020
 //
+    public List<TaxInfo> PersonalTaxes { get; set; }
+    public List<TaxInfo> CorporateTaxes { get; set; }
+
+    public Bank()
+    {
+        PersonalTaxes = new List<TaxInfo>();
+        CorporateTaxes = new List<TaxInfo>();
+    }
+
+    public class TaxInfo
+    {
+        public string Name { get; set; }
 // Last Modified By : Guilherme Branco Stracini
 // Last Modified On : 06-01-2022
 // ***********************************************************************
