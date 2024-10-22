@@ -1,3 +1,13 @@
+public void LoadIFDATA()
+{
+    // Logic to fetch and parse data from IF.Data API
+}
+
+public void LoadSFA()
+{
+    // Logic to fetch and parse data from SFA - Open Finance API
+}
+
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
