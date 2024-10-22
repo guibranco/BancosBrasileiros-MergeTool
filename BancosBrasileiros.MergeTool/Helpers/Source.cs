@@ -1,6 +1,8 @@
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
+    BcbTaxes,
+    SfaOpenFinance
 // Created          : 06-01-2022
 //
 // Last Modified By : Guilherme Branco Stracini
