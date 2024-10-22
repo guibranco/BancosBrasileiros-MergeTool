@@ -1,3 +1,5 @@
+public const string IFDataApiUrl = "https://api.ifdata.com/v1/";
+public const string SFAOpenFinanceApiUrl = "https://api.sfaopenfinance.com/v1/";
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
