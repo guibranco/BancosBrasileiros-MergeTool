@@ -3,6 +3,8 @@
 🇧🇷 🏦 📋 The **Merge Tool** generates and updates data in the [Bancos Brasileiros](https://github.com/guibranco/BancosBrasileiros/) repository.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/f9sx7ux82epp8bd6?svg=true)](https://ci.appveyor.com/project/guibranco/bancosbrasileiros-MergeTool)
+-  Added functionality to fetch taxes and levies data from the Banco Central do Brasil (BCB) for all banks, based on their ISPB codes.
+-  Integrated data from the SFA - Open Finance participants directory into the application.
 [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/BancosBrasileiros-MergeTool)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
 [![GitHub license](https://img.shields.io/github/license/guibranco/BancosBrasileiros-MergeTool)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
 [![time tracker](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool.svg)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
