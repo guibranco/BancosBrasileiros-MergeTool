@@ -1,3 +1,5 @@
+public static readonly Regex TCBPattern = new Regex(@"TCB regex pattern");
+public static readonly Regex SRPattern = new Regex(@"SR regex pattern");
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
