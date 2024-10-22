@@ -1,3 +1,13 @@
+public void MergeIFDATA(List<Bank> banks)
+{
+    // Logic to merge IFDATA with existing banks
+}
+
+public void MergeSFA(List<Bank> banks)
+{
+    // Logic to merge SFA with existing banks
+}
+
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
