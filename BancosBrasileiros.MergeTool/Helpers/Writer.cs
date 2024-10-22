@@ -3,6 +3,8 @@
 // Author           : Guilherme Branco Stracini
 // Created          : 19/05/2020
 //
+        csv.WriteField("PersonalTaxes");
+        csv.WriteField("CorporateTaxes");
 // Last Modified By : Guilherme Branco Stracini
 // Last Modified On : 16/09/2022
 // ***********************************************************************
