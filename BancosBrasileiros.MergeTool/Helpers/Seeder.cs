@@ -1,6 +1,26 @@
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
+    public void MergeBcbTaxes(List<Bank> banks, List<TaxInfo> taxes)
+    {
+        foreach (var bank in banks)
+        {
+            var bankTaxes = taxes.Where(t => t.BankIspb == bank.Ispb);
+            bank.PersonalTaxes.AddRange(bankTaxes.Where(t => t.Type == "Personal"));
+            bank.CorporateTaxes.AddRange(bankTaxes.Where(t => t.Type == "Corporate"));
+        }
+    }
+
+    public void MergeSfaOpenFinance(List<Bank> banks, List<SfaParticipant> participants)
+    {
+        // Implement merging logic for SFA Open Finance participants
+    }
+}
+
+public class SfaParticipant
+{
+    // Define properties for SFA Open Finance participants
+}
 // Created          : 19/05/2020
 //
 // Last Modified By : Guilherme Branco Stracini
