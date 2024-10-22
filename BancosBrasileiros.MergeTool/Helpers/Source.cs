@@ -1,3 +1,5 @@
+IFDATA,
+SFA,
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
