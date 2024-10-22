@@ -1,3 +1,15 @@
+public void SaveCsv(List<Bank> banks)
+{
+    // Logic to save banks to CSV including new fields
+}
+
+public void SaveMarkdown(List<Bank> banks)
+{
+    // Logic to save banks to Markdown including new fields
+}
+
+public void SaveSql(List<Bank> banks)
+{
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
