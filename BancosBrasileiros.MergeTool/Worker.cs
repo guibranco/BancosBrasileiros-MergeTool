@@ -3,6 +3,8 @@
 // Author           : Guilherme Branco Stracini
 // Created          : 19/05/2020
 //
+    reader.LoadBcbTaxes();
+    reader.LoadSfaOpenFinance();
 // Last Modified By : Guilherme Branco Stracini
 // Last Modified On : 06-01-2022
 // ***********************************************************************
