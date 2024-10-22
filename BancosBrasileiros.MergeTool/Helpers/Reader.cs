@@ -3,6 +3,26 @@
 // Author           : Guilherme Branco Stracini
 // Created          : 05-19-2020
 //
+    public void LoadBcbTaxes()
+    {
+        // Loop through all banks' ISPB codes
+        foreach (var bank in banks)
+        {
+            var personalUrl = string.Format(Constants.BcbTaxesPersonalUrl, bank.Ispb);
+            var corporateUrl = string.Format(Constants.BcbTaxesCorporateUrl, bank.Ispb);
+
+            var personalDoc = new HtmlWeb().Load(personalUrl);
+            var corporateDoc = new HtmlWeb().Load(corporateUrl);
+
+            // Parse HTML to extract taxes and levies information
+            // Add parsed data to bank.PersonalTaxes and bank.CorporateTaxes
+        }
+    }
+
+    public void LoadSfaOpenFinance()
+    {
+        // Implement SFA Open Finance data loading logic here
+    }
 // Last Modified By : Guilherme Branco Stracini
 // Last Modified On : 06-01-2022
 // ***********************************************************************
