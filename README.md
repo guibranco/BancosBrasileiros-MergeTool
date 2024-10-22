@@ -1,3 +1,4 @@
+Updated to include new data sources: IF.Data and SFA - Open Finance.
 # Bancos Brasileiros - Merge Tool
 
 🇧🇷 🏦 📋 The **Merge Tool** generates and updates data in the [Bancos Brasileiros](https://github.com/guibranco/BancosBrasileiros/) repository.
