@@ -1,3 +1,11 @@
+public string TCB { get; set; }
+public string SR { get; set; }
+public string TC { get; set; }
+public string City { get; set; }
+public string State { get; set; }
+public int Agencies { get; set; }
+public int ServiceStations { get; set; }
+
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
