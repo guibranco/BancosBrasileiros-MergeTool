@@ -1,3 +1,9 @@
+public void AcquireData()
+{
+    LoadIFDATA();
+    LoadSFA();
+    MergeIFDATA();
+    MergeSFA();
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
