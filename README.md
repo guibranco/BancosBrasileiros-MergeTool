@@ -8,6 +8,7 @@
 [![time tracker](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool.svg)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
 
 ![Bancos Brasileiros logo](https://raw.githubusercontent.com/guibranco/BancosBrasileiros-MergeTool/main/logo.png)
+-  To generate YAML output, use the `--format=yaml` or `-f yaml` option.
 
 ---
 
