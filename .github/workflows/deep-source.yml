@@ -3,6 +3,7 @@ name: Deep Source
 on:
   push:
     branches:
+          dotnet test BancosBrasileiros.MergeTool.Tests/BancosBrasileiros.MergeTool.Tests.csproj
       - main
   pull_request:
     types: [opened, synchronize, reopened]
