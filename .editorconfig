@@ -1,3 +1,6 @@
+# YAML files
+[*.yml]
+indent_style = space
 ﻿[*.{cs,vb}]
 
 # IDE0041: Use 'is null' check
