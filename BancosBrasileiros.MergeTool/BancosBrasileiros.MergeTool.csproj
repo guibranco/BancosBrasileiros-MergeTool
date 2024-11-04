@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CrispyWaffle" Version="8.2.265" />
-    <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="8.2.185" />
+    <PackageReference Include="CrispyWaffle" Version="8.2.270" />
+    <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="8.2.270" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PdfPig" Version="0.1.9" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
