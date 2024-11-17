@@ -1,6 +1,6 @@
 using FluentAssertions;
 
-namespace POCTemplate.Tests;
+namespace BancosBrasileiros.MergeTool.Tests.Tests;
 
 public class UnitTest1
 {
