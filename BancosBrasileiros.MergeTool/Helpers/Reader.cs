@@ -252,7 +252,7 @@ internal class Reader
         {
             return DownloadString(string.Format(Constants.SpiUrl, date));
         }
-        catch (WebException)
+        catch (Exception)
         {
             return null;
         }
