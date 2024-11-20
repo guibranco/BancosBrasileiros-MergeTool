@@ -74,6 +74,7 @@ internal class Reader
     private static string DownloadString(string url)
     {
         using var client = new HttpClient();
+        client.DefaultRequestHeaders.Add("User-Agent", "BancosBrasileiros/1.0 (+https://github.com/guibranco/bancosbrasileiros)");
         using var response = client.GetAsync(url).Result;
         using var content = response.Content;
         return content.ReadAsStringAsync().Result;
@@ -87,6 +88,7 @@ internal class Reader
     private static byte[] DownloadBytes(string url)
     {
         using var client = new HttpClient();
+        client.DefaultRequestHeaders.Add("User-Agent", "BancosBrasileiros/1.0 (+https://github.com/guibranco/bancosbrasileiros)");
         return client.GetByteArrayAsync(url).Result;
     }
 
