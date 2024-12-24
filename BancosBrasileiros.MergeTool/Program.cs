@@ -8,7 +8,6 @@
 // ***********************************************************************
 // <copyright file="Program.cs" company="Guilherme Branco Stracini ME">
 //     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-        static string outputFormat = "json"; // default format
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,11 +17,6 @@ namespace BancosBrasileiros.MergeTool;
 using System;
 using System.Text;
 using Helpers;
-
-            if (args.Length > 0 && args[0].StartsWith("--format="))
-            {
-                outputFormat = args[0].Split('=')[1];
-            }
 
 /// <summary>
 /// Class Program.
@@ -42,9 +36,3 @@ static class Program
         worker.Work();
     }
 }
-            switch (outputFormat.ToLower())
-            {
-                case "yaml":
-                    Writer.SaveYaml(banks);
-                    break;
-                    break;
