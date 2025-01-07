@@ -1,4 +1,4 @@
-name: Build MergeTool
+name: Build
 
 on:
   push:
@@ -7,9 +7,6 @@ on:
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-env:
-  DOTNET_VERSION: '8.0.x'
   
 jobs:
   build:
@@ -23,7 +20,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: '9.0.x'
           
       - name: Dotnet restore
         run: dotnet restore
