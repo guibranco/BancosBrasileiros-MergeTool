@@ -1,29 +1,24 @@
-name: CSharp Linting
+name: Linter check
 
 on:
-  push:
   workflow_dispatch:
-
-env:
-  DOTNET_VERSION: '8.0.x'
+  pull_request:
 
 jobs:
   linter-check:
     runs-on: ubuntu-latest
     steps:
-    
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Dotnet restore
         run: dotnet tool restore
 
-      - name: Csharpier format check
+      - name: CSharpier format check
         run: |
           dotnet csharpier . --check
           echo "run 'dotnet build' to fix the formatting of the code automatically"
