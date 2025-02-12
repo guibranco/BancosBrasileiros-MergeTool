@@ -1,3 +1,6 @@
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+
 ﻿// ***********************************************************************
 // Assembly         : BancosBrasileiros.MergeTool
 // Author           : Guilherme Branco Stracini
@@ -98,6 +101,26 @@ internal static class Writer
             banks.Select(bank =>
                 $"{bank.Compe:000},{bank.Ispb:00000000},{bank.Document},{bank.LongName.Replace(",", "")},{bank.ShortName.Replace(",", "")},{bank.Network},{bank.Type},{bank.PixType},{(string.IsNullOrWhiteSpace(bank.ChargeStr) ? "" : bank.ChargeStr.ToCamelCase())},{(string.IsNullOrWhiteSpace(bank.CreditDocumentStr) ? "" : bank.CreditDocumentStr.ToCamelCase())},{(bank.LegalCheque ? "Sim" : "Não")},{(bank.DetectaFlow ? "Sim" : "Não")},{(string.IsNullOrWhiteSpace(bank.PcrStr) ? "" : bank.PcrStr.ToCamelCase())},{(string.IsNullOrWhiteSpace(bank.PcrpStr) ? "" : bank.PcrpStr.ToCamelCase())},{bank.SalaryPortability},{(bank.Products == null ? "" : string.Join("; ", bank.Products))},{bank.Url},{bank.DateOperationStarted},{bank.DatePixStarted},{bank.DateRegistered:O},{bank.DateUpdated:O}"
             )
+    private static void SaveYaml(IEnumerable<Bank> banks)
+    {
+        var serializer = new SerializerBuilder()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build();
+
+        var yaml = serializer.Serialize(banks);
+
+        var resultDirectory = Path.Combine(Directory.GetCurrentDirectory(), "result");
+        if (!Directory.Exists(resultDirectory))
+        {
+            Directory.CreateDirectory(resultDirectory);
+        }
+
+        var filePath = Path.Combine(resultDirectory, "bancos.yml");
+        File.WriteAllText(filePath, yaml);
+    }
+
+    // Existing methods for other formats...
+
         );
 
         File.WriteAllLines($"result{Path.DirectorySeparatorChar}bancos.csv", lines, Encoding.UTF8);
