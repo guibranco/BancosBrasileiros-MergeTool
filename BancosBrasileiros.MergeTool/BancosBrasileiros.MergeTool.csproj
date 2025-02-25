@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CrispyWaffle" Version="9.1.318" />
+    <PackageReference Include="CrispyWaffle" Version="10.0.2" />
     <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="9.1.318" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PdfPig" Version="0.1.9" />
