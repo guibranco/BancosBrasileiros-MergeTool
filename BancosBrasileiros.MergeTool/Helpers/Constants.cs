@@ -48,7 +48,7 @@ internal static class Constants
     /// The SLC URL.
     /// </summary>
     public const string SlcUrl =
-        "https://www2.nuclea.com.br/Monitoramento/Participantes_Homologados.pdf";
+        "https://www2.nuclea.com.br/Monitoramento/Participantes%20Homologados.pdf";
 
     /// <summary>
     /// The SILOC URL.
