@@ -1,56 +1,136 @@
 # Bancos Brasileiros - Merge Tool
 
-🇧🇷 🏦 📋 The **Merge Tool** generates and updates data in the [Bancos Brasileiros](https://github.com/guibranco/BancosBrasileiros/) repository.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/guibranco/BancosBrasileiros-MergeTool/main/logo.png" alt="Bancos Brasileiros logo" width="300"/>
+</p>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/f9sx7ux82epp8bd6?svg=true)](https://ci.appveyor.com/project/guibranco/bancosbrasileiros-MergeTool)
-[![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/BancosBrasileiros-MergeTool)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
-[![GitHub license](https://img.shields.io/github/license/guibranco/BancosBrasileiros-MergeTool)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
-[![time tracker](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool.svg)](https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool)
+<p align="center">
+  🇧🇷 🏦 📋 A tool for generating and updating data in the <a href="https://github.com/guibranco/BancosBrasileiros/">Bancos Brasileiros</a> repository
+</p>
 
-![Bancos Brasileiros logo](https://raw.githubusercontent.com/guibranco/BancosBrasileiros-MergeTool/main/logo.png)
+<p align="center">
+  <a href="https://ci.appveyor.com/project/guibranco/bancosbrasileiros-MergeTool"><img src="https://ci.appveyor.com/api/projects/status/f9sx7ux82epp8bd6?svg=true" alt="Build status"></a>
+  <a href="https://github.com/guibranco/BancosBrasileiros-MergeTool/commits/main"><img src="https://img.shields.io/github/last-commit/guibranco/BancosBrasileiros-MergeTool" alt="GitHub last commit"></a>
+  <a href="https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/LICENSE"><img src="https://img.shields.io/github/license/guibranco/BancosBrasileiros-MergeTool" alt="GitHub license"></a>
+  <a href="https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool"><img src="https://wakatime.com/badge/github/guibranco/BancosBrasileiros-MergeTool.svg" alt="time tracker"></a>
+</p>
 
 ---
 
-## Contributing
+## 📋 About
 
-Here is a step-by-step on how to add a new source of data to the merge tool:
+The BancosBrasileiros-MergeTool is a utility designed to gather, process, and consolidate Brazilian banking institution data from multiple official sources. This tool ensures that the [Bancos Brasileiros](https://github.com/guibranco/BancosBrasileiros/) repository contains the most up-to-date and accurate information about financial institutions in Brazil.
 
--  Check out [MergeTool](https://github.com/guibranco/BancosBrasileiros-MergeTool).
--  Open VS, VS Code, Rider, or your favorite IDE / Code Editor for .NET projects.
--  Load the project (currently, it is in **C# .NET 8.0**).
--  Add the required URLs to the `Constants.cs` file.
--  Add a new enum item in the `Source.cs` file. Please use the source system acronyms whenever possible.
--  Add a new method in the `Reader.cs` called **Load\[NewSystemAcronym]**. This should do all the heavy job of grabbing the information from the remote source.
--  If the new source provides a PDF file, follow the other method patterns to extract the PDF information from the file.
--  Implements the data extraction the way you prefer if it is not a PDF file.
--  If you need to use RegExp to extract data, add it to the `Patterns.cs` file.
--  Add the new field(s) to the `Bank.cs` file.
--  In the `Seeder.cs` file, implement the method **Merge\[NewSystemAcronym]** to merge the new data with the existing ones. I prefer to filter the data by *ISPB* and then *Document* to check for existing data. Rely on the existing list. **DO NOT ADD** new bank to the list if it is not present with **COMPE, ISPB, Document, and Name at least**. These are mandatory fields, if you have all this information, and you did not find the bank on the existing list, feel free to add it to the list. (Let me know this in the PR comment).
-- Call the new methods (**Load\[NewSystemAcronym]r** and **Merge\[NewSystemAcronym]**) in the `AcquireData` method inside the `Program.cs` file.
--  On the `Writer.cs` file, edit the following methods, mapping the new field(s):
-   -  `SaveCsv`
-   -  `SaveMarkdown`
-   -  `SaveSql`
- -  Test it 🧪 
- -  Commit and submit a PR 🎉
+## 🔄 Data Sources
 
-### Testing
+The tool currently collects and merges data from the following sources:
 
--  You can run the application locally without submitting any changes to this repository.
--  Run how many times you need, it will only generate some files in the output directory inside **result** directory.
+| Source | Description | Data Type |
+|--------|-------------|-----------|
+| [Bancos.json](https://github.com/guibranco/BancosBrasileiros/blob/main/data/bancos.json) | Source of truth - base JSON with trusted data | JSON |
+| [STR](https://www.bcb.gov.br/content/estabilidadefinanceira/str1/ParticipantesSTR.csv) | Sistema de Transferência de Reservas | CSV |
+| [SPI/PIX](https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/Helpers/Constants.cs#L45) | Sistema de Pagamentos Instantâneos | CSV |
+| [SLC](https://www2.nuclea.com.br/Monitoramento/Participantes_Homologados.pdf) | Serviço de Liquidação Cartões | PDF |
+| [SILOC](https://www2.nuclea.com.br/Monitoramento/SILOC.pdf) | Sistema de Liquidação Diferida das Transferências Interbancárias de Ordens de Crédito | PDF |
+| [SITRAF](https://www2.nuclea.com.br/Monitoramento/Rela%C3%A7%C3%A3o%20de%20Clientes%20SITRAF.pdf) | Sistema de Transferência de Fundos | PDF |
+| [CTC](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20CTC.pdf) | Central de Transferência de Crédito | PDF |
+| [PCPS](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20PCPS.pdf) | Plataforma Centralizada de Portabilidade de Salário | PDF |
+| [PCR](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20PCR.pdf) | Plataforma Centralizada de Recebíveis | PDF |
+| [Cheque Legal](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20CQL.pdf) | Cheque Legal | PDF |
+| [Detecta Flow](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf) | Detecta Flow | PDF |
 
-### Sources
+## 💻 Technology
 
-Currently, this tool uses some sources to generate data. The complete list of sources can be found at [Constants.cs](https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/Helpers/Constants.cs)
+- **Language**: C# (.NET 9.0)
+- **Features**: PDF data extraction, data merging, output in multiple formats
 
-- [Bancos.json](https://github.com/guibranco/BancosBrasileiros/blob/main/data/bancos.json) - Source of truth - the base JSON file with trusted data. Any manual change should be done in this file.
-- [STR](https://www.bcb.gov.br/content/estabilidadefinanceira/str1/ParticipantesSTR.csv) - The STR (Sistema de Transferência de Reservas).
-- [SPI](https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/Helpers/Constants.cs#L45) - The SPI/PIX (Sistema de Pagamentos Instantâneos) PSP (Participantes do Sistema de Pagamentos), always with the current date.
-- [SLC](https://www2.nuclea.com.br/Monitoramento/Participantes_Homologados.pdf) - The SLC (Serviço de Liquidação Cartões).
-- [SILOC](https://www2.nuclea.com.br/Monitoramento/SILOC.pdf) - The SILOC (Sistema de Liquidação Diferida das Transferências Interbancárias de Ordens de Crédito).
-- [SITRAF](https://www2.nuclea.com.br/Monitoramento/Rela%C3%A7%C3%A3o%20de%20Clientes%20SITRAF.pdf) - The SITRAF (Sistema de Transferência de Fundos).
-- [CTC](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20CTC.pdf) - The CTC (Central de Transferência de Crédito).
-- [PCPS](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20PCPS.pdf) - The PCPS (Plataforma Centralizada de Portabilidade de Salário).
-- [PCR](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20PCR.pdf) - The PCR (Plataforma Centralizada de Recebíveis).
-- [Cheque Legal](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20CQL.pdf) - The Cheque Legal.
-- [Detecta Flow](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Participantes%20-%20Detecta%20Flow.pdf) - The Detecta Flow.
+## 🚀 Getting Started
+
+### Prerequisites
+
+- .NET 9.0 SDK or later
+- Your preferred IDE (Visual Studio, VS Code, Rider, etc.)
+
+### Running Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/guibranco/BancosBrasileiros-MergeTool.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd BancosBrasileiros-MergeTool
+   ```
+
+3. Build and run the project:
+   ```bash
+   dotnet build
+   dotnet run
+   ```
+
+Output files will be generated in the `result` directory.
+
+## 🤝 Contributing
+
+We welcome contributions to improve the MergeTool! Here's how to add a new data source:
+
+### Step-by-Step Guide
+
+1. **Fork and Clone** the repository:
+   ```bash
+   git clone https://github.com/YourUsername/BancosBrasileiros-MergeTool.git
+   ```
+
+2. **Open the project** in your preferred IDE.
+
+3. **Add Required Information**:
+   - Add URLs to `Constants.cs`
+   - Add a new enum item in `Source.cs` (use system acronyms when possible)
+
+4. **Implement Data Reader**:
+   - Create a new method in `Reader.cs` named `Load[NewSystemAcronym]`
+   - For PDF sources, follow the existing patterns for extraction
+   - For other formats, implement appropriate extraction logic
+   - If using RegExp, add patterns to `Patterns.cs`
+
+5. **Update Data Model**:
+   - Add new fields to the `Bank.cs` file
+
+6. **Implement Data Merging**:
+   - Create a method in `Seeder.cs` named `Merge[NewSystemAcronym]`
+   - Filter data by ISPB and Document to find existing entries
+   - Only add new banks if they have COMPE, ISPB, Document, and Name (minimum required fields)
+
+7. **Update Program Flow**:
+   - Call your new methods in the `AcquireData` method in `Program.cs`
+
+8. **Update Output Writers**:
+   - Edit the following methods in `Writer.cs` to include your new fields:
+     - `SaveCsv`
+     - `SaveMarkdown`
+     - `SaveSql`
+
+9. **Test Your Changes**:
+   - Run the application locally to verify it works correctly
+   - Check the generated files in the `result` directory
+
+10. **Submit a Pull Request**:
+    - Commit your changes
+    - Push to your fork
+    - Create a PR with a detailed description of your changes
+
+### Important Notes
+
+- **Testing**: You can run the application locally as many times as needed without affecting the repository
+- **New Banks**: If adding new bank entries, please mention this in your PR comment
+- **Mandatory Fields**: Ensure all new bank entries have COMPE, ISPB, Document, and Name at minimum
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+
+- Thanks to all contributors who have helped improve this tool
+- Thanks to the Brazilian financial institutions for providing the data sources
