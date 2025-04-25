@@ -225,12 +225,13 @@ internal class Reader
             .Select(columns => new Bank
             {
                 IspbString = columns[0],
-                LongName = columns[1],
-                ShortName = columns[2],
-                PixType = columns[4],
+                Document = columns[1],
+                LongName = columns[2],
+                ShortName = columns[3],
+                PixType = columns[5],
                 DatePixStarted = DateTime
                     .Parse(
-                        columns[5].Trim(),
+                        columns[6].Trim(),
                         CultureInfo.InvariantCulture,
                         DateTimeStyles.AssumeLocal
                     )
