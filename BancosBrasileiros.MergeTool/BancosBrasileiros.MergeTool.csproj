@@ -1,16 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <Company>Guilherme Branco Stracini ME</Company>
     <Authors>Guilherme Branco Stracini</Authors>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="CrispyWaffle" Version="10.0.185" />
     <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="10.0.172" />
@@ -18,5 +15,4 @@
     <PackageReference Include="PdfPig" Version="0.1.10" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.4" />
   </ItemGroup>
-
 </Project>
