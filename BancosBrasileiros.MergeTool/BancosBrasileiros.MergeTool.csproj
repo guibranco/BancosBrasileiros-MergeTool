@@ -1,23 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <Company>Guilherme Branco Stracini ME</Company>
     <Authors>Guilherme Branco Stracini</Authors>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="CrispyWaffle" Version="10.0.185" />
+    <PackageReference Include="CrispyWaffle" Version="10.0.203" />
     <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="10.0.172" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PdfPig" Version="0.1.10" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.4" />
   </ItemGroup>
-
 </Project>
