@@ -355,7 +355,7 @@ internal class Seeder
 
         foreach (var spi in items)
         {
-            var bank = _source.SingleOrDefault(b =>
+            var banks = _source.Where(b =>
                 b.LongName.RemoveDiacritics()
                     .Equals(
                         spi.LongName.RemoveDiacritics(),
@@ -369,7 +369,15 @@ internal class Seeder
                             StringComparison.InvariantCultureIgnoreCase
                         )
                 )
-            );
+            )
+            .ToList();
+
+            if (banks.Count > 1)
+            {
+                Logger.Log($"SPI | Multiple PSP founds with same name: {spi.LongName}/{spi.ShortName}", ConsoleColor.DarkRed);    
+            }
+            
+            var bank = _source.FirstOrDefault();
 
             bank ??= _source.SingleOrDefault(b => b.Ispb.Equals(spi.Ispb));
 
