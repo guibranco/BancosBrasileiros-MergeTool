@@ -381,7 +381,7 @@ internal class Seeder
                 );
             }
 
-            var bank = _source.FirstOrDefault();
+            var bank = banks.FirstOrDefault();
 
             bank ??= _source.SingleOrDefault(b => b.Ispb.Equals(spi.Ispb));
 
