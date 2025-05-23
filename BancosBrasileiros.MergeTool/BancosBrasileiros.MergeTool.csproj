@@ -6,6 +6,7 @@
     <Authors>Guilherme Branco Stracini</Authors>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
