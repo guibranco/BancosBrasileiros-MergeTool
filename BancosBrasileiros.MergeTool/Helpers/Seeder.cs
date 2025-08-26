@@ -797,7 +797,7 @@ internal class Seeder
 
         foreach (var detectaFlow in items)
         {
-            var bank = _source.SingleOrDefault(b => b.Ispb.Equals(detectaFlow.Ispb));
+            var bank = _source.SingleOrDefault(b => b.Document.Equals(detectaFlow.Document));
 
             if (bank == null)
             {
@@ -886,3 +886,4 @@ internal class Seeder
         );
     }
 }
+
