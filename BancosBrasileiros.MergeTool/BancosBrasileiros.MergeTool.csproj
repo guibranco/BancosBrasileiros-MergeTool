@@ -9,8 +9,8 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CrispyWaffle" Version="10.0.837" />
-    <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="10.0.837" />
+    <PackageReference Include="CrispyWaffle" Version="10.0.865" />
+    <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="10.0.865" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="PdfPig" Version="0.1.11" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.10" />
