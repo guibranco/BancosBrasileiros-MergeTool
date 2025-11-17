@@ -13,6 +13,6 @@
     <PackageReference Include="CrispyWaffle.I18n.PtBr" Version="10.0.910" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="PdfPig" Version="0.1.11" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.10" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" />
   </ItemGroup>
 </Project>
