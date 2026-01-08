@@ -30,7 +30,7 @@ The tool currently collects and merges data from the following sources:
 | [Bancos.json](https://github.com/guibranco/BancosBrasileiros/blob/main/data/bancos.json) | Source of truth - base JSON with trusted data | JSON |
 | [STR](https://www.bcb.gov.br/content/estabilidadefinanceira/str1/ParticipantesSTR.csv) | Sistema de Transferência de Reservas | CSV |
 | [SPI/PIX](https://github.com/guibranco/BancosBrasileiros-MergeTool/blob/main/BancosBrasileiros.MergeTool/Helpers/Constants.cs#L45) | Sistema de Pagamentos Instantâneos | CSV |
-| [SLC](https://www2.nuclea.com.br/Monitoramento/Participantes_Homologados.pdf) | Serviço de Liquidação Cartões | PDF |
+| [SLC](https://www2.nuclea.com.br/Monitoramento/Participantes%20Homologados.pdf) | Serviço de Liquidação Cartões | PDF |
 | [SILOC](https://www2.nuclea.com.br/Monitoramento/SILOC.pdf) | Sistema de Liquidação Diferida das Transferências Interbancárias de Ordens de Crédito | PDF |
 | [SITRAF](https://www2.nuclea.com.br/Monitoramento/Rela%C3%A7%C3%A3o%20de%20Clientes%20SITRAF.pdf) | Sistema de Transferência de Fundos | PDF |
 | [CTC](https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20CTC.pdf) | Central de Transferência de Crédito | PDF |
