@@ -79,6 +79,12 @@ internal class Reader
             "BancosBrasileiros/1.0 (+https://github.com/guibranco/bancosbrasileiros)"
         );
         using var response = client.GetAsync(url).Result;
+
+        if(response.StatusCode != HttpStatusCode.OK)
+        {
+            return null;
+        }
+
         using var content = response.Content;
         return content.ReadAsStringAsync().Result;
     }

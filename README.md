@@ -41,7 +41,7 @@ The tool currently collects and merges data from the following sources:
 
 ## 💻 Technology
 
-- **Language**: C# (.NET 9.0)
+- **Language**: C# (.NET 10.0)
 - **Features**: PDF data extraction, data merging, output in multiple formats
 
 ## 🚀 Getting Started
