@@ -80,7 +80,7 @@ internal class Reader
         );
         using var response = client.GetAsync(url).Result;
 
-        if(response.StatusCode != HttpStatusCode.OK)
+        if (response.StatusCode != HttpStatusCode.OK)
         {
             return null;
         }
