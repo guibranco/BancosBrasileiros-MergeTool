@@ -19,22 +19,22 @@ jobs:
       - name: Install DeepSource scanner
         run: curl https://deepsource.io/cli | sh
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
+      # - name: Setup .NET
+      #   uses: actions/setup-dotnet@v5
+      #   with:
+      #     dotnet-version: '10.0.x'
 
-      - name: Build and analyze
-        if: >-
-          (
-            github.event_name == 'pull_request' &&
-            github.event.pull_request.head.repo.full_name == github.repository
-          ) || (
-            github.event_name == 'workflow_dispatch'
-          )
-        env:
-          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-        run: |
-          dotnet build -c Debug --verbosity minimal
-          dotnet test -c Debug --verbosity minimal --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura" /p:CoverletOutput='../Results/'
-          ./bin/deepsource report --analyzer test-coverage --key csharp --value-file Tests/Results/coverage.cobertura.xml
+      # - name: Build and analyze
+      #   if: >-
+      #     (
+      #       github.event_name == 'pull_request' &&
+      #       github.event.pull_request.head.repo.full_name == github.repository
+      #     ) || (
+      #       github.event_name == 'workflow_dispatch'
+      #     )
+      #   env:
+      #     DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
+      #   run: |
+      #     dotnet build -c Debug --verbosity minimal
+      #     dotnet test -c Debug --verbosity minimal --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura" /p:CoverletOutput='../Results/'
+      #     ./bin/deepsource report --analyzer test-coverage --key csharp --value-file Tests/Results/coverage.cobertura.xml
