@@ -48,7 +48,7 @@ The tool currently collects and merges data from the following sources:
 
 ### Prerequisites
 
-- .NET 9.0 SDK or later
+- .NET 10.0 SDK or later
 - Your preferred IDE (Visual Studio, VS Code, Rider, etc.)
 
 ### Running Locally
