@@ -88,9 +88,12 @@ public sealed class Bank : IEquatable<Bank>
             NewValue = newValue.GetStringValue(),
         };
 
-        if(_changes.ContainsKey(property))
+        if (_changes.ContainsKey(property))
         {
-            Logger.Log($"Property '{property}' already has a change recorded. Overwriting the existing change.", ConsoleColor.DarkYellow);
+            Logger.Log(
+                $"Property '{property}' already has a change recorded. Overwriting the existing change.",
+                ConsoleColor.DarkYellow
+            );
             _changes[property] = changeModel;
             return;
         }
