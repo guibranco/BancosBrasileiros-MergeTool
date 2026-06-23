@@ -9,7 +9,13 @@ using Xunit;
 
 public class SeederTests
 {
-    private static Bank MakeBank(int compe, int ispb, string longName, string shortName = null, string document = null) =>
+    private static Bank MakeBank(
+        int compe,
+        int ispb,
+        string longName,
+        string shortName = null,
+        string document = null
+    ) =>
         new()
         {
             Compe = compe,
@@ -36,7 +42,12 @@ public class SeederTests
     [Fact]
     public void GenerateMissingDocument_WhenDocumentIsMissing_ShouldGenerateIt()
     {
-        var bank = new Bank { Compe = 1, Ispb = 0, LongName = "Banco do Brasil" };
+        var bank = new Bank
+        {
+            Compe = 1,
+            Ispb = 0,
+            LongName = "Banco do Brasil",
+        };
         var source = new List<Bank> { bank };
         var seeder = new Seeder(source);
 
@@ -219,7 +230,12 @@ public class SeederTests
         existingBank.LegalCheque = false;
         var source = new List<Bank> { existingBank };
         var seeder = new Seeder(source);
-        var cqlBank = new Bank { Ispb = 0, LongName = "Banco do Brasil", Document = "00.000.000/0001-91" };
+        var cqlBank = new Bank
+        {
+            Ispb = 0,
+            LongName = "Banco do Brasil",
+            Document = "00.000.000/0001-91",
+        };
 
         seeder.SeedCql(new[] { cqlBank });
 
@@ -234,7 +250,12 @@ public class SeederTests
         existingBank.LegalCheque = true;
         var source = new List<Bank> { existingBank };
         var seeder = new Seeder(source);
-        var cqlBank = new Bank { Ispb = 0, LongName = "Banco do Brasil", Document = "00.000.000/0001-91" };
+        var cqlBank = new Bank
+        {
+            Ispb = 0,
+            LongName = "Banco do Brasil",
+            Document = "00.000.000/0001-91",
+        };
 
         seeder.SeedCql(new[] { cqlBank });
 
@@ -247,7 +268,12 @@ public class SeederTests
         var existingBank = MakeBank(1, 0, "Banco do Brasil S.A.");
         var source = new List<Bank> { existingBank };
         var seeder = new Seeder(source);
-        var cqlBank = new Bank { Ispb = 99999999, LongName = "Unknown Bank", Document = "00.000.000/0001-00" };
+        var cqlBank = new Bank
+        {
+            Ispb = 99999999,
+            LongName = "Unknown Bank",
+            Document = "00.000.000/0001-00",
+        };
 
         seeder.SeedCql(new[] { cqlBank });
 
@@ -513,7 +539,12 @@ public class SeederTests
         existingBank.Pcrp = false;
         var source = new List<Bank> { existingBank };
         var seeder = new Seeder(source);
-        var pcrBank = new Bank { Ispb = 0, LongName = "Banco do Brasil", Document = "00.000.000/0001-91" };
+        var pcrBank = new Bank
+        {
+            Ispb = 0,
+            LongName = "Banco do Brasil",
+            Document = "00.000.000/0001-91",
+        };
         pcrBank.Pcr = true;
         pcrBank.Pcrp = false;
 
@@ -530,7 +561,12 @@ public class SeederTests
         existingBank.Pcrp = false;
         var source = new List<Bank> { existingBank };
         var seeder = new Seeder(source);
-        var pcrBank = new Bank { Ispb = 0, LongName = "Banco do Brasil", Document = "00.000.000/0001-91" };
+        var pcrBank = new Bank
+        {
+            Ispb = 0,
+            LongName = "Banco do Brasil",
+            Document = "00.000.000/0001-91",
+        };
         pcrBank.Pcr = true;
         pcrBank.Pcrp = false;
 
@@ -546,7 +582,12 @@ public class SeederTests
         var existingBank = MakeBank(1, 0, "Banco do Brasil S.A.");
         var source = new List<Bank> { existingBank };
         var seeder = new Seeder(source);
-        var pcrBank = new Bank { Ispb = 99999999, LongName = "Unknown", Document = "00.000.000/0001-91" };
+        var pcrBank = new Bank
+        {
+            Ispb = 99999999,
+            LongName = "Unknown",
+            Document = "00.000.000/0001-91",
+        };
         pcrBank.Pcr = true;
 
         seeder.SeedPcr(new[] { pcrBank });

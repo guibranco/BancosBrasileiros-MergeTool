@@ -414,8 +414,20 @@ public class BankTests
     [Fact]
     public void Equals_SameValues_ShouldBeTrue()
     {
-        var bank1 = new Bank { Compe = 1, Ispb = 0, LongName = "Banco do Brasil S.A.", ShortName = "BCO DO BRASIL" };
-        var bank2 = new Bank { Compe = 1, Ispb = 0, LongName = "Banco do Brasil S.A.", ShortName = "BCO DO BRASIL" };
+        var bank1 = new Bank
+        {
+            Compe = 1,
+            Ispb = 0,
+            LongName = "Banco do Brasil S.A.",
+            ShortName = "BCO DO BRASIL",
+        };
+        var bank2 = new Bank
+        {
+            Compe = 1,
+            Ispb = 0,
+            LongName = "Banco do Brasil S.A.",
+            ShortName = "BCO DO BRASIL",
+        };
         bank1.Equals(bank2).Should().BeTrue();
     }
 

@@ -61,9 +61,33 @@ public class PatternsTests
     #region SilocPattern
 
     [Theory]
-    [InlineData("1 001 00000000 sim não Banco do Brasil S.A.", "1", "001", "00000000", "sim", "não", "Banco do Brasil S.A.")]
-    [InlineData("10 341 60746948 não sim Banco Itaú S.A.", "10", "341", "60746948", "não", "sim", "Banco Itaú S.A.")]
-    public void SilocPattern_ShouldMatchValidLine(string line, string code, string compe, string ispb, string cobranca, string doc, string nome)
+    [InlineData(
+        "1 001 00000000 sim não Banco do Brasil S.A.",
+        "1",
+        "001",
+        "00000000",
+        "sim",
+        "não",
+        "Banco do Brasil S.A."
+    )]
+    [InlineData(
+        "10 341 60746948 não sim Banco Itaú S.A.",
+        "10",
+        "341",
+        "60746948",
+        "não",
+        "sim",
+        "Banco Itaú S.A."
+    )]
+    public void SilocPattern_ShouldMatchValidLine(
+        string line,
+        string code,
+        string compe,
+        string ispb,
+        string cobranca,
+        string doc,
+        string nome
+    )
     {
         var match = Patterns.SilocPattern.Match(line);
         match.Success.Should().BeTrue();
@@ -87,9 +111,21 @@ public class PatternsTests
     #region SitrafPattern
 
     [Theory]
-    [InlineData("1 001 00000000 Banco do Brasil S.A.", "1", "001", "00000000", "Banco do Brasil S.A.")]
+    [InlineData(
+        "1 001 00000000 Banco do Brasil S.A.",
+        "1",
+        "001",
+        "00000000",
+        "Banco do Brasil S.A."
+    )]
     [InlineData("25 341 60746948 Banco Itaú S.A.", "25", "341", "60746948", "Banco Itaú S.A.")]
-    public void SitrafPattern_ShouldMatchValidLine(string line, string code, string compe, string ispb, string nome)
+    public void SitrafPattern_ShouldMatchValidLine(
+        string line,
+        string code,
+        string compe,
+        string ispb,
+        string nome
+    )
     {
         var match = Patterns.SitrafPattern.Match(line);
         match.Success.Should().BeTrue();
@@ -159,9 +195,27 @@ public class PatternsTests
     #region CqlPattern
 
     [Theory]
-    [InlineData("1 Banco do Brasil 00000000 Banco Comercial", "1", "Banco do Brasil", "00000000", "Banco Comercial")]
-    [InlineData("2 Banco Itaú S.A. 60746948 Banco Comercial", "2", "Banco Itaú S.A.", "60746948", "Banco Comercial")]
-    public void CqlPattern_ShouldMatchValidLine(string line, string code, string nome, string ispb, string tipo)
+    [InlineData(
+        "1 Banco do Brasil 00000000 Banco Comercial",
+        "1",
+        "Banco do Brasil",
+        "00000000",
+        "Banco Comercial"
+    )]
+    [InlineData(
+        "2 Banco Itaú S.A. 60746948 Banco Comercial",
+        "2",
+        "Banco Itaú S.A.",
+        "60746948",
+        "Banco Comercial"
+    )]
+    public void CqlPattern_ShouldMatchValidLine(
+        string line,
+        string code,
+        string nome,
+        string ispb,
+        string tipo
+    )
     {
         var match = Patterns.CqlPattern.Match(line);
         match.Success.Should().BeTrue();
@@ -229,7 +283,9 @@ public class PatternsTests
     [Fact]
     public void PcrPattern_ShouldNotMatchLineWithoutCompe()
     {
-        var match = Patterns.PcrPattern.Match("1 Banco do Brasil S.A. 00.000.000/0001-91 00000000 sim não");
+        var match = Patterns.PcrPattern.Match(
+            "1 Banco do Brasil S.A. 00.000.000/0001-91 00000000 sim não"
+        );
         match.Success.Should().BeFalse();
     }
 

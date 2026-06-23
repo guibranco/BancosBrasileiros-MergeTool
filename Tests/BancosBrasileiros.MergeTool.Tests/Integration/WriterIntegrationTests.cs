@@ -31,36 +31,36 @@ public class WriterIntegrationTests : IDisposable
     }
 
     private static List<Bank> BuildSampleBanks() =>
-    [
-        new Bank
-        {
-            Compe = 1,
-            Ispb = 0,
-            LongName = "Banco do Brasil S.A.",
-            ShortName = "BCO DO BRASIL",
-            Network = "RSFN",
-            Type = "Banco Múltiplo",
-            LegalCheque = true,
-            DetectaFlow = false,
-            DateRegistered = new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero),
-            DateUpdated = new DateTimeOffset(2023, 1, 1, 0, 0, 0, TimeSpan.Zero),
-            Document = "00.000.000/0001-91",
-        },
-        new Bank
-        {
-            Compe = 341,
-            Ispb = 60746948,
-            LongName = "Banco Itaú S.A.",
-            ShortName = "BANCO ITAU",
-            Network = "RSFN",
-            Type = "Banco Múltiplo",
-            LegalCheque = false,
-            DetectaFlow = true,
-            DateRegistered = new DateTimeOffset(2020, 2, 1, 0, 0, 0, TimeSpan.Zero),
-            DateUpdated = new DateTimeOffset(2023, 2, 1, 0, 0, 0, TimeSpan.Zero),
-            Document = "60.746.948/0001-12",
-        },
-    ];
+        [
+            new Bank
+            {
+                Compe = 1,
+                Ispb = 0,
+                LongName = "Banco do Brasil S.A.",
+                ShortName = "BCO DO BRASIL",
+                Network = "RSFN",
+                Type = "Banco Múltiplo",
+                LegalCheque = true,
+                DetectaFlow = false,
+                DateRegistered = new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                DateUpdated = new DateTimeOffset(2023, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                Document = "00.000.000/0001-91",
+            },
+            new Bank
+            {
+                Compe = 341,
+                Ispb = 60746948,
+                LongName = "Banco Itaú S.A.",
+                ShortName = "BANCO ITAU",
+                Network = "RSFN",
+                Type = "Banco Múltiplo",
+                LegalCheque = false,
+                DetectaFlow = true,
+                DateRegistered = new DateTimeOffset(2020, 2, 1, 0, 0, 0, TimeSpan.Zero),
+                DateUpdated = new DateTimeOffset(2023, 2, 1, 0, 0, 0, TimeSpan.Zero),
+                Document = "60.746.948/0001-12",
+            },
+        ];
 
     #region SaveBanks - Output Files
 
@@ -168,8 +168,26 @@ public class WriterIntegrationTests : IDisposable
     {
         var banks = new List<Bank>
         {
-            new() { Compe = 341, Ispb = 60746948, LongName = "Banco Itaú", ShortName = "ITAU", DateRegistered = DateTimeOffset.UtcNow, DateUpdated = DateTimeOffset.UtcNow, Document = "60.746.948/0001-12" },
-            new() { Compe = 1, Ispb = 0, LongName = "Banco do Brasil", ShortName = "BB", DateRegistered = DateTimeOffset.UtcNow, DateUpdated = DateTimeOffset.UtcNow, Document = "00.000.000/0001-91" },
+            new()
+            {
+                Compe = 341,
+                Ispb = 60746948,
+                LongName = "Banco Itaú",
+                ShortName = "ITAU",
+                DateRegistered = DateTimeOffset.UtcNow,
+                DateUpdated = DateTimeOffset.UtcNow,
+                Document = "60.746.948/0001-12",
+            },
+            new()
+            {
+                Compe = 1,
+                Ispb = 0,
+                LongName = "Banco do Brasil",
+                ShortName = "BB",
+                DateRegistered = DateTimeOffset.UtcNow,
+                DateUpdated = DateTimeOffset.UtcNow,
+                Document = "00.000.000/0001-91",
+            },
         };
 
         Writer.SaveBanks(banks);
@@ -209,7 +227,16 @@ public class WriterIntegrationTests : IDisposable
     {
         var banks = new List<Bank>
         {
-            new() { Compe = 1, Ispb = 0, LongName = "Banco d'Ouro", ShortName = "BCO", DateRegistered = DateTimeOffset.UtcNow, DateUpdated = DateTimeOffset.UtcNow, Document = "00.000.000/0001-91" },
+            new()
+            {
+                Compe = 1,
+                Ispb = 0,
+                LongName = "Banco d'Ouro",
+                ShortName = "BCO",
+                DateRegistered = DateTimeOffset.UtcNow,
+                DateUpdated = DateTimeOffset.UtcNow,
+                Document = "00.000.000/0001-91",
+            },
         };
 
         Writer.SaveBanks(banks);
