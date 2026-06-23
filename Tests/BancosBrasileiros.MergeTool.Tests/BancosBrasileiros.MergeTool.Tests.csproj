@@ -17,6 +17,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BancosBrasileiros.MergeTool\BancosBrasileiros.MergeTool.csproj" />
+    <ProjectReference Include="..\..\BancosBrasileiros.MergeTool\BancosBrasileiros.MergeTool.csproj" />
   </ItemGroup>
 </Project>
