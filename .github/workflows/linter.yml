@@ -12,4 +12,4 @@ jobs:
       pull-requests: write
     steps:
       - name: CSharpier Linter
-        uses: guibranco/github-csharpier-linter-action@latest
+        uses: guibranco/github-csharpier-linter-action@56799bb78fdcd13512f4e1030b9349aeab93abf7 # latest
