@@ -681,4 +681,102 @@ public class SeederTests
     }
 
     #endregion
+
+    #region SeedLogoUrls
+
+    [Fact]
+    public void SeedLogoUrls_WhenBankFoundByIspb_ShouldSetLogoUrl()
+    {
+        var existingBank = MakeBank(1, 60701190, "Itau Unibanco S.A.");
+        var source = new List<Bank> { existingBank };
+        var seeder = new Seeder(source);
+        var logos = new Dictionary<string, string>
+        {
+            ["60701190"] = "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg",
+        };
+
+        seeder.SeedLogoUrls(logos);
+
+        existingBank.HasChanges.Should().BeTrue();
+        existingBank.GetChanges().Keys.Should().Contain("LogoUrl");
+        existingBank
+            .LogoUrl.Should()
+            .Be("https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg");
+    }
+
+    [Fact]
+    public void SeedLogoUrls_WhenLogoUrlAlreadyUpToDate_ShouldNotAddChange()
+    {
+        const string logoUrl =
+            "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg";
+        var existingBank = MakeBank(1, 60701190, "Itau Unibanco S.A.");
+        existingBank.LogoUrl = logoUrl;
+        var source = new List<Bank> { existingBank };
+        var seeder = new Seeder(source);
+        var logos = new Dictionary<string, string> { ["60701190"] = logoUrl };
+
+        seeder.SeedLogoUrls(logos);
+
+        existingBank.HasChanges.Should().BeFalse();
+    }
+
+    [Fact]
+    public void SeedLogoUrls_WhenBankNotFound_ShouldNotModifySource()
+    {
+        var existingBank = MakeBank(1, 60701190, "Itau Unibanco S.A.");
+        var source = new List<Bank> { existingBank };
+        var seeder = new Seeder(source);
+        var logos = new Dictionary<string, string>
+        {
+            ["99999999"] = "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/99999999.svg",
+        };
+
+        seeder.SeedLogoUrls(logos);
+
+        existingBank.HasChanges.Should().BeFalse();
+    }
+
+    [Fact]
+    public void SeedLogoUrls_WhenKeyIsNotNumeric_ShouldSkip()
+    {
+        var existingBank = MakeBank(1, 60701190, "Itau Unibanco S.A.");
+        var source = new List<Bank> { existingBank };
+        var seeder = new Seeder(source);
+        var logos = new Dictionary<string, string>
+        {
+            ["not-an-ispb"] = "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/x.svg",
+        };
+
+        var act = () => seeder.SeedLogoUrls(logos);
+
+        act.Should().NotThrow();
+        existingBank.HasChanges.Should().BeFalse();
+    }
+
+    [Fact]
+    public void SeedLogoUrls_WhenLogoUrlIsBlank_ShouldNotClearExistingValue()
+    {
+        const string existingLogoUrl =
+            "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg";
+        var existingBank = MakeBank(1, 60701190, "Itau Unibanco S.A.");
+        existingBank.LogoUrl = existingLogoUrl;
+        var source = new List<Bank> { existingBank };
+        var seeder = new Seeder(source);
+        var logos = new Dictionary<string, string> { ["60701190"] = "   " };
+
+        seeder.SeedLogoUrls(logos);
+
+        existingBank.HasChanges.Should().BeFalse();
+        existingBank.LogoUrl.Should().Be(existingLogoUrl);
+    }
+
+    [Fact]
+    public void SeedLogoUrls_ShouldReturnSelf()
+    {
+        var source = new List<Bank>();
+        var seeder = new Seeder(source);
+        seeder.SeedLogoUrls(new Dictionary<string, string>()).Should().BeSameAs(seeder);
+    }
+
+    #endregion
 }

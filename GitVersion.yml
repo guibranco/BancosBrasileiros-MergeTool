@@ -1,0 +1,5 @@
+mode: Mainline
+branches:
+  main:
+    regex: ^main$
+    increment: Minor

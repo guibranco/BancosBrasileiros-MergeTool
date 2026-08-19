@@ -23,6 +23,7 @@ using System.Net.Http;
 using System.Text;
 using CrispyWaffle.Serialization;
 using Dto;
+using Newtonsoft.Json;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 
@@ -146,6 +147,33 @@ internal class Reader
     /// </summary>
     /// <returns>System.String.</returns>
     public static string LoadChangeLog() => DownloadString(Constants.ChangeLogUrl);
+
+    /// <summary>
+    /// Loads the ISPB to logo URL map, published by the logos-bancos-br project.
+    /// </summary>
+    /// <returns>Dictionary&lt;string, string&gt;.</returns>
+    public Dictionary<string, string> LoadLogoUrls()
+    {
+        Logger.Log("Downloading logo URLs", ConsoleColor.Green);
+
+        try
+        {
+            var data = DownloadString(Constants.LogoUrlsUrl);
+
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                return new Dictionary<string, string>();
+            }
+
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(data)
+                ?? new Dictionary<string, string>();
+        }
+        catch (Exception e)
+        {
+            Logger.Log($"Error downloading logo URLs: {e.Message}", ConsoleColor.DarkRed);
+            return new Dictionary<string, string>();
+        }
+    }
 
     /// <summary>
     /// Loads the base.

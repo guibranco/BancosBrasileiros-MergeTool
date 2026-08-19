@@ -90,4 +90,10 @@ internal static class Constants
     /// </summary>
     public const string PcrUrl =
         "https://www2.nuclea.com.br/SAP/Rela%C3%A7%C3%A3o%20de%20Clientes%20PCR.pdf";
+
+    /// <summary>
+    /// The logo URLs URL (ISPB to logo URL map, from the logos-bancos-br project).
+    /// </summary>
+    public const string LogoUrlsUrl =
+        "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/data/logo-urls.min.json";
 }

@@ -98,4 +98,10 @@ public enum Source
     /// </summary>
     [HumanReadable("PCR")]
     Pcr,
+
+    /// <summary>
+    /// The logos-bancos-br project.
+    /// </summary>
+    [HumanReadable("LogosBancosBr")]
+    LogosBancosBr,
 }
