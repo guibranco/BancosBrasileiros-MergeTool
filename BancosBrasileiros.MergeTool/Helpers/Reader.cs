@@ -155,14 +155,24 @@ internal class Reader
     public Dictionary<string, string> LoadLogoUrls()
     {
         Logger.Log("Downloading logo URLs", ConsoleColor.Green);
-        var data = DownloadString(Constants.LogoUrlsUrl);
 
-        if (string.IsNullOrWhiteSpace(data))
+        try
         {
+            var data = DownloadString(Constants.LogoUrlsUrl);
+
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                return new Dictionary<string, string>();
+            }
+
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(data)
+                ?? new Dictionary<string, string>();
+        }
+        catch (Exception e)
+        {
+            Logger.Log($"Error downloading logo URLs: {e.Message}", ConsoleColor.DarkRed);
             return new Dictionary<string, string>();
         }
-
-        return JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
     }
 
     /// <summary>

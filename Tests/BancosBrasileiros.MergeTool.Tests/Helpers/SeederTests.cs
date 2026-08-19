@@ -753,6 +753,23 @@ public class SeederTests
     }
 
     [Fact]
+    public void SeedLogoUrls_WhenLogoUrlIsBlank_ShouldNotClearExistingValue()
+    {
+        const string existingLogoUrl =
+            "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg";
+        var existingBank = MakeBank(1, 60701190, "Itau Unibanco S.A.");
+        existingBank.LogoUrl = existingLogoUrl;
+        var source = new List<Bank> { existingBank };
+        var seeder = new Seeder(source);
+        var logos = new Dictionary<string, string> { ["60701190"] = "   " };
+
+        seeder.SeedLogoUrls(logos);
+
+        existingBank.HasChanges.Should().BeFalse();
+        existingBank.LogoUrl.Should().Be(existingLogoUrl);
+    }
+
+    [Fact]
     public void SeedLogoUrls_ShouldReturnSelf()
     {
         var source = new List<Bank>();

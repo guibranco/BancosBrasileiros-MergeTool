@@ -901,7 +901,7 @@ internal class Seeder
 
         foreach (var (ispbString, logoUrl) in items)
         {
-            if (!int.TryParse(ispbString, out var ispb))
+            if (!int.TryParse(ispbString, out var ispb) || string.IsNullOrWhiteSpace(logoUrl))
             {
                 continue;
             }
