@@ -707,7 +707,8 @@ public class SeederTests
     [Fact]
     public void SeedLogoUrls_WhenLogoUrlAlreadyUpToDate_ShouldNotAddChange()
     {
-        const string logoUrl = "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg";
+        const string logoUrl =
+            "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg";
         var existingBank = MakeBank(1, 60701190, "Itau Unibanco S.A.");
         existingBank.LogoUrl = logoUrl;
         var source = new List<Bank> { existingBank };

@@ -549,11 +549,7 @@ public sealed class Bank : IEquatable<Bank>
                 StringComparison.InvariantCultureIgnoreCase
             )
             && string.Equals(_url, other._url, StringComparison.InvariantCultureIgnoreCase)
-            && string.Equals(
-                _logoUrl,
-                other._logoUrl,
-                StringComparison.InvariantCultureIgnoreCase
-            )
+            && string.Equals(_logoUrl, other._logoUrl, StringComparison.InvariantCultureIgnoreCase)
             && string.Equals(
                 ChargeStr,
                 other.ChargeStr,

@@ -206,7 +206,8 @@ public class BankTests
         {
             LogoUrl = "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg",
         };
-        bank.LogoUrl.Should().Be("https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg");
+        bank.LogoUrl.Should()
+            .Be("https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg");
     }
 
     #endregion
