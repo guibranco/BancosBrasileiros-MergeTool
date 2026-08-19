@@ -470,6 +470,24 @@ public sealed class Bank : IEquatable<Bank>
     }
 
     /// <summary>
+    /// The logo URL
+    /// </summary>
+    private string _logoUrl;
+
+    /// <summary>
+    /// Gets or sets the logo URL.
+    /// </summary>
+    /// <value>The logo URL.</value>
+    [JsonProperty("LogoUrl")]
+    [XmlElement("LogoUrl", IsNullable = true)]
+    [Display(Name = "Logo Url")]
+    public string LogoUrl
+    {
+        get => _logoUrl;
+        set => _logoUrl = string.IsNullOrWhiteSpace(value) ? null : value;
+    }
+
+    /// <summary>
     /// Gets or sets the date operation started.
     /// </summary>
     /// <value>The date operation started.</value>
@@ -531,6 +549,11 @@ public sealed class Bank : IEquatable<Bank>
                 StringComparison.InvariantCultureIgnoreCase
             )
             && string.Equals(_url, other._url, StringComparison.InvariantCultureIgnoreCase)
+            && string.Equals(
+                _logoUrl,
+                other._logoUrl,
+                StringComparison.InvariantCultureIgnoreCase
+            )
             && string.Equals(
                 ChargeStr,
                 other.ChargeStr,
@@ -610,6 +633,7 @@ public sealed class Bank : IEquatable<Bank>
             var hashCode = new HashCode();
             hashCode.Add(_document ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
             hashCode.Add(_url ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
+            hashCode.Add(_logoUrl ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
             hashCode.Add(ChargeStr ?? string.Empty, StringComparer.InvariantCultureIgnoreCase);
             hashCode.Add(Compe);
             hashCode.Add(

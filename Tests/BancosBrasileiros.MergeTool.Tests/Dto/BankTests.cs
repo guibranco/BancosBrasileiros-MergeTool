@@ -181,6 +181,36 @@ public class BankTests
 
     #endregion
 
+    #region LogoUrl
+
+    [Fact]
+    public void LogoUrl_WhenSetToNull_ShouldRemainNull()
+    {
+        var bank = new Bank();
+        bank.LogoUrl = null;
+        bank.LogoUrl.Should().BeNull();
+    }
+
+    [Fact]
+    public void LogoUrl_WhenSetToWhitespace_ShouldBecomeNull()
+    {
+        var bank = new Bank();
+        bank.LogoUrl = "   ";
+        bank.LogoUrl.Should().BeNull();
+    }
+
+    [Fact]
+    public void LogoUrl_WhenSetToValidUrl_ShouldKeepValue()
+    {
+        var bank = new Bank
+        {
+            LogoUrl = "https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg",
+        };
+        bank.LogoUrl.Should().Be("https://cdn.jsdelivr.net/npm/logos-bancos-br@0/logos/svg/60701190.svg");
+    }
+
+    #endregion
+
     #region Charge
 
     [Fact]

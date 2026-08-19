@@ -102,6 +102,11 @@ internal class Worker
         logBuilder.AppendFormat("PCR: {0} | ", pcr.Count);
         items.Add(Source.Pcr, pcr.Count);
 
+        // LogoUrls is a supplementary/optional enrichment (not every bank has a logo yet),
+        // so it is intentionally left out of the "empty source" hard-fail check below.
+        var logoUrls = reader.LoadLogoUrls();
+        logBuilder.AppendFormat("LogoUrls: {0} | ", logoUrls.Count);
+
         logBuilder.AppendLine();
 
         Logger.Log(logBuilder.ToString(), ConsoleColor.DarkGreen);
@@ -127,6 +132,7 @@ internal class Worker
             .SeedPcps(pcps)
             .SeedCql(cql)
             .SeedDetectaFlow(detectaFlow)
+            .SeedLogoUrls(logoUrls)
             .SeedPcr(pcr);
     }
 

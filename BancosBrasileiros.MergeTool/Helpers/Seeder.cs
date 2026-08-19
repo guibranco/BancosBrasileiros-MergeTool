@@ -885,4 +885,51 @@ internal class Seeder
             ConsoleColor.DarkYellow
         );
     }
+
+    /// <summary>
+    /// Seeds the logo urls.
+    /// </summary>
+    /// <param name="items">The ISPB to logo URL map.</param>
+    /// <returns>Seeder.</returns>
+    public Seeder SeedLogoUrls(IDictionary<string, string> items)
+    {
+        var found = 0;
+        var upToDate = 0;
+        var notFound = 0;
+
+        Logger.Log("LogosBancosBr\r\n", ConsoleColor.DarkYellow);
+
+        foreach (var (ispbString, logoUrl) in items)
+        {
+            if (!int.TryParse(ispbString, out var ispb))
+            {
+                continue;
+            }
+
+            var bank = _source.SingleOrDefault(b => b.Ispb.Equals(ispb));
+
+            if (bank == null)
+            {
+                Logger.Log($"LogosBancosBr | Bank not found: {ispbString}", ConsoleColor.DarkRed);
+                notFound++;
+                continue;
+            }
+
+            if (bank.LogoUrl != null && bank.LogoUrl.Equals(logoUrl))
+            {
+                upToDate++;
+                continue;
+            }
+
+            bank.SetChange(Source.LogosBancosBr, x => x.LogoUrl, logoUrl);
+            found++;
+        }
+
+        Logger.Log(
+            $"\r\nLogosBancosBr | Found: {found} | Not found: {notFound} | Up to date: {upToDate}\r\n",
+            ConsoleColor.DarkYellow
+        );
+
+        return this;
+    }
 }
