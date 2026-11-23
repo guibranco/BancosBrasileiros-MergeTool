@@ -64,7 +64,7 @@ jobs:
           /p:CoverletOutput='../Results/'
 
       - name: Generate coverage report
-        uses: danielpalme/ReportGenerator-GitHub-Action@5f3701a41d14548c9b8e575a5c235230e515cbc0 # 5
+        uses: danielpalme/ReportGenerator-GitHub-Action@70c37c4d588cff5bf9cf190830c6f01dfcfb884b # 5
         with:
           reports: Tests/Results/coverage.cobertura.xml
           targetdir: coverage-report
